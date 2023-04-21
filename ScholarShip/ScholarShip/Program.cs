@@ -17,6 +17,8 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 //Skriv nedenstående for at lave connection ! Tilføj standard connectionstring
+//cd /.ScholarShip
+//dotnet user-secrets init
 //dotnet user-secrets set "ConnectionString" "Data Source=localhost;Initial Catalog=ScholarShip;User ID=SA;Password=Password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
