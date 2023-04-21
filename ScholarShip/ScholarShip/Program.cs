@@ -5,17 +5,19 @@ using ScholarShip.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetSection("ConnectionString").Get<string>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
 	.AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages();
-
+builder.Services.AddControllers();
 var app = builder.Build();
 
+//Skriv nedenstående for at lave connection ! Tilføj standard connectionstring
+//dotnet user-secrets set "ConnectionString" ""
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -29,12 +31,15 @@ else
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+	using var appdb = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+	appdb.Database.Migrate();
+}
 
 app.Run();
