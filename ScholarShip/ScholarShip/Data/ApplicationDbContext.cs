@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ScholarShip.Models;
 
 namespace ScholarShip.Data
 {
@@ -9,5 +10,10 @@ namespace ScholarShip.Data
 			: base(options)
 		{
 		}
+
+		public DbSet<Annonce> Annonces => Set<Annonce>();
+		public DbSet<Chat> Chats => Set<Chat>();
+		public DbSet<Message> Messages => Set<Message>();
+		
 	}
 }
