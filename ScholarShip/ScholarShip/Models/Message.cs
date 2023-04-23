@@ -1,10 +1,13 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ScholarShip.Models;
 
 public class Message
 {
-    public int MessageID { get; set; }
+    public int MessageId { get; set; }
     public string Messages { get; set; }
-    public int ChatID { get; set; }
+    [ForeignKey("ChatId")]
+    public int ChatId { get; set; }
 
-    public Chat Chats { get; set; }
+    public Chat Chat { get; set; }
 }

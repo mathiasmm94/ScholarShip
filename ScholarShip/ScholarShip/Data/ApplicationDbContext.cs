@@ -11,9 +11,10 @@ namespace ScholarShip.Data
 		{
 		}
 
-		public DbSet<Annonce> Annonces => Set<Annonce>();
-		public DbSet<Chat> Chats => Set<Chat>();
-		public DbSet<Message> Messages => Set<Message>();
+		public DbSet<Annonce> Annonces { get; set; }
+		public DbSet<Chat> Chats { get; set; }
+		public DbSet<Message> Messages { get; set; }
+		
 		
 	}
 }

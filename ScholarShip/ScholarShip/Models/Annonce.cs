@@ -5,18 +5,20 @@ namespace ScholarShip.Models;
 
 public class Annonce
 {
-    public int AnnonceID { get; set; }
+    public int AnnonceId { get; set; }
     public double Price { get; set; }
     public string Titel { get; set; }
     public string Kategori { get; set; }
     public string Beskrivelse { get; set; }
     public string Studieretning { get; set; }
     public string BilledeSti { get; set; }
+    [ForeignKey("ProfilId")]
     public string ProfilId { get; set; }
     public string Stand { get; set; }
+    [ForeignKey("ChatId")]
     public int ChatId { get; set; }
 
     
-    public IdentityUser Profiler { get; set; }
-    public Chat Chats { get; set; }
+    public IdentityUser Profile { get; set; }
+    public Chat Chat { get; set; }
 }
