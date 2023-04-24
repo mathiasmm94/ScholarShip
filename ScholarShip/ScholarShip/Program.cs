@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ScholarShip.Data;
+using ScholarShip.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+/*builder.Services.AddDefaultIdentity<Profil, IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+	.AddEntityFrameworkStores<ApplicationDbContext>();*/
+
+builder.Services.AddDefaultIdentity<Profil>(options => options.SignIn.RequireConfirmedAccount = false)
 	.AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllers();
 var app = builder.Build();
 

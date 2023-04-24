@@ -12,13 +12,12 @@ public class Annonce
     public string Beskrivelse { get; set; }
     public string Studieretning { get; set; }
     public string BilledeSti { get; set; }
-    [ForeignKey("ProfilId")]
-    public string ProfilId { get; set; }
+    [ForeignKey("ProfileId")]
+    public string ProfileId { get; set; }
     public string Stand { get; set; }
     [ForeignKey("ChatId")]
     public int ChatId { get; set; }
-
     
-    public IdentityUser Profile { get; set; }
+    public Profil Profile { get; set; }
     public Chat Chat { get; set; }
 }

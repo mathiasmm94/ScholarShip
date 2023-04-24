@@ -10,7 +10,7 @@ namespace ScholarShip.Data
 			: base(options)
 		{
 		}
-
+		public DbSet<Profil> Profils { get; set; }
 		public DbSet<Annonce> Annonces { get; set; }
 		public DbSet<Chat> Chats { get; set; }
 		public DbSet<Message> Messages { get; set; }
