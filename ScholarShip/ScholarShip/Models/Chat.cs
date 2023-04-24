@@ -9,7 +9,7 @@ public class Chat
     
     public List<Annonce> Annonces { get; set; }
     public List<Message> Messages { get; set; }
-    public List<IdentityUser> ProfilIdBuyers { get; set; }
-    public List<IdentityUser> ProfilIdSellers { get; set; }
+    public List<Profil> Profils { get; set; }
+
 
 }

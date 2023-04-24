@@ -22,6 +22,21 @@ namespace ScholarShip.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ChatProfil", b =>
+                {
+                    b.Property<int>("ChatsChatId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProfilsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ChatsChatId", "ProfilsId");
+
+                    b.HasIndex("ProfilsId");
+
+                    b.ToTable("ChatProfil");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -82,12 +97,6 @@ namespace ScholarShip.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ChatId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ChatId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -137,10 +146,6 @@ namespace ScholarShip.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ChatId");
-
-                    b.HasIndex("ChatId1");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -301,12 +306,7 @@ namespace ScholarShip.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatId"));
 
-                    b.Property<string>("ProfilId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("ChatId");
-
-                    b.HasIndex("ProfilId");
 
                     b.ToTable("Chats");
                 });
@@ -348,6 +348,21 @@ namespace ScholarShip.Data.Migrations
                     b.HasDiscriminator().HasValue("Profil");
                 });
 
+            modelBuilder.Entity("ChatProfil", b =>
+                {
+                    b.HasOne("ScholarShip.Models.Chat", null)
+                        .WithMany()
+                        .HasForeignKey("ChatsChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScholarShip.Models.Profil", null)
+                        .WithMany()
+                        .HasForeignKey("ProfilsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -355,17 +370,6 @@ namespace ScholarShip.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.HasOne("ScholarShip.Models.Chat", null)
-                        .WithMany("ProfilIdBuyers")
-                        .HasForeignKey("ChatId");
-
-                    b.HasOne("ScholarShip.Models.Chat", null)
-                        .WithMany("ProfilIdSellers")
-                        .HasForeignKey("ChatId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -429,13 +433,6 @@ namespace ScholarShip.Data.Migrations
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("ScholarShip.Models.Chat", b =>
-                {
-                    b.HasOne("ScholarShip.Models.Profil", null)
-                        .WithMany("Chats")
-                        .HasForeignKey("ProfilId");
-                });
-
             modelBuilder.Entity("ScholarShip.Models.Message", b =>
                 {
                     b.HasOne("ScholarShip.Models.Chat", "Chat")
@@ -452,17 +449,11 @@ namespace ScholarShip.Data.Migrations
                     b.Navigation("Annonces");
 
                     b.Navigation("Messages");
-
-                    b.Navigation("ProfilIdBuyers");
-
-                    b.Navigation("ProfilIdSellers");
                 });
 
             modelBuilder.Entity("ScholarShip.Models.Profil", b =>
                 {
                     b.Navigation("Annoncer");
-
-                    b.Navigation("Chats");
                 });
 #pragma warning restore 612, 618
         }
