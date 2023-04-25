@@ -18,6 +18,6 @@ public class SearchController : ControllerBase
     public IActionResult SearchAnnonces(string Keyword)
     {
         var annonces = _annonceSearchService.SearchAnnonces(Keyword);
-        return Ok(annonces);
+        return new JsonResult(annonces);
     }
 }

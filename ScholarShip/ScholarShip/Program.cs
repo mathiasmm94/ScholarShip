@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ScholarShip.Data;
+using ScholarShip.Data.Repository;
+using ScholarShip.Interfaces;
 using ScholarShip.Models;
+using ScholarShip.Models.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +22,14 @@ builder.Services.AddDefaultIdentity<Profil>(options => options.SignIn.RequireCon
 	.AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<ApplicationDbContext>();
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IAnnonceSearchService,AnnonceSearchService>();
+
 var app = builder.Build();
+
+
 
 //Skriv nedenstående for at lave connection ! Tilføj standard connectionstring
 //cd /.ScholarShip
