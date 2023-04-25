@@ -1,21 +1,25 @@
-import React from 'react';
+import React from "react";
 
-export function SearchResult({ searchResults }) {
-    console.log(searchResults)
+export function SearchResult(props) {
+  const results = props.results;
+
+  if (results.length === 0) {
+    return <p>No results found.</p>;
+  }
+
   return (
-    <div>
-      <h2>Search Results</h2>
-      {searchResults.length > 0 ? (
-        <ul>
-          {searchResults.map((result) => (
-            <li key={result.id}>{result.name}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>No results found.</p>
-      )}
-    </div>
+    <ul>
+      {results.map((result) => (
+        <li key={result.annonceId}>
+          <h3>{result.titel}</h3>
+          <p>Price: {result.price}</p>
+          <p>Category: {result.kategori}</p>
+          <p>Description: {result.beskrivelse}</p>
+          <p>Study field: {result.studieretning}</p>
+          <p>Condition: {result.stand}</p>
+          <img src={result.billedeSti} alt={result.titel} />
+        </li>
+      ))}
+    </ul>
   );
 }
-
-

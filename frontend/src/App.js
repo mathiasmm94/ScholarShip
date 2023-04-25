@@ -1,27 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Searchbar } from './Components/Searchbar';
-import { SearchResult } from './Components/SearchResult';
+import React from "react";
+import {Search} from "./Components/Search.js";
 
 function App() {
-  const [searchResults, setSearchResults] = useState([]);
-
-  const handleSearch = async (query) => {
-    try {
-      const response = await axios.get(`http://localhost:5238/api/search/${query}`);
-      setSearchResults(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div>
-      <h1>Search App</h1>
-      <Searchbar onSearch={handleSearch} />
-      <SearchResult searchResults={searchResults} />
+      <Search />
     </div>
   );
 }
 
 export default App;
+
