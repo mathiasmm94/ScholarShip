@@ -27,6 +27,17 @@ builder.Services.AddScoped<ApplicationDbContext>();
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IAnnonceSearchService,AnnonceSearchService>();
 
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowAllOrigins",
+		builder =>
+		{
+			builder.AllowAnyOrigin()
+				.AllowAnyHeader()
+				.AllowAnyMethod();
+		});
+});
+
 var app = builder.Build();
 
 
@@ -52,6 +63,7 @@ else
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseCors("AllowAllOrigins");
 
 using (var scope = app.Services.CreateScope())
 {
