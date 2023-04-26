@@ -26,5 +26,19 @@
   .annonce-details {
     background-color: white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+  }
+  .annonce-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+  h2 {
+    margin: 0;
+  }
+  
+  .price {
+    margin-left: auto;
   }

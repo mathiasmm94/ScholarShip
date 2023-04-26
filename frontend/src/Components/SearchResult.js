@@ -1,25 +1,52 @@
-import React from "react";
-import './CSS/SearchResult.css'
+import React, { useState } from "react";
+import "./CSS/SearchResult.css";
 
 export function SearchResult(props) {
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const results = props.results;
 
   if (results.length === 0) {
     return <p>No results found.</p>;
   }
 
+  const handleAnnouncementClick = (announcement) => {
+    setSelectedAnnouncement(announcement);
+  };
+
+  if (selectedAnnouncement) {
+    return (
+      <div className="selected-announcement">
+        <h2>{selectedAnnouncement.titel}</h2>
+        <img
+          src={selectedAnnouncement.billedeSti}
+          alt={selectedAnnouncement.titel}
+          className="selected-announcement-image"
+        />
+        <p>Price: {selectedAnnouncement.price} kr.</p>
+        <p>Category: {selectedAnnouncement.kategori}</p>
+        <p>Description: {selectedAnnouncement.beskrivelse}</p>
+        <p>Study Direction: {selectedAnnouncement.studieretning}</p>
+        <p>Condition: {selectedAnnouncement.stand}</p>
+        <button onClick={() => setSelectedAnnouncement(null)}>
+          Back to search results
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="annonce-list">
       {results.map((result) => (
-        <div key={result.annonceId} className="annonce-item">
-          <img src={result.billedeSti} alt={result.titel} className="annonce-image" />
+        <div
+          key={result.annonceId}
+          className="annonce-item"
+          onClick={() => handleAnnouncementClick(result)}
+        >
+          
           <div className="annonce-details">
+            <img src={result.billedeSti} alt={result.titel} className="annonce-image" />
             <h2>{result.titel}</h2>
             <p>Price: {result.price} kr.</p>
-            <p>Category: {result.kategori}</p>
-            <p>Description: {result.beskrivelse}</p>
-            <p>Study Direction: {result.studieretning}</p>
-            <p>Condition: {result.stand}</p>
           </div>
         </div>
       ))}
