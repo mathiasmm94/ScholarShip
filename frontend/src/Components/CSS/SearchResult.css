@@ -1,0 +1,30 @@
+.annonce-list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #8eaeb5;
+    padding: 10px;
+    border-radius: 5px;
+    justify-content: center;
+  }
+  
+  .annonce-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 600px;
+  }
+  
+  .annonce-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+    background-color: white;
+  }
+  
+  .annonce-details {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+  }

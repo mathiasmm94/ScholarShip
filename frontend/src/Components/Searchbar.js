@@ -1,4 +1,5 @@
 import React from "react";
+import "./CSS/Searchbar.css";
 
 export function Searchbar(props) {
   const handleSearch = (event) => {
@@ -8,7 +9,7 @@ export function Searchbar(props) {
   return (
     <input
       type="text"
-      placeholder="Enter search keyword"
+      placeholder="Søg på den varer du mangler"
       onChange={handleSearch}
     />
   );

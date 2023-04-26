@@ -1,4 +1,5 @@
 import React from "react";
+import './CSS/SearchResult.css'
 
 export function SearchResult(props) {
   const results = props.results;
@@ -8,18 +9,20 @@ export function SearchResult(props) {
   }
 
   return (
-    <ul>
+    <div className="annonce-list">
       {results.map((result) => (
-        <li key={result.annonceId}>
-          <h3>{result.titel}</h3>
-          <p>Price: {result.price}</p>
-          <p>Category: {result.kategori}</p>
-          <p>Description: {result.beskrivelse}</p>
-          <p>Study field: {result.studieretning}</p>
-          <p>Condition: {result.stand}</p>
-          <img src={result.billedeSti} alt={result.titel} />
-        </li>
+        <div key={result.annonceId} className="annonce-item">
+          <img src={result.billedeSti} alt={result.titel} className="annonce-image" />
+          <div className="annonce-details">
+            <h2>{result.titel}</h2>
+            <p>Price: {result.price} kr.</p>
+            <p>Category: {result.kategori}</p>
+            <p>Description: {result.beskrivelse}</p>
+            <p>Study Direction: {result.studieretning}</p>
+            <p>Condition: {result.stand}</p>
+          </div>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
