@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Montserrat-Alt1";
+  font-weight: 200;
+  font-style: normal;
+  src: url("../fonts/webfonts/MontserratAlt1-ExtraLight.woff2") format("woff2"),
+       url("../fonts/webfonts/MontserratAlt1-ExtraLight.woff") format("woff");
+}
 .search-button {
     background-color: #ffd604;
     border: none;
@@ -11,6 +18,8 @@
     border-radius: 5px;
     cursor: pointer;
     transition-duration: 0.4s;
+    font-family: "Montserrat-Alt1";
+    margin-left: 40px;
   }
   
   .search-button:hover {

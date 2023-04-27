@@ -38,15 +38,16 @@ export function SearchResult(props) {
     <div className="annonce-list">
       {results.map((result) => (
         <div
-          key={result.annonceId}
           className="annonce-item"
+          key={result.annonceId}
           onClick={() => handleAnnouncementClick(result)}
         >
           
           <div className="annonce-details">
             <img src={result.billedeSti} alt={result.titel} className="annonce-image" />
             <h2>{result.titel}</h2>
-            <p>Price: {result.price} kr.</p>
+                <p className="annonce-price">Price: {result.price} kr.</p>
+
           </div>
         </div>
       ))}

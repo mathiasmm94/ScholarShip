@@ -3,6 +3,7 @@ import axios from "axios";
 import { Searchbar } from "./Searchbar";
 import { SearchResult } from "./SearchResult";
 import { SearchButton } from "./SearchButton";
+import "./CSS/SearchHandler.css";
 
 export function SearchHandler(props) {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -16,9 +17,11 @@ export function SearchHandler(props) {
   };
 
   return (
-    <div>
-      <Searchbar onSearch={setSearchKeyword} />
-      <SearchButton onSearch={() => handleSearch(searchKeyword)} />
+    <div className="SearchHandlerContainer">
+      <div className="SearchbarContainer">
+        <Searchbar onSearch={setSearchKeyword} />
+        <SearchButton onSearch={() => handleSearch(searchKeyword)} />
+      </div>
       <SearchResult results={searchResults} />
     </div>
   );
