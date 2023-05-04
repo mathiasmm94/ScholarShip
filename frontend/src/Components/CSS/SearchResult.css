@@ -50,3 +50,40 @@ h2 {
 .annonce-price {
   margin-left: auto;
 }
+
+.selected-announcement{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: #8eaeb5;
+  padding: 10px;
+  border-radius: 5px;
+  justify-content: center;
+  font-family: "Montserrat-Alt1";
+  align-items: center; /* vertical centering of the content */
+  justify-content: space-between; /* horizontal spacing between the elements */
+  width: 800px;
+  margin: 0 auto;
+}
+
+.back-to-search-button{
+  background-color: #ffd604;
+  border: none;
+  width: 250px;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  font-family: "Montserrat-Alt1";
+  margin-left: 40px;
+}
+
+.back-to-search-button:hover{
+  background-color: #333;
+  color: #ffd604;
+}

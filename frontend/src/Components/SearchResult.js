@@ -27,7 +27,7 @@ export function SearchResult(props) {
         <p>Description: {selectedAnnouncement.beskrivelse}</p>
         <p>Study Direction: {selectedAnnouncement.studieretning}</p>
         <p>Condition: {selectedAnnouncement.stand}</p>
-        <button onClick={() => setSelectedAnnouncement(null)}>
+        <button className="back-to-search-button" onClick={() => setSelectedAnnouncement(null)}>
           Back to search results
         </button>
       </div>

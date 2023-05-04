@@ -42,7 +42,7 @@ var app = builder.Build();
 
 
 
-//Skriv nedenstående for at lave connection ! Tilføj standard connectionstring
+//Skriv nedenst?ende for at lave connection ! Tilf?j standard connectionstring
 //cd /.ScholarShip
 //dotnet user-secrets init
 //dotnet user-secrets set "ConnectionString" "Data Source=localhost;Initial Catalog=ScholarShip;User ID=SA;Password=Password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"

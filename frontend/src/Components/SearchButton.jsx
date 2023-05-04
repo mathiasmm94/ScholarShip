@@ -6,6 +6,6 @@ export function SearchButton(props) {
       props.onSearch();
     };
   
-    return <button className="search-button" onClick={handleClick}>Søg</button>;
+    return <button className="search-button" onClick={handleClick}>SØG</button>;
   }
   
