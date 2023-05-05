@@ -1,0 +1,18 @@
+@font-face {
+    font-family: "Montserrat-Alt1";
+    font-weight: 200;
+    font-style: normal;
+    src: url("../fonts/webfonts/MontserratAlt1-ExtraLight.woff2") format("woff2"),
+         url("../fonts/webfonts/MontserratAlt1-ExtraLight.woff") format("woff");
+  }
+
+h1{
+    font-family: "Montserrat-Alt1";
+}
+
+h2{
+    font-family: "Montserrat-Alt1";  
+}
+p{
+    font-family: "Montserrat-Alt1";
+}

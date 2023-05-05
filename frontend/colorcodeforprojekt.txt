@@ -1,0 +1,3 @@
+Gul: #ffd604
+Blå: #014e71
+grå: #8eaeb5

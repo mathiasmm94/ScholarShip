@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ScholarShip.Data;
+using ScholarShip.Data.Repository;
+using ScholarShip.Interfaces;
 using ScholarShip.Models;
+using ScholarShip.Models.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,9 +22,27 @@ builder.Services.AddDefaultIdentity<Profil>(options => options.SignIn.RequireCon
 	.AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<ApplicationDbContext>();
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IAnnonceSearchService,AnnonceSearchService>();
+
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowAllOrigins",
+		builder =>
+		{
+			builder.AllowAnyOrigin()
+				.AllowAnyHeader()
+				.AllowAnyMethod();
+		});
+});
+
 var app = builder.Build();
 
-//Skriv nedenstående for at lave connection ! Tilføj standard connectionstring
+
+
+//Skriv nedenst?ende for at lave connection ! Tilf?j standard connectionstring
 //cd /.ScholarShip
 //dotnet user-secrets init
 //dotnet user-secrets set "ConnectionString" "Data Source=localhost;Initial Catalog=ScholarShip;User ID=SA;Password=Password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
@@ -38,10 +59,11 @@ else
 }
 
 //app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseCors("AllowAllOrigins");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -50,3 +72,4 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
