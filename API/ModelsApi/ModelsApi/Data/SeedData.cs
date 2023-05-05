@@ -21,6 +21,8 @@ namespace ModelsApi.Data
                 SeedAccounts(context, bcryptWorkfactor);
             if (!context.Managers.Any())
                 SeedManagers(context);
+            if (!context.Annonces.Any())
+                SeedAnnonces(context);
         }
 
         static void SeedAccounts(ApplicationDbContext context, int bcryptWorkfactor)
@@ -75,7 +77,7 @@ namespace ModelsApi.Data
                 );
                 context.SaveChanges();
         }
-        /*static void SeedAnnonces(ApplicationDbContext context)
+        static void SeedAnnonces(ApplicationDbContext context)
         {
             context.Annonces.AddRange(
                 new Annonce
@@ -87,24 +89,39 @@ namespace ModelsApi.Data
                    Beskrivelse = "Det er en flot bog",
                    Studieretning = "SW",
                    BilledeSti = "images/book.gif",
+                   EfManagerId = 1,
+                   Stand = "Brugt",
+                   ChatId = 1
                 },
-                new EfManager
+                new Annonce
                 {
-                    EfAccountId = 2,
-                    Email = "user2@mail.dk",
-                    FirstName = "Sui",
-                    LastName = "sui",
+                    AnnonceId = 1,
+                    Price = 10.2,
+                    Titel = "My first book",
+                    Kategori = "Bog",
+                    Beskrivelse = "Det asd er en flot bog",
+                    Studieretning = "SW",
+                    BilledeSti = "images/book.gif",
+                    EfManagerId = 2,
+                    Stand = "Brugt",
+                    ChatId = 1
                 },
-                new EfManager
+                new Annonce
                 {
-                    EfAccountId = 3,
-                    Email = "user3@mail.dk",
-                    FirstName = "Sui",
-                    LastName = "suisen",
+                    AnnonceId = 2,
+                    Price = 1011.2,
+                    Titel = "My first book",
+                    Kategori = "Bog",
+                    Beskrivelse = "Det asd er en flot bog",
+                    Studieretning = "SW",
+                    BilledeSti = "images/book.gif",
+                    EfManagerId = 2,
+                    Stand = "Brugt",
+                    ChatId = 1
                 }
             );
             context.SaveChanges();
-        }*/
+        }
         
     }
 }
