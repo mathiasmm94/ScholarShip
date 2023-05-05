@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ScholarShip.Models;
+using System.ComponentModel.DataAnnotations.Schema;
+using ModelsApi.Models;
 
 namespace ModelsApi.Models.Entities
 {
@@ -15,6 +16,7 @@ namespace ModelsApi.Models.Entities
         [MaxLength(254)]
         public string? Email { get; set; }
         
+
         public List<Chat> Chats { get; set; }
         public List<Annonce> Annoncer { get; set; }
     }

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ScholarShip.Models;
+using ModelsApi.Models;
 
 namespace ModelsApi.Data
 {
@@ -24,6 +24,13 @@ namespace ModelsApi.Data
             modelBuilder.Entity<EfManager>()
                 .HasIndex(p => p.Email)
                 .IsUnique();
+
+            modelBuilder.Entity<Annonce>()
+                .HasOne<EfManager>(a => a.Manager)
+                .WithMany(m => m.Annoncer)
+                .HasForeignKey(a => a.EfManagerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

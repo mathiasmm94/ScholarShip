@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 using ModelsApi.Models.Entities;
 
-namespace ScholarShip.Models;
+namespace ModelsApi.Models;
 
 public class Chat
 {

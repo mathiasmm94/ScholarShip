@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ScholarShip.Models;
+namespace ModelsApi.Models;
 
 public class Message
 {

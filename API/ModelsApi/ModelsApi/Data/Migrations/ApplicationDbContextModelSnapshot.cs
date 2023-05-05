@@ -22,6 +22,74 @@ namespace ModelsApi.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("ModelsApi.Models.Annonce", b =>
+                {
+                    b.Property<int>("AnnonceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnnonceId"), 1L, 1);
+
+                    b.Property<string>("Beskrivelse")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BilledeSti")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ChatId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("EfManagerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Kategori")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Stand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Studieretning")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Titel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AnnonceId");
+
+                    b.HasIndex("ChatId");
+
+                    b.HasIndex("EfManagerId");
+
+                    b.ToTable("Annonces");
+                });
+
+            modelBuilder.Entity("ModelsApi.Models.Chat", b =>
+                {
+                    b.Property<int>("ChatId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatId"), 1L, 1);
+
+                    b.Property<long?>("EfManagerId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("ChatId");
+
+                    b.HasIndex("EfManagerId");
+
+                    b.ToTable("Chats");
+                });
+
             modelBuilder.Entity("ModelsApi.Models.Entities.EfAccount", b =>
                 {
                     b.Property<long>("EfAccountId")
@@ -84,84 +152,7 @@ namespace ModelsApi.Data.Migrations
                     b.ToTable("Managers");
                 });
 
-            modelBuilder.Entity("ScholarShip.Models.Annonce", b =>
-                {
-                    b.Property<int>("AnnonceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnnonceId"), 1L, 1);
-
-                    b.Property<long>("AccountEfAccountId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Beskrivelse")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BilledeSti")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ChatId")
-                        .HasColumnType("int");
-
-                    b.Property<long?>("EfManagerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Kategori")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ProfileId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Stand")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Studieretning")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Titel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AnnonceId");
-
-                    b.HasIndex("AccountEfAccountId");
-
-                    b.HasIndex("ChatId");
-
-                    b.HasIndex("EfManagerId");
-
-                    b.ToTable("Annonces");
-                });
-
-            modelBuilder.Entity("ScholarShip.Models.Chat", b =>
-                {
-                    b.Property<int>("ChatId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatId"), 1L, 1);
-
-                    b.Property<long?>("EfManagerId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ChatId");
-
-                    b.HasIndex("EfManagerId");
-
-                    b.ToTable("Chats");
-                });
-
-            modelBuilder.Entity("ScholarShip.Models.Message", b =>
+            modelBuilder.Entity("ModelsApi.Models.Message", b =>
                 {
                     b.Property<int>("MessageId")
                         .ValueGeneratedOnAdd()
@@ -183,9 +174,35 @@ namespace ModelsApi.Data.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("ModelsApi.Models.Annonce", b =>
+                {
+                    b.HasOne("ModelsApi.Models.Chat", "Chat")
+                        .WithMany("Annonces")
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ModelsApi.Models.Entities.EfManager", "Manager")
+                        .WithMany("Annoncer")
+                        .HasForeignKey("EfManagerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Chat");
+
+                    b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("ModelsApi.Models.Chat", b =>
+                {
+                    b.HasOne("ModelsApi.Models.Entities.EfManager", null)
+                        .WithMany("Chats")
+                        .HasForeignKey("EfManagerId");
+                });
+
             modelBuilder.Entity("ModelsApi.Models.Entities.EfAccount", b =>
                 {
-                    b.HasOne("ScholarShip.Models.Chat", null)
+                    b.HasOne("ModelsApi.Models.Chat", null)
                         .WithMany("Profils")
                         .HasForeignKey("ChatId");
                 });
@@ -201,39 +218,9 @@ namespace ModelsApi.Data.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("ScholarShip.Models.Annonce", b =>
+            modelBuilder.Entity("ModelsApi.Models.Message", b =>
                 {
-                    b.HasOne("ModelsApi.Models.Entities.EfAccount", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountEfAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ScholarShip.Models.Chat", "Chat")
-                        .WithMany("Annonces")
-                        .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ModelsApi.Models.Entities.EfManager", null)
-                        .WithMany("Annoncer")
-                        .HasForeignKey("EfManagerId");
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Chat");
-                });
-
-            modelBuilder.Entity("ScholarShip.Models.Chat", b =>
-                {
-                    b.HasOne("ModelsApi.Models.Entities.EfManager", null)
-                        .WithMany("Chats")
-                        .HasForeignKey("EfManagerId");
-                });
-
-            modelBuilder.Entity("ScholarShip.Models.Message", b =>
-                {
-                    b.HasOne("ScholarShip.Models.Chat", "Chat")
+                    b.HasOne("ModelsApi.Models.Chat", "Chat")
                         .WithMany("Messages")
                         .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -242,20 +229,20 @@ namespace ModelsApi.Data.Migrations
                     b.Navigation("Chat");
                 });
 
-            modelBuilder.Entity("ModelsApi.Models.Entities.EfManager", b =>
-                {
-                    b.Navigation("Annoncer");
-
-                    b.Navigation("Chats");
-                });
-
-            modelBuilder.Entity("ScholarShip.Models.Chat", b =>
+            modelBuilder.Entity("ModelsApi.Models.Chat", b =>
                 {
                     b.Navigation("Annonces");
 
                     b.Navigation("Messages");
 
                     b.Navigation("Profils");
+                });
+
+            modelBuilder.Entity("ModelsApi.Models.Entities.EfManager", b =>
+                {
+                    b.Navigation("Annoncer");
+
+                    b.Navigation("Chats");
                 });
 #pragma warning restore 612, 618
         }

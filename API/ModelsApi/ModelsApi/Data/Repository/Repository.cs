@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ModelsApi.Data;
-using ScholarShip.Interfaces;
-using ScholarShip.Models;
+using ModelsApi.Interfaces;
+using ModelsApi.Models;
 
 
 namespace ScholarShip.Data.Repository;

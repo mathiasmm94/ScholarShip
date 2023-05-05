@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using ScholarShip.Interfaces;
+using ModelsApi.Interfaces;
+using ModelsApi.Interfaces;
 
-namespace ScholarShip.Controllers;
+namespace ModelsApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

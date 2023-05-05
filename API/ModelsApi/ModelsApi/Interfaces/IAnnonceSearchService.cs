@@ -1,6 +1,6 @@
-using ScholarShip.Models;
+using ModelsApi.Models;
 
-namespace ScholarShip.Interfaces;
+namespace ModelsApi.Interfaces;
 
 public interface IAnnonceSearchService
 {
