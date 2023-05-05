@@ -10,7 +10,6 @@ export function Search(props) {
   };
   return (
     <div>
-      <h1 style={headingStyle}>SEARCH COMPONENT</h1>
       <SearchHandler />
     </div>
   );
