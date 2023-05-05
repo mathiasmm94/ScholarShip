@@ -15,11 +15,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-/*builder.Services.AddDefaultIdentity<Profil, IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-	.AddEntityFrameworkStores<ApplicationDbContext>();*/
 
 builder.Services.AddDefaultIdentity<Profil>(options => options.SignIn.RequireConfirmedAccount = false)
 	.AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 builder.Services.AddControllers();
 
@@ -45,7 +44,7 @@ var app = builder.Build();
 //Skriv nedenst?ende for at lave connection ! Tilf?j standard connectionstring
 //cd /.ScholarShip
 //dotnet user-secrets init
-//dotnet user-secrets set "ConnectionString" "Data Source=localhost;Initial Catalog=ScholarShip;User ID=SA;Password=Password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
+//dotnet user-secrets set "ConnectionString" "Data Source=localhost;Initial Catalog=ScholarShip;User ID=SA;Password=MyPassword123#;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
