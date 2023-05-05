@@ -21,8 +21,8 @@ namespace ModelsApi.Data
                 SeedAccounts(context, bcryptWorkfactor);
             if (!context.Managers.Any())
                 SeedManagers(context);
-            if (!context.Annonces.Any())
-                SeedAnnonces(context);
+           /* if (!context.Annonces.Any())
+                SeedAnnonces(context);*/
         }
 
         static void SeedAccounts(ApplicationDbContext context, int bcryptWorkfactor)
@@ -95,7 +95,7 @@ namespace ModelsApi.Data
                 },
                 new Annonce
                 {
-                    AnnonceId = 1,
+                    AnnonceId = 2,
                     Price = 10.2,
                     Titel = "My first book",
                     Kategori = "Bog",
@@ -104,11 +104,11 @@ namespace ModelsApi.Data
                     BilledeSti = "images/book.gif",
                     EfManagerId = 2,
                     Stand = "Brugt",
-                    ChatId = 1
+                    ChatId = 2
                 },
                 new Annonce
                 {
-                    AnnonceId = 2,
+                    AnnonceId = 3,
                     Price = 1011.2,
                     Titel = "My first book",
                     Kategori = "Bog",
@@ -117,6 +117,51 @@ namespace ModelsApi.Data
                     BilledeSti = "images/book.gif",
                     EfManagerId = 2,
                     Stand = "Brugt",
+                    ChatId = 3
+                }
+            );
+            context.SaveChanges();
+        }
+        
+        static void SeedChat(ApplicationDbContext context)
+        {
+            context.Chats.AddRange(
+                new Chat
+                {
+                    ChatId = 1
+                },
+                new Chat
+                {
+                   ChatId = 2
+                },
+                new Chat
+                {
+                  ChatId = 3
+                }
+            );
+            context.SaveChanges();
+        }
+        
+        
+        static void SeedMessage(ApplicationDbContext context)
+        {
+            context.Messages.AddRange(
+                new Message
+                {
+                    MessageId = 1,
+                    Messages = "Hej",
+                    ChatId = 1
+                },
+                new Message
+                {
+                    MessageId = 2,
+                    Messages = "Hej",
+                    ChatId = 2
+                },
+                new Message
+                {
+                    MessageId = 3,
+                    Messages = "Hej",
                     ChatId = 1
                 }
             );
