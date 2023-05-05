@@ -1,4 +1,4 @@
-input[type="text"] {
+.searchBarInput{
     width: 400px;
     height: 25px;
     padding: 5px 10px;
@@ -10,7 +10,7 @@ input[type="text"] {
     
   }
   
-  input[type="text"]:focus {
+  .searchBarInput:focus {
     outline: none;
   }
   .Searchbar {
