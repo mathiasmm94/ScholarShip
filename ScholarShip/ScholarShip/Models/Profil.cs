@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ScholarShip.Models;
 
-public class Profil : IdentityUser
+public class Profil
 {
     public string ForNavn { get; set; }
     public string EfterNavn { get; set; }
