@@ -8,6 +8,7 @@ export function Searchbar(props) {
 
   return (
     <input
+      className="searchBarInput"
       type="text"
       placeholder="Søg på den varer du mangler"
       onChange={handleSearch}
