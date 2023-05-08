@@ -11,7 +11,7 @@ export function SearchHandler(props) {
 
   const handleSearch = async (searchTerm) => {
     const response = await axios.get(
-      `http://localhost:5238/api/search/${searchTerm}`
+      `https://localhost:7181/api/search/${searchTerm}`
     );
     setSearchResults(response.data);
   };
