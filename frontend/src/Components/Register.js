@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import "./CSS/Register.css"
+
 
 export function RegisterUser() {
   const [formData, setFormData] = useState({ email: '', password: '',confirmpassword: '' ,phonenumber: '', firstname: '', lastname: '', university: '', birthdate: '' });
@@ -44,13 +46,33 @@ export function RegisterUser() {
   }
 
   return (
-    <form className="registerForm" onSubmit={handleSubmit}>
-        <label className="RegisterText">Register User</label>
-        <input className="RegisterInput" placeholder="E-Mail" type="text" name="email" value={formData.email} onChange={handleChange} />
+    <form className="RegisterForm" onSubmit={handleSubmit}>
+        <label className="RegisterText">Opret Bruger</label>
 
-        <input className="RegisterInput" placeholder="Adgangskode" type="password" name="password" value={formData.password} onChange={handleChange} />
-      
-      <input className="RegisterSubmitButton" type="submit" value="LOG IND" />
+    <div className="RegisterContainer">
+        <div className="InputContainer1">
+            <input className="InputName" placeholder="Fornavn" type="text" name="firstname" value={formData.firstname} onChange={handleChange} />
+
+            <input className="InputName" placeholder="Efternavn" type="text" name="lastname" value={formData.lastname} onChange={handleChange} />
+        </div>
+
+        <div className="InputContainer2">
+            <input className="RegisterInput" placeholder="Fødselsdato - dd-mm-yyyy" type="text" name="birthdate" value={formData.birthdate} onChange={handleChange} />
+
+            <input className="RegisterInput" placeholder="E-Mail" type="text" name="email" value={formData.email} onChange={handleChange} />
+
+            <input className="RegisterInput" placeholder="Telefonnummer" type="text" name="phonenumber" value={formData.phonenumber} onChange={handleChange} />
+
+            <input className="RegisterInput" placeholder="Adgangskode" type="password" name="password" value={formData.password} onChange={handleChange} />
+
+            <input className="RegisterInput" placeholder="Bekræft adgangskode" type="password" name="confirmpassword" value={formData.confirmpassword} onChange={handleChange} />
+
+            <input className="RegisterInput" placeholder="Uddannelsessted" type="text" name="university" value={formData.university} onChange={handleChange} />
+            
+            <input className="RegisterSubmitButton" type="submit" value="Opret Bruger" />
+        </div>
+        
+    </div>
     </form>
   );
 }

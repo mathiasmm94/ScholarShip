@@ -9,6 +9,7 @@ import {Navbar} from "./Components/Navbar.js";
 
 import "./App.css"
 import { LogInForm } from "./Components/Login.js";
+import { RegisterUser } from "./Components/Register.js";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Search/>}> </Route>
         <Route path="login" element={<LogInForm/>}></Route>
+        <Route path="register" element={<RegisterUser/>}></Route>
       </Routes>
     </Router>
   );
