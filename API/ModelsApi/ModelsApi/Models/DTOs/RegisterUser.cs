@@ -35,8 +35,9 @@ namespace ModelsApi.Models.DTOs
 		public string University { get; set; }
 
 		[Required]
-		[RegularExpression(@"^([0-9]{2})-([0-9]{2})-([0-9]{4})$", ErrorMessage = "The Birthdate must be in the format 'dd-mm-yyyy'")]
-		public string Birthdate { get; set; }
+		[RegularExpression(@"^([0-9]{2})-([0-9]{2})-([0-9]{4})$",
+			ErrorMessage = "The Birthdate must be in the format 'dd-mm-yyyy'")]
+		public string Birthdate { get; set; } = "dd-mm-yyyy";
 	}
 
 }

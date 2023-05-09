@@ -12,7 +12,7 @@ using ModelsApi.Data;
 namespace ModelsApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230509144105_AddedRegisterUser")]
+    [Migration("20230509213310_AddedRegisterUser")]
     partial class AddedRegisterUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
