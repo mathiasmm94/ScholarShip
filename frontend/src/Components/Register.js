@@ -7,20 +7,24 @@ import "./CSS/Register.css"
 export function RegisterUser() {
   const [formData, setFormData] = useState({ email: '', password: '',confirmpassword: '' ,phonenumber: '', firstname: '', lastname: '', university: '', birthdate: '' });
   const navigate = useNavigate();
+  
+
 
   async function register() {
+    const formattedFormData = {
+    ...formData,
+    birthdate: formatDate(formData.birthdate)
+  };
     let url = "https://localhost:7181/api/Account/register";
     try {
       let response = await fetch(url, {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formattedFormData),
         headers: new Headers({
           "Content-Type": "application/json"
         })
       });
       if (response.ok) {
-        let token = await response.json();
-        localStorage.setItem("token", token.jwt);
         console.log("success");
         navigate("/home");
       } else {
@@ -29,6 +33,8 @@ export function RegisterUser() {
     } catch (err) {
       alert("Error: " + err);
     }
+
+    
     return;
   }
 
@@ -45,6 +51,14 @@ export function RegisterUser() {
     register();
   }
 
+  const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+};
+
   return (
     <form className="RegisterForm" onSubmit={handleSubmit}>
         <label className="RegisterText">Opret Bruger</label>
@@ -57,7 +71,7 @@ export function RegisterUser() {
           </div>
 
           <div className="InputContainer2">
-              <input className="RegisterInput" placeholder="Fødselsdato - dd-mm-yyyy" type="text" name="birthdate" value={formData.birthdate} onChange={handleChange} />
+              <input className="RegisterInput" placeholder="Fødselsdato - dd-mm-yyyy" type="date" name="birthdate" value={formData.birthdate} onChange={handleChange} />
 
               <input className="RegisterInput" placeholder="E-Mail" type="text" name="email" value={formData.email} onChange={handleChange} />
 
