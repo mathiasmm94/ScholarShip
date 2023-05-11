@@ -10,7 +10,7 @@ namespace ModelsApi.Models.DTOs
 
 		[Required]
 		[Phone]
-		public string PhoneNxmber { get; set; }
+		public string PhoneNumber { get; set; }
 
 		[Required]
 		[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at most {1} characters long.", MinimumLength = 6)]
