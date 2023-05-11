@@ -2,7 +2,7 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
+ // Route,
 } from "react-router-dom";
 import {Search} from "./Components/Search.js";
 import {Navbar} from "./Components/Navbar.js";
@@ -20,6 +20,10 @@ function App() {
         <Route path="login" element={<LogInForm/>}></Route>
       </Routes>
     </Router>
+
+
+
+
   );
   
 }
