@@ -30,6 +30,7 @@ export function LogInForm() {
     return;
   }
 
+
   function handleChange(event) {
     const { name, value } = event.target;
     setFormData(prevFormData => ({

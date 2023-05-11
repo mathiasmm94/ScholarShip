@@ -12,6 +12,7 @@ import { LogInForm } from "./Components/Login.js";
 import { RegisterUser } from "./Components/Register.js";
 
 
+
 function App() {
   return (
     <Router>
@@ -22,9 +23,6 @@ function App() {
         <Route path="register" element={<RegisterUser/>}></Route>
       </Routes>
     </Router>
-
-
-
 
   );
   
