@@ -8,6 +8,7 @@ using ModelsApi.Models.DTOs;
 using ModelsApi.Models.Entities;
 using ModelsApi.Utilities;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace ModelsApi.Controllers
                     var validPwd = Verify(login.Password, account.PwHash);
                     if (validPwd)
                     {
-                        long modelId = -1;
+	                    long modelId = -1;
                         /*if (!account.IsManager)
                         {
                             var model = await _context.Models.Where(m => m.EfAccountId == account.EfAccountId)
@@ -119,7 +120,57 @@ namespace ModelsApi.Controllers
             }
         }
 
-        private string GenerateToken(string email, long modelId)
+
+        /// <summary>
+        /// Use to register new user.
+        /// </summary>
+		[HttpPost("register")]
+		[AllowAnonymous]
+		[ProducesResponseType(StatusCodes.Status201Created)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<ActionResult> Register([FromBody] RegisterUser userDto)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			userDto.Email = userDto.Email.ToLowerInvariant();
+			if (await _context.Managers.AnyAsync(u => u.Email == userDto.Email))
+			{
+				ModelState.AddModelError("email", "Email already exists");
+				return BadRequest(ModelState);
+			}
+
+			if (await _context.Managers.AnyAsync(u => u.PhoneNumber == userDto.PhoneNumber))
+			{
+				ModelState.AddModelError("PhoneNumber", "Phone number already exists");
+				return BadRequest(ModelState);
+			}
+
+			var pwHash = HashPassword(userDto.Password, _appSettings.BcryptWorkfactor);
+
+			var user = new EfManager()
+			{
+				FirstName = userDto.FirstName,
+				LastName = userDto.LastName,
+				Birthdate = userDto.Birthdate,
+				Email = userDto.Email,
+				Password = pwHash,
+				University = userDto.University,
+                PhoneNumber = userDto.PhoneNumber,
+                Account = new EfAccount{Email = userDto.Email, PwHash = pwHash}
+			};
+
+			_context.Managers.Add(user);
+			await _context.SaveChangesAsync().ConfigureAwait(false);
+
+			return Created("", null);
+		}
+
+
+
+		private string GenerateToken(string email, long modelId)
         {
             Claim roleClaim;
             
