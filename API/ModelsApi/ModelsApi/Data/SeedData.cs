@@ -145,31 +145,7 @@ namespace ModelsApi.Data
         
 
         
-        
-        static void SeedMessage(ApplicationDbContext context)
-        {
-            context.Messages.AddRange(
-                new Message
-                {
-                    MessageId = 1,
-                    Messages = "Hej",
-                    ChatId = 1
-                },
-                new Message
-                {
-                    MessageId = 2,
-                    Messages = "Hej",
-                    ChatId = 2
-                },
-                new Message
-                {
-                    MessageId = 3,
-                    Messages = "Hej",
-                    ChatId = 1
-                }
-            );
-            context.SaveChanges();
-        }
+
         
     }
 }

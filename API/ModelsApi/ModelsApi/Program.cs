@@ -8,6 +8,7 @@ using ModelsApi.Data;
 using ModelsApi.Utilities;
 using System.Reflection;
 using System.Text;
+using ModelsApi.Hub;
 using ModelsApi.Interfaces;
 using ModelsApi.Models.Services;
 using ScholarShip.Data.Repository;
@@ -20,7 +21,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddCors();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddSignalR();
 builder.Services.AddControllers();
+
 
 // configure strongly typed settings objects
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
@@ -92,6 +95,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddTransient<IRepository, Repository>();
 builder.Services.AddTransient<IAnnonceSearchService, AnnonceSearchService>();
+
 //Skriv nedenst?ende for at lave connection ! Tilf?j standard connectionstring
 //cd /.ScholarShip
 //dotnet user-secrets init
@@ -124,6 +128,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
+app.UseRouting();
 
 app.UseCors("AllowAllOrigins");
 

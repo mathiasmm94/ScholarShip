@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ModelsApi.Models;
+using ModelsApi.Models.Services;
 
 namespace ModelsApi.Data
 {
@@ -15,7 +16,11 @@ namespace ModelsApi.Data
         
         public DbSet<Annonce> Annonces { get; set; }
         public DbSet<Chat> Chats { get; set; }
+        
         public DbSet<Message> Messages { get; set; }
+        
+        public DbSet<Participant> Participants { get; set; }
+        
         public DbSet<EfAccount> Accounts { get; set; }
         public DbSet<EfManager> Managers { get; set; }
 
@@ -30,6 +35,9 @@ namespace ModelsApi.Data
                 .WithMany(m => m.Annoncer)
                 .HasForeignKey(a => a.EfManagerId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<Participant>().HasKey();
 
         }
     }

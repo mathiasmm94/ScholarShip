@@ -74,16 +74,23 @@ namespace ModelsApi.Data.Migrations
 
             modelBuilder.Entity("ModelsApi.Models.Chat", b =>
                 {
-                    b.Property<int>("ChatId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("EfManagerId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("ChatId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("EfManagerId");
 
@@ -98,9 +105,6 @@ namespace ModelsApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("EfAccountId"), 1L, 1);
 
-                    b.Property<int?>("ChatId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(254)
@@ -112,8 +116,6 @@ namespace ModelsApi.Data.Migrations
                         .HasColumnType("nvarchar(60)");
 
                     b.HasKey("EfAccountId");
-
-                    b.HasIndex("ChatId");
 
                     b.ToTable("Accounts");
                 });
@@ -163,21 +165,61 @@ namespace ModelsApi.Data.Migrations
                     b.Property<int>("ChatId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Messages")
+                    b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("EfManagerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("MessageId");
 
                     b.HasIndex("ChatId");
 
+                    b.HasIndex("EfManagerId");
+
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("ModelsApi.Models.Services.Participant", b =>
+                {
+                    b.Property<int>("ParticipantId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParticipantId"), 1L, 1);
+
+                    b.Property<int>("ChatId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ConversationId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("EfManagerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ParticipantId");
+
+                    b.HasIndex("ChatId");
+
+                    b.HasIndex("EfManagerId");
+
+                    b.ToTable("Participants");
                 });
 
             modelBuilder.Entity("ModelsApi.Models.Annonce", b =>
                 {
                     b.HasOne("ModelsApi.Models.Chat", "Chat")
-                        .WithMany("Annonces")
+                        .WithMany()
                         .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -200,13 +242,6 @@ namespace ModelsApi.Data.Migrations
                         .HasForeignKey("EfManagerId");
                 });
 
-            modelBuilder.Entity("ModelsApi.Models.Entities.EfAccount", b =>
-                {
-                    b.HasOne("ModelsApi.Models.Chat", null)
-                        .WithMany("Profils")
-                        .HasForeignKey("ChatId");
-                });
-
             modelBuilder.Entity("ModelsApi.Models.Entities.EfManager", b =>
                 {
                     b.HasOne("ModelsApi.Models.Entities.EfAccount", "Account")
@@ -226,16 +261,41 @@ namespace ModelsApi.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ModelsApi.Models.Entities.EfManager", "EfManager")
+                        .WithMany()
+                        .HasForeignKey("EfManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Chat");
+
+                    b.Navigation("EfManager");
+                });
+
+            modelBuilder.Entity("ModelsApi.Models.Services.Participant", b =>
+                {
+                    b.HasOne("ModelsApi.Models.Chat", "Chat")
+                        .WithMany("Participants")
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ModelsApi.Models.Entities.EfManager", "EfManager")
+                        .WithMany()
+                        .HasForeignKey("EfManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chat");
+
+                    b.Navigation("EfManager");
                 });
 
             modelBuilder.Entity("ModelsApi.Models.Chat", b =>
                 {
-                    b.Navigation("Annonces");
-
                     b.Navigation("Messages");
 
-                    b.Navigation("Profils");
+                    b.Navigation("Participants");
                 });
 
             modelBuilder.Entity("ModelsApi.Models.Entities.EfManager", b =>
