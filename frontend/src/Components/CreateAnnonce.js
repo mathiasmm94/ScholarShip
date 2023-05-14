@@ -7,6 +7,9 @@ export function CreateAnnonce() {
     const [beskrivelse, setBeskrivelse] = useState('');
     const [studieretning, setStudieretning] = useState('');
     const [billedsti, setBilledsti] = useState('');
+    const [efManagerId, setEfManagerId]=useState('');
+    const [stand, setStand]=useState('');
+    const [chatId, setChatId]=useState('');
 
     const handleSubmit = () => {
         postAnnonce()
@@ -25,7 +28,10 @@ export function CreateAnnonce() {
                     Kategori: kategori,
                     Beskrivelse: beskrivelse,
                     Studieretning: studieretning,
-                    BilledSti: billedsti
+                    BilledSti: billedsti,
+                    EfManagerId: efManagerId,
+                    Stand: stand,
+                    ChatId: chatId
                 })
             });
             if (!response.ok) {
@@ -60,6 +66,15 @@ export function CreateAnnonce() {
 
             <label htmlFor="image">Billedsti:</label>
             <input type="text" id="image" value={billedsti} onChange={(e) => setBilledsti(e.target.value)} />
+
+            <label htmlFor="ManagerId">EfManagerId:</label>
+            <input type="text" id="ManagerId" value={efManagerId} onChange={(e) => setEfManagerId(e.target.value)} />
+
+            <label htmlFor="Condition">Stand:</label>
+            <input type="text" id="Condition" value={stand} onChange={(e) => setStand(e.target.value)} />
+
+            <label htmlFor="ChatId">ChatId:</label>
+            <input type="text" id="ChatId" value={chatId} onChange={(e) => setChatId(e.target.value)} />
 
             <button type="submit">OPRET ANNONCE!</button>
         </form>
