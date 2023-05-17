@@ -7,7 +7,7 @@ function DeleteButtonReal() {
    const [id, setId] = useState('');
    const handleClick = () => {
     if (window.confirm("Are you sure you want to delete this ad?"))
-    fetch(`http://localhost:5238/api//${id}`, {
+    fetch(`http://localhost:5181/api//${id}`, {
        method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
