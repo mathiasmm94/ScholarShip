@@ -9,24 +9,25 @@ import { Navbar } from "./Components/Navbar.js";
 
 import "./App.css"
 import { CreateAnnonce } from "./Components/CreateAnnonce.js";
+import DeleteButtonReal from "./Components/deletebutton.js";
 
 
 function App() {
   return (
-    // <><Router>
-    //   <Navbar />
-    //   <Routes>
+    
+     
+      <><CreateAnnonce />
+      <DeleteButtonReal></DeleteButtonReal></>
 
-    //   </Routes>
-    //   <div className="main">
-    //     <Search />
-    //   </div>
-    // </Router>
-      <CreateAnnonce />
+// <><Router>
+      //   <Navbar />
+      //   <Routes>
+      //   </Routes>
+      //   <div className="main">
+      //     <Search />
+      //   </div>
+      // </Router>
     // </>
-
-
-
 
   );
 
