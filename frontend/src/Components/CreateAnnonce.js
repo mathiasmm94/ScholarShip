@@ -6,7 +6,7 @@ export function CreateAnnonce() {
     const [kategori, setKategori] = useState('');
     const [beskrivelse, setBeskrivelse] = useState('');
     const [studieretning, setStudieretning] = useState('');
-    const [billedsti, setBilledsti] = useState('');
+    const [billedesti, setBilledsti] = useState('');
     const [efManagerId, setEfManagerId]=useState('');
     const [stand, setStand]=useState('');
     const [chatId, setChatId]=useState('');
@@ -28,7 +28,7 @@ export function CreateAnnonce() {
                     Kategori: kategori,
                     Beskrivelse: beskrivelse,
                     Studieretning: studieretning,
-                    BilledSti: billedsti,
+                    BilledeSti: billedesti,
                     EfManagerId: efManagerId,
                     Stand: stand,
                     ChatId: chatId
@@ -64,17 +64,17 @@ export function CreateAnnonce() {
             <label htmlFor="major">Studieretning:</label>
             <input type="text" id="major" value={studieretning} onChange={(e) => setStudieretning(e.target.value)} />
 
-            <label htmlFor="image">Billedsti:</label>
-            <input type="text" id="image" value={billedsti} onChange={(e) => setBilledsti(e.target.value)} />
+            <label htmlFor="image">Billedesti:</label>
+            <input type="text" id="image" value={billedesti} onChange={(e) => setBilledsti(e.target.value)} />
 
             <label htmlFor="ManagerId">EfManagerId:</label>
-            <input type="text" id="ManagerId" value={efManagerId} onChange={(e) => setEfManagerId(e.target.value)} />
+            <input type="number" id="ManagerId" value={efManagerId} onChange={(e) => setEfManagerId(e.target.value)} />
 
             <label htmlFor="Condition">Stand:</label>
             <input type="text" id="Condition" value={stand} onChange={(e) => setStand(e.target.value)} />
 
             <label htmlFor="ChatId">ChatId:</label>
-            <input type="text" id="ChatId" value={chatId} onChange={(e) => setChatId(e.target.value)} />
+            <input type="number" id="ChatId" value={chatId} onChange={(e) => setChatId(e.target.value)} />
 
             <button type="submit">OPRET ANNONCE!</button>
         </form>

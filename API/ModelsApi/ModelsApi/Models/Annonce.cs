@@ -21,7 +21,7 @@ public class Annonce
     
     [ForeignKey("ChatId")]
     public int ChatId { get; set; }
-    
+
     public EfManager Manager { get; set; }
     public Chat Chat { get; set; }
 }

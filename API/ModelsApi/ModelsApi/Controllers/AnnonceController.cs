@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ModelsApi.Data;
 using ModelsApi.Models;
+using ModelsApi.Models.DTOs;
 
 namespace ModelsApi.Controllers
 {
@@ -79,16 +80,30 @@ namespace ModelsApi.Controllers
         // POST: api/Annonces
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Annonce>> PostAnnonce(Annonce annonce)
+        public async Task<ActionResult<Annonce>> PostAnnonce(AnnonceDTO annonce)
         {
             if (_context.Annonces == null)
             {
                 return Problem("Entity set 'DBcontext.Annonces'  is null.");
             }
-            _context.Annonces.Add(annonce);
+            Annonce annonce1 = new Annonce {
+            AnnonceId=annonce.AnnonceId,
+            Beskrivelse=annonce.Beskrivelse,
+            BilledeSti=annonce.BilledeSti,
+            EfManagerId=annonce.EfManagerId,
+            Stand = annonce.Stand,
+            Studieretning=annonce.Studieretning,
+            Titel = annonce.Titel,
+            Price = annonce.Price,
+            Kategori = annonce.Kategori,
+            ChatId = annonce.ChatId
+            };
+            
+
+            _context.Annonces.Add(annonce1);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAnnonce", new { id = annonce.AnnonceId }, annonce);
+            return CreatedAtAction("GetAnnonce", new { id = annonce1.AnnonceId }, annonce1);
         }
 
         // DELETE: api/Annonces/5
