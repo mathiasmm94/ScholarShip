@@ -1,0 +1,44 @@
+.getdatabutton   {
+    background-color: #ffd604;
+    border: none;
+    width: 80px;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    font-family: "Montserrat-Alt1";
+    margin-left: 40px;
+  }
+  
+  .getdatabutton:hover {
+    background-color: #333;
+    color: #ffd604;
+  }
+
+
+.deletebutton2   {
+    background-color: #ffd604;
+    border: none;
+    width: 80px;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    font-family: "Montserrat-Alt1";
+    margin-left: 40px;
+  }
+  
+  .deletebutton2:hover {
+    background-color: #333;
+    color: #ffd604;
+  }
