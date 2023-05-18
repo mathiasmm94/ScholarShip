@@ -134,7 +134,7 @@ namespace ModelsApi.Data
                     EfAccountId = 3,
                     FirstName = "sui",
                     LastName = "suisen",
-                    Email = "user2@mail.dk",
+                    Email = "user3@mail.dk",
                     Password = "Pas123",
                     PhoneNumber = "12121212",
                     Birthdate = "12-12-2012",
