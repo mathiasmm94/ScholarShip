@@ -57,7 +57,7 @@ public class ChatController : ControllerBase
         var userId = new EfManager();
 
         // Set the message properties
-        message.SenderId = userId.EfAccountId;
+        message.EfManagerId = userId.EfAccountId;
         message.ChatRoomId = roomId;
         message.TimeStamp = DateTime.UtcNow;
 

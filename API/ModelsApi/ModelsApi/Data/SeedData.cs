@@ -18,18 +18,19 @@ namespace ModelsApi.Data
         internal static void SeedData(ApplicationDbContext context, int bcryptWorkfactor)
         {
             context.Database.EnsureCreated();
-            if (!context.UserChatRooms.Any())
-                SeedUserChatRooms(context);
-            if (!context.ChatRooms.Any())
-                SeedChatRooms(context);
-            if (!context.Messages.Any())
-                SeedMessage(context);
+            
             if (!context.Accounts.Any())
                 SeedAccounts(context, bcryptWorkfactor);
             if (!context.Managers.Any())
                 SeedManagers(context);
+            if (!context.UserChatRooms.Any())
+                SeedUserChatRooms(context);
+            if (!context.Messages.Any())
+                SeedMessage(context);
             if (!context.Annonces.Any())
                 SeedAnnonces(context);
+            if (!context.ChatRooms.Any())
+                SeedChatRooms(context);
         }
 
         static void SeedAccounts(ApplicationDbContext context, int bcryptWorkfactor)
@@ -61,20 +62,17 @@ namespace ModelsApi.Data
             context.ChatRooms.AddRange(
                 new ChatRoom
                 {
-                 ChatRoomId   = 1,
-                 Name = "Annonce",
+                    Name = "Annonce",
                  
                 },
                 new ChatRoom
                 {
-                    ChatRoomId = 2,
                     Name = "Annonce",
 			       
                 },
                 new ChatRoom
                 {
-			       ChatRoomId = 3,
-                   Name = "Annonce",
+                    Name = "Annonce",
                 }
             );
             context.SaveChanges();
@@ -84,15 +82,19 @@ namespace ModelsApi.Data
             context.UserChatRooms.AddRange(
                 new UserChatRoom
                 {
-                    UserChatRoomId = 1,
+                    EfManagerId = 1,
+                    ChatRoomId = 1,
+                    
                 },
                 new UserChatRoom
                 {
-			       UserChatRoomId = 2,
+                    EfManagerId = 2,
+                   ChatRoomId = 2,
                 },
                 new UserChatRoom
                 {
-			       UserChatRoomId = 3,
+                    EfManagerId = 3,
+                   ChatRoomId = 3,
                 }
             );
             context.SaveChanges();
@@ -110,7 +112,7 @@ namespace ModelsApi.Data
                     Email = "user@mail.dk",
                     Password = "Pas123",
                     PhoneNumber = "12121212",
-                    Birthdate = "12/12/2012",
+                    Birthdate = "12-12-2012",
                     University = "AU",
                     
 
@@ -123,7 +125,7 @@ namespace ModelsApi.Data
                     Email = "user2@mail.dk",
                     Password = "Pas123",
                     PhoneNumber = "12121212",
-                    Birthdate = "12/12/2012",
+                    Birthdate = "12-12-2012",
                     University = "AU",
                     
                 },
@@ -135,7 +137,7 @@ namespace ModelsApi.Data
                     Email = "user2@mail.dk",
                     Password = "Pas123",
                     PhoneNumber = "12121212",
-                    Birthdate = "12/12/2012",
+                    Birthdate = "12-12-2012",
                     University = "AU",
                 }
                 );
@@ -192,18 +194,21 @@ namespace ModelsApi.Data
                     ChatRoomId = 1,
                     MessageId = 1,
                     Content = "Hej",
+                    EfManagerId = 1,
                 },
                 new Message
                 {
                     ChatRoomId = 3,
                     MessageId = 1,
                     Content = "Hej",
+                    EfManagerId = 2,
                 },
                 new Message
                 {
                     ChatRoomId = 3,
                     MessageId = 1,
                     Content = "Hej",
+                    EfManagerId = 3,
                 }
             );
             context.SaveChanges();

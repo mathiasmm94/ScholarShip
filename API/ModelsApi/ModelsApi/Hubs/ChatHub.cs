@@ -20,7 +20,7 @@ public class ChatHub : Hub
 
         var message = new Message
         {
-            SenderId = user.EfManagerId,
+            EfManagerId = user.EfManagerId,
             ChatRoomId = chatRoomId,
             Content = messageContent,
             TimeStamp = DateTime.Now

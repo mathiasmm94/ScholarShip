@@ -7,8 +7,8 @@ public class Message
 {
     public int MessageId { get; set; }
 
-    public long SenderId { get; set; }
-    public EfManager Sender { get; set; }
+    public long EfManagerId { get; set; }
+    public EfManager EfManager { get; set; }
 
     public int ChatRoomId { get; set; }
     public ChatRoom ChatRoom { get; set; }
