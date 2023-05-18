@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ModelsApi.Models;
+using ModelsApi.Models.Services;
 
 namespace ModelsApi.Data
 {
@@ -14,7 +15,8 @@ namespace ModelsApi.Data
                 : base(options) { }
         
         public DbSet<Annonce> Annonces { get; set; }
-        public DbSet<Chat> Chats { get; set; }
+        public DbSet<ChatRoom> ChatRooms { get; set; }
+        public DbSet<UserChatRoom> UserChatRooms { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<EfAccount> Accounts { get; set; }
         public DbSet<EfManager> Managers { get; set; }

@@ -23,5 +23,5 @@ public class Annonce
     public int ChatId { get; set; }
     
     public EfManager Manager { get; set; }
-    public Chat Chat { get; set; }
+    public ChatRoom ChatRoom { get; set; }
 }

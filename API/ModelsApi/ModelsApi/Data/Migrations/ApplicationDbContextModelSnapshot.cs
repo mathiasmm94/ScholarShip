@@ -41,6 +41,9 @@ namespace ModelsApi.Data.Migrations
                     b.Property<int>("ChatId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ChatRoomId")
+                        .HasColumnType("int");
+
                     b.Property<long>("EfManagerId")
                         .HasColumnType("bigint");
 
@@ -65,29 +68,28 @@ namespace ModelsApi.Data.Migrations
 
                     b.HasKey("AnnonceId");
 
-                    b.HasIndex("ChatId");
+                    b.HasIndex("ChatRoomId");
 
                     b.HasIndex("EfManagerId");
 
                     b.ToTable("Annonces");
                 });
 
-            modelBuilder.Entity("ModelsApi.Models.Chat", b =>
+            modelBuilder.Entity("ModelsApi.Models.ChatRoom", b =>
                 {
-                    b.Property<int>("ChatId")
+                    b.Property<int>("ChatRoomId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatRoomId"), 1L, 1);
 
-                    b.Property<long?>("EfManagerId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ChatId");
+                    b.HasKey("ChatRoomId");
 
-                    b.HasIndex("EfManagerId");
-
-                    b.ToTable("Chats");
+                    b.ToTable("ChatRooms");
                 });
 
             modelBuilder.Entity("ModelsApi.Models.Entities.EfAccount", b =>
@@ -97,9 +99,6 @@ namespace ModelsApi.Data.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("EfAccountId"), 1L, 1);
-
-                    b.Property<int?>("ChatId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -112,8 +111,6 @@ namespace ModelsApi.Data.Migrations
                         .HasColumnType("nvarchar(60)");
 
                     b.HasKey("EfAccountId");
-
-                    b.HasIndex("ChatId");
 
                     b.ToTable("Accounts");
                 });
@@ -180,25 +177,59 @@ namespace ModelsApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageId"), 1L, 1);
 
-                    b.Property<int>("ChatId")
+                    b.Property<int>("ChatRoomId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Messages")
+                    b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("SenderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("MessageId");
 
-                    b.HasIndex("ChatId");
+                    b.HasIndex("ChatRoomId");
+
+                    b.HasIndex("SenderId");
 
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("ModelsApi.Models.Services.UserChatRoom", b =>
+                {
+                    b.Property<int>("UserChatRoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserChatRoomId"), 1L, 1);
+
+                    b.Property<int>("ChatRoomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("userEfManagerId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("UserChatRoomId");
+
+                    b.HasIndex("ChatRoomId");
+
+                    b.HasIndex("userEfManagerId");
+
+                    b.ToTable("UserChatRooms");
+                });
+
             modelBuilder.Entity("ModelsApi.Models.Annonce", b =>
                 {
-                    b.HasOne("ModelsApi.Models.Chat", "Chat")
+                    b.HasOne("ModelsApi.Models.ChatRoom", "ChatRoom")
                         .WithMany("Annonces")
-                        .HasForeignKey("ChatId")
+                        .HasForeignKey("ChatRoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -208,23 +239,9 @@ namespace ModelsApi.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Chat");
+                    b.Navigation("ChatRoom");
 
                     b.Navigation("Manager");
-                });
-
-            modelBuilder.Entity("ModelsApi.Models.Chat", b =>
-                {
-                    b.HasOne("ModelsApi.Models.Entities.EfManager", null)
-                        .WithMany("Chats")
-                        .HasForeignKey("EfManagerId");
-                });
-
-            modelBuilder.Entity("ModelsApi.Models.Entities.EfAccount", b =>
-                {
-                    b.HasOne("ModelsApi.Models.Chat", null)
-                        .WithMany("Profils")
-                        .HasForeignKey("ChatId");
                 });
 
             modelBuilder.Entity("ModelsApi.Models.Entities.EfManager", b =>
@@ -240,29 +257,54 @@ namespace ModelsApi.Data.Migrations
 
             modelBuilder.Entity("ModelsApi.Models.Message", b =>
                 {
-                    b.HasOne("ModelsApi.Models.Chat", "Chat")
+                    b.HasOne("ModelsApi.Models.ChatRoom", "ChatRoom")
                         .WithMany("Messages")
-                        .HasForeignKey("ChatId")
+                        .HasForeignKey("ChatRoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Chat");
+                    b.HasOne("ModelsApi.Models.Entities.EfManager", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChatRoom");
+
+                    b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("ModelsApi.Models.Chat", b =>
+            modelBuilder.Entity("ModelsApi.Models.Services.UserChatRoom", b =>
+                {
+                    b.HasOne("ModelsApi.Models.ChatRoom", "ChatRoom")
+                        .WithMany()
+                        .HasForeignKey("ChatRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ModelsApi.Models.Entities.EfManager", "user")
+                        .WithMany("UserChatRooms")
+                        .HasForeignKey("userEfManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChatRoom");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("ModelsApi.Models.ChatRoom", b =>
                 {
                     b.Navigation("Annonces");
 
                     b.Navigation("Messages");
-
-                    b.Navigation("Profils");
                 });
 
             modelBuilder.Entity("ModelsApi.Models.Entities.EfManager", b =>
                 {
                     b.Navigation("Annoncer");
 
-                    b.Navigation("Chats");
+                    b.Navigation("UserChatRooms");
                 });
 #pragma warning restore 612, 618
         }
