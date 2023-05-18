@@ -23,14 +23,15 @@ namespace ModelsApi.Data
                 SeedAccounts(context, bcryptWorkfactor);
             if (!context.Managers.Any())
                 SeedManagers(context);
+            if (!context.ChatRooms.Any())
+                SeedChatRooms(context);
             if (!context.UserChatRooms.Any())
                 SeedUserChatRooms(context);
             if (!context.Messages.Any())
                 SeedMessage(context);
             if (!context.Annonces.Any())
                 SeedAnnonces(context);
-            if (!context.ChatRooms.Any())
-                SeedChatRooms(context);
+            
         }
 
         static void SeedAccounts(ApplicationDbContext context, int bcryptWorkfactor)
@@ -67,12 +68,12 @@ namespace ModelsApi.Data
                 },
                 new ChatRoom
                 {
-                    Name = "Annonce",
+                    Name = "Annonce1",
 			       
                 },
                 new ChatRoom
                 {
-                    Name = "Annonce",
+                    Name = "Annonce2",
                 }
             );
             context.SaveChanges();
@@ -87,7 +88,7 @@ namespace ModelsApi.Data
                     
                 },
                 new UserChatRoom
-                {
+                { 
                     EfManagerId = 2,
                    ChatRoomId = 2,
                 },
