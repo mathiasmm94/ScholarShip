@@ -37,6 +37,7 @@ export function RegisterUser() {
       alert("Error: " + err);
     }
 
+    //Hello push
     
     return;
   }
