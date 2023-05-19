@@ -135,16 +135,6 @@ namespace ModelsApi.Controllers
 				return BadRequest(new {error="Not valid"});
 			}
 
-            if (string.IsNullOrEmpty(userDto.FirstName)
-                || string.IsNullOrEmpty(userDto.LastName)
-                || userDto.Birthdate == null
-                || string.IsNullOrEmpty(userDto.Password)
-                || string.IsNullOrEmpty(userDto.University)
-                || string.IsNullOrEmpty(userDto.PhoneNumber))
-            {
-                return BadRequest(new { error = "Please fill out all required fields" });
-            }
-
             userDto.Email = userDto.Email.ToLowerInvariant();
             if (await _context.Managers.AnyAsync(u => u.Email == userDto.Email))
 			{
