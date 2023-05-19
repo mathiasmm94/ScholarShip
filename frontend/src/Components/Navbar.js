@@ -20,9 +20,10 @@ export function Navbar() {
         </NavLink>
 
         {token ? (
-          <button className="nav_button" onClick={logout}>
+          <><button className="nav_button" onClick={logout}>
             Logout
           </button>
+          <NavLink to="/profile" className="nav_profile"></NavLink></>
         ) : (
           <>
             <NavLink to="/login" className="nav_button" activeClassName="nav_button_active">
