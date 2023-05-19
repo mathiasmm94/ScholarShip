@@ -91,3 +91,8 @@ body{
     font-weight: bold;
     margin-bottom: 20px;
 }
+
+.InvalidField {
+    border: 2px solid red; 
+    box-shadow: 0 0 5px red;
+  }
