@@ -71,7 +71,11 @@ body{
 ::placeholder{
     color: black;
 }
-
+:focus{
+    outline: none;
+  border-color: #007bff; 
+  box-shadow: 0 0 5px #007bff;
+}
 
 
 .RegisterSubmitButton{
