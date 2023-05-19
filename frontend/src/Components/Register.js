@@ -62,6 +62,10 @@ export function RegisterUser() {
         hasErrors = true;
       }
     }
+    if (formData.password !== formData.confirmpassword) {
+      alert("Passwords do not match");
+      hasErrors = true;
+    }
 
     setFormErrors(errors);
     return !hasErrors;
