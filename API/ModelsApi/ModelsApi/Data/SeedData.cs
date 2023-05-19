@@ -84,18 +84,18 @@ namespace ModelsApi.Data
             context.UserChatRooms.AddRange(
                 new UserChatRoom
                 {
-                    EfManagerId = 10,
+                    EfManagerId = 1,
                     ChatRoomId = 1,
                     
                 },
                 new UserChatRoom
                 { 
-                    EfManagerId = 11,
+                    EfManagerId = 2,
                    ChatRoomId = 2,
                 },
                 new UserChatRoom
                 {
-                    EfManagerId = 12,
+                    EfManagerId = 3,
                    ChatRoomId = 3,
                 }
             );
@@ -157,9 +157,9 @@ namespace ModelsApi.Data
                     Beskrivelse = "Det er en flot bog",
                     Studieretning = "SW",
                     BilledeSti = "images/book.gif",
-                    EfManagerId = 10,
+                    EfManagerId = 1,
                     Stand = "Brugt",
-                    ChatId = 1
+                    ChatRoomId = 1
                 },
                 new Annonce
                 {
@@ -169,9 +169,9 @@ namespace ModelsApi.Data
                     Beskrivelse = "Det asd er en flot bog",
                     Studieretning = "SW",
                     BilledeSti = "images/book.gif",
-                    EfManagerId = 12,
+                    EfManagerId = 2,
                     Stand = "Brugt",
-                    ChatId = 2
+                    ChatRoomId = 2
                 },
                 new Annonce
                 {
@@ -181,9 +181,9 @@ namespace ModelsApi.Data
                     Beskrivelse = "Det asd er en flot bog",
                     Studieretning = "SW",
                     BilledeSti = "images/book.gif",
-                    EfManagerId = 11,
+                    EfManagerId = 3,
                     Stand = "Brugt",
-                    ChatId = 3
+                    ChatRoomId = 3
                 }
             );
             context.SaveChanges();
@@ -194,23 +194,20 @@ namespace ModelsApi.Data
                 new Message
                 {
                     ChatRoomId = 1,
-                    MessageId = 1,
                     Content = "Hej",
-                    EfManagerId = 10,
+                    EfManagerId = 1,
+                },
+                new Message
+                {
+                    ChatRoomId = 2,
+                    Content = "Hej",
+                    EfManagerId = 2,
                 },
                 new Message
                 {
                     ChatRoomId = 3,
-                    MessageId = 1,
                     Content = "Hej",
-                    EfManagerId = 11,
-                },
-                new Message
-                {
-                    ChatRoomId = 3,
-                    MessageId = 1,
-                    Content = "Hej",
-                    EfManagerId = 12,
+                    EfManagerId = 3,
                 }
             );
             context.SaveChanges();

@@ -12,8 +12,8 @@ using ModelsApi.Data;
 namespace ModelsApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230518100625_Nye_chat_models")]
-    partial class Nye_chat_models
+    [Migration("20230518103639_Nye_Chat_Models")]
+    partial class Nye_Chat_Models
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,9 +39,6 @@ namespace ModelsApi.Data.Migrations
                     b.Property<string>("BilledeSti")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ChatId")
-                        .HasColumnType("int");
 
                     b.Property<int>("ChatRoomId")
                         .HasColumnType("int");

@@ -38,9 +38,6 @@ namespace ModelsApi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ChatId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ChatRoomId")
                         .HasColumnType("int");
 

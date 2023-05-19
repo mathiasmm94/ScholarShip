@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ModelsApi.Data.Migrations
 {
-    public partial class Nye_chat_models : Migration
+    public partial class Nye_Chat_Models : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,10 +23,6 @@ namespace ModelsApi.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Chats");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Annonces_ChatId",
-                table: "Annonces");
 
             migrationBuilder.DropIndex(
                 name: "IX_Accounts_ChatId",
@@ -51,6 +47,16 @@ namespace ModelsApi.Data.Migrations
                 table: "Messages",
                 newName: "IX_Messages_ChatRoomId");
 
+            migrationBuilder.RenameColumn(
+                name: "ChatId",
+                table: "Annonces",
+                newName: "ChatRoomId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_Annonces_ChatId",
+                table: "Annonces",
+                newName: "IX_Annonces_ChatRoomId");
+
             migrationBuilder.AddColumn<long>(
                 name: "EfManagerId",
                 table: "Messages",
@@ -64,13 +70,6 @@ namespace ModelsApi.Data.Migrations
                 type: "datetime2",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-            migrationBuilder.AddColumn<int>(
-                name: "ChatRoomId",
-                table: "Annonces",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
 
             migrationBuilder.CreateTable(
                 name: "ChatRooms",
@@ -115,11 +114,6 @@ namespace ModelsApi.Data.Migrations
                 name: "IX_Messages_EfManagerId",
                 table: "Messages",
                 column: "EfManagerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Annonces_ChatRoomId",
-                table: "Annonces",
-                column: "ChatRoomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserChatRooms_ChatRoomId",
@@ -180,10 +174,6 @@ namespace ModelsApi.Data.Migrations
                 name: "IX_Messages_EfManagerId",
                 table: "Messages");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Annonces_ChatRoomId",
-                table: "Annonces");
-
             migrationBuilder.DropColumn(
                 name: "EfManagerId",
                 table: "Messages");
@@ -191,10 +181,6 @@ namespace ModelsApi.Data.Migrations
             migrationBuilder.DropColumn(
                 name: "TimeStamp",
                 table: "Messages");
-
-            migrationBuilder.DropColumn(
-                name: "ChatRoomId",
-                table: "Annonces");
 
             migrationBuilder.RenameColumn(
                 name: "Content",
@@ -210,6 +196,16 @@ namespace ModelsApi.Data.Migrations
                 name: "IX_Messages_ChatRoomId",
                 table: "Messages",
                 newName: "IX_Messages_ChatId");
+
+            migrationBuilder.RenameColumn(
+                name: "ChatRoomId",
+                table: "Annonces",
+                newName: "ChatId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_Annonces_ChatRoomId",
+                table: "Annonces",
+                newName: "IX_Annonces_ChatId");
 
             migrationBuilder.AddColumn<int>(
                 name: "ChatId",
@@ -234,11 +230,6 @@ namespace ModelsApi.Data.Migrations
                         principalTable: "Managers",
                         principalColumn: "EfManagerId");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Annonces_ChatId",
-                table: "Annonces",
-                column: "ChatId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_ChatId",

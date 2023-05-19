@@ -30,6 +30,7 @@ export function SearchResult(props) {
         <button className="back-to-search-button" onClick={() => setSelectedAnnouncement(null)}>
           Back to search results
         </button>
+        
       </div>
     );
   }
