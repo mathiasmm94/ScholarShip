@@ -26,7 +26,7 @@ public class ChatHub : Hub
             TimeStamp = DateTime.Now
         };
 
-        _context.Messages.Add(message);
+        _context.Messages.AddAsync(message);
         await _context.SaveChangesAsync();
 
         await Clients.Group(chatRoomId.ToString()).SendAsync("Receive Message", message);
