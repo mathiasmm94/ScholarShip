@@ -132,23 +132,31 @@ namespace ModelsApi.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return BadRequest(ModelState);
+				return BadRequest(new {error="Not valid"});
 			}
 
-			userDto.Email = userDto.Email.ToLowerInvariant();
-			if (await _context.Managers.AnyAsync(u => u.Email == userDto.Email))
+            if (string.IsNullOrEmpty(userDto.FirstName)
+                || string.IsNullOrEmpty(userDto.LastName)
+                || userDto.Birthdate == null
+                || string.IsNullOrEmpty(userDto.Password)
+                || string.IsNullOrEmpty(userDto.University)
+                || string.IsNullOrEmpty(userDto.PhoneNumber))
+            {
+                return BadRequest(new { error = "Please fill out all required fields" });
+            }
+
+            userDto.Email = userDto.Email.ToLowerInvariant();
+            if (await _context.Managers.AnyAsync(u => u.Email == userDto.Email))
 			{
-				ModelState.AddModelError("email", "Email already exists");
-				return BadRequest(ModelState);
-			}
+                return BadRequest(new { error = "Email already exists" });
+            }
 
 			if (await _context.Managers.AnyAsync(u => u.PhoneNumber == userDto.PhoneNumber))
 			{
-				ModelState.AddModelError("PhoneNumber", "Phone number already exists");
-				return BadRequest(ModelState);
-			}
+                return BadRequest(new { error = "Phonenumber already exists" });
+            }
 
-			var pwHash = HashPassword(userDto.Password, _appSettings.BcryptWorkfactor);
+            var pwHash = HashPassword(userDto.Password, _appSettings.BcryptWorkfactor);
 
 			var user = new EfManager()
 			{

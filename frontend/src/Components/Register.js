@@ -27,8 +27,11 @@ export function RegisterUser() {
       if (response.ok) {
         console.log("success");
         navigate("/home");
-      } else {
-        alert("Server returned: " + response.statusText);
+      } 
+      else {
+      const responseData = await response.json();
+      const errorMessage = responseData.error; // Access the error message sent from the backend
+      alert(errorMessage);
       }
     } catch (err) {
       alert("Error: " + err);
