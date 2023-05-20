@@ -1,6 +1,6 @@
 .form-input {
   display: block;
-  width: 220px;
+  width: 400px;
   margin: 0 auto;
   padding: 8px;
   border: 1px solid #ccc;
@@ -46,7 +46,7 @@
 }
 .form-textarea {
   display: block;
-  width: 200px;
+  width: 382px;
   margin: 0 auto;
   padding: 8px;
   border: 1px solid #ccc;
