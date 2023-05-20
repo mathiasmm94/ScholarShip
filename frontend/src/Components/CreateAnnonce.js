@@ -10,6 +10,7 @@ export function CreateAnnonce() {
   const [billedesti, setBilledsti] = useState("");
   const [stand, setStand] = useState("");
   const [chatId, setChatId] = useState("");
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const initialFormData = {
     price: "",
@@ -22,14 +23,29 @@ export function CreateAnnonce() {
     chatId: "",
   };
 
-  const [, setFormData] = useState(initialFormData);
-
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     postAnnonce();
-    setFormData(initialFormData);
+    setPrice(initialFormData.price);
+    setTitel(initialFormData.titel);
+    setKategori(initialFormData.kategori);
+    setBeskrivelse(initialFormData.beskrivelse);
+    setStudieretning(initialFormData.studieretning);
+    setBilledsti(initialFormData.billedesti);
+    setStand(initialFormData.stand);
+    setChatId(initialFormData.chatId);
+    setIsFormSubmitted(true);
   };
   const handleCancel = () => {
-    setFormData(initialFormData);
+    setPrice(initialFormData.price);
+    setTitel(initialFormData.titel);
+    setKategori(initialFormData.kategori);
+    setBeskrivelse(initialFormData.beskrivelse);
+    setStudieretning(initialFormData.studieretning);
+    setBilledsti(initialFormData.billedesti);
+    setStand(initialFormData.stand);
+    setChatId(initialFormData.chatId);
+    setIsFormSubmitted(true);
     alert("Annonce er annulleret");
   };
 
@@ -100,6 +116,7 @@ export function CreateAnnonce() {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           placeholder="Indsæt pris"
+          required={!isFormSubmitted}
         />
 
         <input
@@ -109,6 +126,7 @@ export function CreateAnnonce() {
           value={titel}
           onChange={(e) => setTitel(e.target.value)}
           placeholder="Indsæt titel"
+          required={!isFormSubmitted}
         />
 
         <input
@@ -118,6 +136,7 @@ export function CreateAnnonce() {
           value={kategori}
           onChange={(e) => setKategori(e.target.value)}
           placeholder="Indsæt kategori"
+          required={!isFormSubmitted}
         />
 
         <textarea
@@ -126,6 +145,7 @@ export function CreateAnnonce() {
           value={beskrivelse}
           onChange={(e) => setBeskrivelse(e.target.value)}
           placeholder="Indsæt beskrivelse"
+          required={!isFormSubmitted}
         ></textarea>
 
         <input
@@ -135,6 +155,7 @@ export function CreateAnnonce() {
           value={studieretning}
           onChange={(e) => setStudieretning(e.target.value)}
           placeholder="Indsæt studieretning"
+          required={!isFormSubmitted}
         />
 
         <input
@@ -144,6 +165,7 @@ export function CreateAnnonce() {
           value={billedesti}
           onChange={(e) => setBilledsti(e.target.value)}
           placeholder="Indsæt billedesti"
+          required={!isFormSubmitted}
         />
 
         <select
@@ -151,6 +173,8 @@ export function CreateAnnonce() {
           id="Condition"
           value={stand}
           onChange={(e) => setStand(e.target.value)}
+          requirrequired={!isFormSubmitted}
+          ed
         >
           <option value="">Vælg stand</option>
           <option value="Som ny">Som ny</option>
@@ -166,6 +190,7 @@ export function CreateAnnonce() {
           value={chatId}
           onChange={(e) => setChatId(e.target.value)}
           placeholder="Indsæt ChatId"
+          required={!isFormSubmitted}
         />
 
         <div className="button-container">
