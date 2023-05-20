@@ -17,19 +17,16 @@ import { RegisterUser } from "./Components/Register.js";
 
 function App() {
   return (
-    <Router>
+    <><Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Search/>}> </Route>
-        <Route path="login" element={<LogInForm/>}></Route>
-        <Route path="register" element={<RegisterUser/>}></Route>
+        <Route path="/" element={<Search />}> </Route>
+        <Route path="/CreateAnnonce" element={<CreateAnnonce />} ></Route>
+        <Route path="login" element={<LogInForm />}></Route>
+        <Route path="register" element={<RegisterUser />}></Route>
       </Routes>
-    </Router>
-
-    
-     
-      <><CreateAnnonce />
-      <DeleteButtonReal></DeleteButtonReal></>
+    </Router><>
+        <DeleteButtonReal></DeleteButtonReal></></>
 
 // <><Router>
       //   <Navbar />

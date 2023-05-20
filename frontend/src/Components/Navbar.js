@@ -15,7 +15,7 @@ export function Navbar() {
       <div className="nav_bar">
         <img src="/images/LOGO.jpg" alt="Logo" />
 
-        <NavLink to="/" className="nav_button_sale" activeClassName="nav_button_active">
+        <NavLink to="/CreateAnnonce" className="nav_button_sale" activeClassName="nav_button_active">
           Sælg dine bøger
         </NavLink>
 
