@@ -1,4 +1,4 @@
-import{ useState } from "react";
+import{ useState,useEffect } from "react";
 import "./CSS/Annonce.css";
 
 export function CreateAnnonce() {
@@ -8,10 +8,11 @@ export function CreateAnnonce() {
   const [beskrivelse, setBeskrivelse] = useState("");
   const [studieretning, setStudieretning] = useState("");
   const [billedesti, setBilledsti] = useState("");
-  const [efManagerId, setEfManagerId] = useState("");
+  //const [efManagerId, setEfManagerId] = useState("");
   const [stand, setStand] = useState("");
   const [chatId, setChatId] = useState("");
 
+  
   const handleSubmit = () => {
     postAnnonce();
   };
@@ -19,7 +20,6 @@ export function CreateAnnonce() {
   const decodeToken = () =>{
     const t = localStorage.getItem('token');
     let user = parseJwt(t);
-    setEfManagerId(user.EfManagerId);
     console.log(user);
     return user.EfManagerId;
   }
@@ -36,8 +36,8 @@ export function CreateAnnonce() {
   const postAnnonce = async () => {
     try {
       const token = localStorage.getItem('token');
-      console.log(token.user);
-      decodeToken();
+      console.log(token);
+      
       
       const response = await fetch("https://localhost:7181/api/Annonces", {
         method: "POST",
@@ -49,7 +49,7 @@ export function CreateAnnonce() {
           Beskrivelse: beskrivelse,
           Studieretning: studieretning,
           BilledeSti: billedesti,
-          EfManagerId: efManagerId,
+          EfManagerId: decodeToken(),
           Stand: stand,
           ChatId: chatId,
         }),
@@ -63,7 +63,6 @@ export function CreateAnnonce() {
       console.log("data received:", data);
     } catch (error) {
       console.log("Error:  ", error);
-      console.log(efManagerId);
     }
   };
 

@@ -56,12 +56,16 @@ namespace ModelsApi.Controllers
                 var account = await _context.Accounts.Where(u => u.Email == login.Email)
                     .FirstOrDefaultAsync().ConfigureAwait(false);
 
+
                 if (account != null)
                 {
                     var validPwd = Verify(login.Password, account.PwHash);
                     if (validPwd)
                     {
 	                    long modelId = -1;
+                        long efManagerId = -1;
+                        var EfManager = await _context.Managers.FirstOrDefaultAsync(m => m.EfAccountId == account.EfAccountId);
+                        if (EfManager != null) { efManagerId = EfManager.EfManagerId; }
                         /*if (!account.IsManager)
                         {
                             var model = await _context.Models.Where(m => m.EfAccountId == account.EfAccountId)
@@ -69,7 +73,7 @@ namespace ModelsApi.Controllers
                             if (model != null)
                                 modelId = model.EfModelId;
                         }*/
-                        var jwt = GenerateToken(account.Email, modelId);
+                        var jwt = GenerateToken(account.Email, efManagerId);
                         var token = new Token() { JWT = jwt };
                         return token;
                     }
@@ -105,6 +109,7 @@ namespace ModelsApi.Controllers
                 ModelState.AddModelError("email", "Not found!");
                 return BadRequest(ModelState);
             }
+            
             var validPwd = Verify(login.OldPassword, account.PwHash);
             if (validPwd)
             {
@@ -168,7 +173,7 @@ namespace ModelsApi.Controllers
 
 
 
-		private string GenerateToken(string email, long modelId)
+		private string GenerateToken(string email, long EfMangerId)
         {
             Claim roleClaim;
             
@@ -178,6 +183,7 @@ namespace ModelsApi.Controllers
                 new Claim(ClaimTypes.Email, email),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
+                new Claim("EfManagerId", EfMangerId.ToString())
             };
 
             var key = Encoding.ASCII.GetBytes(_appSettings.SecretKey);
