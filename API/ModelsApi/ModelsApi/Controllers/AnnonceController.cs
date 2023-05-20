@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ModelsApi.Data;
 using ModelsApi.Models;
@@ -7,6 +8,7 @@ using ModelsApi.Models.DTOs;
 namespace ModelsApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class AnnoncesController : ControllerBase
     {

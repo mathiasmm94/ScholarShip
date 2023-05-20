@@ -16,11 +16,32 @@ export function CreateAnnonce() {
     postAnnonce();
   };
 
+  const decodeToken = () =>{
+    const t = localStorage.getItem('token');
+    let user = parseJwt(t);
+    setEfManagerId(user.EfManagerId);
+    console.log(user);
+    return user.EfManagerId;
+  }
+  function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+}
+
   const postAnnonce = async () => {
     try {
+      const token = localStorage.getItem('token');
+      console.log(token.user);
+      decodeToken();
+      
       const response = await fetch("https://localhost:7181/api/Annonces", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
           Price: price,
           Titel: titel,
@@ -42,6 +63,7 @@ export function CreateAnnonce() {
       console.log("data received:", data);
     } catch (error) {
       console.log("Error:  ", error);
+      console.log(efManagerId);
     }
   };
 
@@ -101,14 +123,14 @@ export function CreateAnnonce() {
           placeholder="Indsæt billedesti"
         />
 
-        <input
+       {/* <input
           className="form-input"
           type="number"
           id="ManagerId"
           value={efManagerId}
           onChange={(e) => setEfManagerId(e.target.value)}
           placeholder="Indsæt EfManagerId"
-        />
+        /> */}
 
         <select
           className="form-input"
