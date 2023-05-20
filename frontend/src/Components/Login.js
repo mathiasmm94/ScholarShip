@@ -20,7 +20,7 @@ export function LogInForm() {
         let token = await response.json();
         localStorage.setItem("token", token.jwt);
         console.log("success");
-        navigate("/home");
+        navigate("/");
       } else {
         alert("Server returned: " + response.statusText);
       }
@@ -29,6 +29,7 @@ export function LogInForm() {
     }
     return;
   }
+
 
   function handleChange(event) {
     const { name, value } = event.target;
