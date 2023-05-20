@@ -1,0 +1,52 @@
+body{
+    background-color: #014e71;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+    border-width: medium;
+    padding: 60px;
+    padding-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 250px;
+    background-color: #7c9ea6;
+  }
+
+
+.LogInInput{
+    font-family: "Montserrat-Alt1";
+    height: 40px;
+    width: 290px;
+    padding-left: 10px;
+    text-align: 50%;
+    border-style: solid;
+    border-width: small;
+    border-color: black;  
+    margin-bottom: 20px;
+    font-size: large;
+}
+::placeholder{
+    color: black;
+}
+
+.logInSubmitButton{
+    font-family: "Montserrat-Alt1";
+    background-color: #ffd604;
+    height: 30px;
+    width: 100px;
+    font-weight: bold;
+    font-size: large;
+    margin-right: 210px;
+}
+
+.LogInText{
+    font-family: "Montserrat-Alt1";
+    font-size: 300%;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 20px;
+}

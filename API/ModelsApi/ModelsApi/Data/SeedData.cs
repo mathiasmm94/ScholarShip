@@ -17,13 +17,17 @@ namespace ModelsApi.Data
         internal static void SeedData(ApplicationDbContext context, int bcryptWorkfactor)
         {
             context.Database.EnsureCreated();
-            if (!context.Accounts.Any())
+            if (!context.Chats.Any())
+	            SeedChat(context);
+			if (!context.Accounts.Any())
                 SeedAccounts(context, bcryptWorkfactor);
             if (!context.Managers.Any())
                 SeedManagers(context);
-           /* if (!context.Annonces.Any())
-                SeedAnnonces(context);*/
-        }
+            if (!context.Annonces.Any())
+                SeedAnnonces(context);
+           
+
+		}
 
         static void SeedAccounts(ApplicationDbContext context, int bcryptWorkfactor)
         {
@@ -49,7 +53,26 @@ namespace ModelsApi.Data
             context.SaveChanges();
         }
 
-        static void SeedManagers(ApplicationDbContext context)
+        static void SeedChat(ApplicationDbContext context)
+        {
+	        context.Chats.AddRange(
+		        new Chat
+		        {
+                    
+		        },
+		        new Chat
+		        {
+			       
+		        },
+		        new Chat
+		        {
+			       
+		        }
+	        );
+	        context.SaveChanges();
+        }
+
+		static void SeedManagers(ApplicationDbContext context)
         {
             context.Managers.AddRange(
                 new EfManager
@@ -82,8 +105,7 @@ namespace ModelsApi.Data
             context.Annonces.AddRange(
                 new Annonce
                 {
-                   AnnonceId = 1,
-                   Price = 10.2,
+	                Price = 10.2,
                    Titel = "My first",
                    Kategori = "Bog",
                    Beskrivelse = "Det er en flot bog",
@@ -95,8 +117,7 @@ namespace ModelsApi.Data
                 },
                 new Annonce
                 {
-                    AnnonceId = 2,
-                    Price = 10.2,
+	                Price = 10.2,
                     Titel = "My first book",
                     Kategori = "Bog",
                     Beskrivelse = "Det asd er en flot bog",
@@ -108,8 +129,7 @@ namespace ModelsApi.Data
                 },
                 new Annonce
                 {
-                    AnnonceId = 3,
-                    Price = 1011.2,
+	                Price = 1011.2,
                     Titel = "My first book",
                     Kategori = "Bog",
                     Beskrivelse = "Det asd er en flot bog",
@@ -123,24 +143,7 @@ namespace ModelsApi.Data
             context.SaveChanges();
         }
         
-        static void SeedChat(ApplicationDbContext context)
-        {
-            context.Chats.AddRange(
-                new Chat
-                {
-                    ChatId = 1
-                },
-                new Chat
-                {
-                   ChatId = 2
-                },
-                new Chat
-                {
-                  ChatId = 3
-                }
-            );
-            context.SaveChanges();
-        }
+
         
         
         static void SeedMessage(ApplicationDbContext context)

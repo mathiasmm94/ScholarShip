@@ -8,6 +8,9 @@ using ModelsApi.Data;
 using ModelsApi.Utilities;
 using System.Reflection;
 using System.Text;
+using ModelsApi.Interfaces;
+using ModelsApi.Models.Services;
+using ScholarShip.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetSection("ConnectionString").Get<string>();
@@ -87,6 +90,8 @@ builder.Services.AddSwaggerGen(c =>
     c.AddSecurityRequirement(securityRequirements);
 });
 
+builder.Services.AddTransient<IRepository, Repository>();
+builder.Services.AddTransient<IAnnonceSearchService, AnnonceSearchService>();
 //Skriv nedenst?ende for at lave connection ! Tilf?j standard connectionstring
 //cd /.ScholarShip
 //dotnet user-secrets init
