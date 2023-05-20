@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./CSS/SearchResult.css";
 import "./CSS/SearchButton.css";
-import { Footer } from "./Footer";
+
 
 
 export function SearchResult(props) {
