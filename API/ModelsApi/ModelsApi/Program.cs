@@ -8,6 +8,7 @@ using ModelsApi.Data;
 using ModelsApi.Utilities;
 using System.Reflection;
 using System.Text;
+using ModelsApi.Hubs;
 using ModelsApi.Interfaces;
 using ModelsApi.Models.Services;
 using ScholarShip.Data.Repository;
@@ -21,7 +22,7 @@ builder.Services.AddCors();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddControllers();
-
+builder.Services.AddSignalR();
 // configure strongly typed settings objects
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);
@@ -123,7 +124,9 @@ app.UseCors(x => x
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllers();
+app.MapHub<ChatHub>("/Chat");
 
 app.UseCors("AllowAllOrigins");
 
