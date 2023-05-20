@@ -105,6 +105,7 @@ namespace ModelsApi.Controllers
                 ModelState.AddModelError("email", "Not found!");
                 return BadRequest(ModelState);
             }
+            
             var validPwd = Verify(login.OldPassword, account.PwHash);
             if (validPwd)
             {
