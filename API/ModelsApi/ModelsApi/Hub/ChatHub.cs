@@ -32,10 +32,14 @@ public class ChatHub : Hub
         await Clients.Group(chatRoomId.ToString()).SendAsync("Receive Message", message);
     }
 
-    public async Task JoinChatRoom(int chatRoomId)
+    public async Task JoinChatRoom(int annonceId)
     {
-        // Add the user to the chat room group
-        await Groups.AddToGroupAsync(Context.ConnectionId, chatRoomId.ToString());
+        var annonce = await _context.Annonces.FindAsync(annonceId);
+
+        if (annonce != null && annonce.ChatRoomId != 0)
+        {
+            await JoinChatRoom(annonce.ChatRoomId);
+        }
     }
 
     public async Task LeaveChatRoom(int chatRoomId)

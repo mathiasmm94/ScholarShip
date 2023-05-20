@@ -1,7 +1,8 @@
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import React from "react";
+import { SignalRService } from "../signalrService";
 
 
-export function SignalRService(){
+export function Chat(){
     const [connection, setConnection] = useState();
     const [messages, setMessages] = useState([]);
     const [users, setUsers] = useState([]);
@@ -51,5 +52,5 @@ export function SignalRService(){
       }
     }
   
+    
 }
-

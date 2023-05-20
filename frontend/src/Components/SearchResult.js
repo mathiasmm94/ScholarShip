@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./CSS/SearchResult.css";
 
+
 export function SearchResult(props) {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const results = props.results;
@@ -13,7 +14,21 @@ export function SearchResult(props) {
     setSelectedAnnouncement(announcement);
   };
 
+
+
   if (selectedAnnouncement) {
+    const annonceId = selectedAnnouncement.annonceId;
+    fetch(`https://localhost:7181/api/chat/annonce/${annonceId}/owner`)
+  .then(response => response.json())
+  .then(data => {
+    // Handle the retrieved owner data
+    console.log(data); // Replace with your logic to display the owner's information
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+
     return (
       <div className="selected-announcement">
         <h2>{selectedAnnouncement.titel}</h2>

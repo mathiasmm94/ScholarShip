@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using ModelsApi.Data;
 using ModelsApi.Models;
 using ModelsApi.Models.Entities;
+using System.Text.Json;
 
 namespace ModelsApi.Controllers;
+
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -50,6 +52,25 @@ public class ChatController : ControllerBase
             .ToListAsync();
 
         return Ok(messages);
+    }
+    [HttpGet("annonce/{annonceId}/owner")]
+    public async Task<ActionResult<EfManager>> GetAdOwner(int annonceId)
+    {
+        var annonce = await _context.Annonces.FindAsync(annonceId);
+
+        if (annonce == null)
+        {
+            return NotFound();
+        }
+
+        var owner = await _context.Managers.FindAsync(annonce.EfManagerId);
+
+        if (owner == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(owner);
     }
     
     [HttpPost("rooms/{roomId}/messages")]
