@@ -37,6 +37,7 @@ export function CreateAnnonce() {
       if (!response.ok) {
         throw new Error("couldnt post ad");
       }
+      alert('Annonce er tilføjet');
       const data = await response.json();
       console.log("data received:", data);
     } catch (error) {

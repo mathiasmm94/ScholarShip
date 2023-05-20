@@ -23,6 +23,7 @@ namespace ModelsApi.Controllers
         {
             if (_context.Annonces == null)
             {
+               
                 return NotFound();
             }
             return await _context.Annonces.ToListAsync();
