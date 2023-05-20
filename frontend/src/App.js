@@ -9,9 +9,9 @@ import { Navbar } from "./Components/Navbar.js";
 
 import "./App.css"
 import { CreateAnnonce } from "./Components/CreateAnnonce.js";
-import DeleteButtonReal from "./Components/deletebutton.js";
 import { LogInForm } from "./Components/Login.js";
 import { RegisterUser } from "./Components/Register.js";
+import { ProfilePage } from "./Components/ProfilePage.js";
 
 
 
@@ -24,19 +24,11 @@ function App() {
         <Route path="/CreateAnnonce" element={<CreateAnnonce />} ></Route>
         <Route path="login" element={<LogInForm />}></Route>
         <Route path="register" element={<RegisterUser />}></Route>
+        <Route path="/profile" element={<ProfilePage/>} ></Route>
       </Routes>
     </Router><>
-        <DeleteButtonReal></DeleteButtonReal></></>
+        </></>
 
-// <><Router>
-      //   <Navbar />
-      //   <Routes>
-      //   </Routes>
-      //   <div className="main">
-      //     <Search />
-      //   </div>
-      // </Router>
-    // </>
 
   );
 
