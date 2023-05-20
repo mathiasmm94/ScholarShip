@@ -13,7 +13,7 @@ function RandomProducts() {
 
   async function getRandomProducts() {
     try {
-      const response = await axios.get('https://localhost:7181/api/Search/My');
+      const response = await axios.get('https://localhost:7181/api/Annonces');
       const allProducts = response.data;
       const randomIndices = generateRandomIndices(allProducts.length, 9); // Generer 9 tilfældige indekser
       const randomProducts = randomIndices.map(index => allProducts[index]); // Få de tilfældige produkter
