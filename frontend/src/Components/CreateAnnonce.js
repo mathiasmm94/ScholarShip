@@ -1,4 +1,4 @@
-import{ useState,useEffect } from "react";
+import{ useState } from "react";
 import "./CSS/Annonce.css";
 
 export function CreateAnnonce() {
@@ -8,13 +8,30 @@ export function CreateAnnonce() {
   const [beskrivelse, setBeskrivelse] = useState("");
   const [studieretning, setStudieretning] = useState("");
   const [billedesti, setBilledsti] = useState("");
-  //const [efManagerId, setEfManagerId] = useState("");
   const [stand, setStand] = useState("");
   const [chatId, setChatId] = useState("");
 
+  const initialFormData = {
+    price: "",
+    titel: "",
+    kategori: "",
+    beskrivelse: "",
+    studieretning: "",
+    billedesti: "",
+    stand: "",
+    chatId: "",
+  };
+
+  const [, setFormData] = useState(initialFormData);
+  
   
   const handleSubmit = () => {
     postAnnonce();
+    setFormData(initialFormData);
+  };
+  const handleCancel = () => {
+    setFormData(initialFormData);
+    alert('Annonce er annulleret');
   };
 
   const decodeToken = () =>{
@@ -64,11 +81,17 @@ export function CreateAnnonce() {
     } catch (error) {
       console.log("Error:  ", error);
     }
+    
   };
 
   return (
     <div className="form-border">
       <form onSubmit={handleSubmit}>
+        <label
+        className="form-label"
+        >
+          Oprettelse af annonce
+        </label>
         <input
           className="form-input"
           type="number"
@@ -122,15 +145,6 @@ export function CreateAnnonce() {
           placeholder="Indsæt billedesti"
         />
 
-       {/* <input
-          className="form-input"
-          type="number"
-          id="ManagerId"
-          value={efManagerId}
-          onChange={(e) => setEfManagerId(e.target.value)}
-          placeholder="Indsæt EfManagerId"
-        /> */}
-
         <select
           className="form-input"
           id="Condition"
@@ -153,9 +167,14 @@ export function CreateAnnonce() {
           placeholder="Indsæt ChatId"
         />
 
-        <button className="submitbutton" type="submit">
-          OPRET ANNONCE!
-        </button>
+<div className="button-container">
+  <button className="submitbutton" type="submit">
+    Opret annonce!
+  </button>
+  <button className="cancelbutton" onClick={handleCancel}>
+    Annuller ændring
+  </button>
+</div>
       </form>
     </div>
   );
