@@ -1,4 +1,4 @@
-import{ useState } from "react";
+import { useState } from "react";
 import "./CSS/Annonce.css";
 
 export function CreateAnnonce() {
@@ -23,42 +23,48 @@ export function CreateAnnonce() {
   };
 
   const [, setFormData] = useState(initialFormData);
-  
-  
+
   const handleSubmit = () => {
     postAnnonce();
     setFormData(initialFormData);
   };
   const handleCancel = () => {
     setFormData(initialFormData);
-    alert('Annonce er annulleret');
+    alert("Annonce er annulleret");
   };
 
-  const decodeToken = () =>{
-    const t = localStorage.getItem('token');
+  const decodeToken = () => {
+    const t = localStorage.getItem("token");
     let user = parseJwt(t);
     console.log(user);
     return user.EfManagerId;
-  }
-  function parseJwt (token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+  };
+  function parseJwt(token) {
+    var base64Url = token.split(".")[1];
+    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    var jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
 
     return JSON.parse(jsonPayload);
-}
+  }
 
   const postAnnonce = async () => {
     try {
-      const token = localStorage.getItem('token');
-      console.log(token);
-      
-      
+      const token = localStorage.getItem("token");
+
       const response = await fetch("https://localhost:7181/api/Annonces", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           Price: price,
           Titel: titel,
@@ -75,23 +81,18 @@ export function CreateAnnonce() {
       if (!response.ok) {
         throw new Error("couldnt post ad");
       }
-      alert('Annonce er tilføjet');
+      alert("Annonce er tilføjet");
       const data = await response.json();
       console.log("data received:", data);
     } catch (error) {
       console.log("Error:  ", error);
     }
-    
   };
 
   return (
     <div className="form-border">
       <form onSubmit={handleSubmit}>
-        <label
-        className="form-label"
-        >
-          Oprettelse af annonce
-        </label>
+        <label className="form-label">Oprettelse af annonce</label>
         <input
           className="form-input"
           type="number"
@@ -167,14 +168,14 @@ export function CreateAnnonce() {
           placeholder="Indsæt ChatId"
         />
 
-<div className="button-container">
-  <button className="submitbutton" type="submit">
-    Opret annonce!
-  </button>
-  <button className="cancelbutton" onClick={handleCancel}>
-    Annuller ændring
-  </button>
-</div>
+        <div className="button-container">
+          <button className="submitbutton" type="submit">
+            Opret annonce!
+          </button>
+          <button className="cancelbutton" onClick={handleCancel}>
+            Annuller ændring
+          </button>
+        </div>
       </form>
     </div>
   );
