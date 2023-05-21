@@ -127,7 +127,6 @@ export function UpdateAnnonce() {
       if (!response.ok) {
         throw new Error("couldnt update ad");
       }
-      alert('Annonce er nu opdateret');
       const data = await response.json();
       console.log("data received:", data);
     } catch (error) {
