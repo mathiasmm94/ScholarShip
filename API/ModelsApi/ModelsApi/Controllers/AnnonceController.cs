@@ -96,12 +96,16 @@ namespace ModelsApi.Controllers
         // POST: api/Annonces
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Annonce>> PostAnnonce(AnnonceDTO annonce)
+        public async Task<ActionResult<AnnonceDTO>> PostAnnonce(AnnonceDTO annonce)
         {
             if (_context.Annonces == null)
             {
                 return Problem("Entity set 'DBcontext.Annonces'  is null.");
             }
+            ChatRoom c = new ChatRoom();
+            _context.ChatRooms.Add(c);
+            await _context.SaveChangesAsync();
+
             Annonce annonce1 = new Annonce {
             AnnonceId=annonce.AnnonceId,
             Beskrivelse=annonce.Beskrivelse,
@@ -112,16 +116,30 @@ namespace ModelsApi.Controllers
             Titel = annonce.Titel,
             Price = annonce.Price,
             Kategori = annonce.Kategori,
-            ChatRoomId = annonce.ChatRoomId,
+            ChatRoomId = c.ChatRoomId,
             NumberOfWeeks=annonce.NumberOfWeeks,
             CheckBoxValue=annonce.CheckBoxValue           
             };
-            
-
+                      
             _context.Annonces.Add(annonce1);
             await _context.SaveChangesAsync();
+            AnnonceDTO annonce2 = new AnnonceDTO
+            {
+                AnnonceId = annonce1.AnnonceId,
+                Beskrivelse = annonce1.Beskrivelse,
+                BilledeSti = annonce1.BilledeSti,
+                EfManagerId = annonce1.EfManagerId,
+                Stand = annonce1.Stand,
+                Studieretning = annonce1.Studieretning,
+                Titel = annonce1.Titel,
+                Price = annonce1.Price,
+                Kategori = annonce1.Kategori,
+                ChatRoomId = c.ChatRoomId,
+                NumberOfWeeks = annonce1.NumberOfWeeks,
+                CheckBoxValue = annonce1.CheckBoxValue
+            };
 
-            return CreatedAtAction("GetAnnonce", new { id = annonce1.AnnonceId }, annonce1);
+            return CreatedAtAction("GetAnnonce", new { id = annonce2.AnnonceId }, annonce2);
         }
 
         // DELETE: api/Annonces/5

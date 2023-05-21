@@ -9,7 +9,6 @@ export function CreateAnnonce() {
   const [studieretning, setStudieretning] = useState("");
   const [billedesti, setBilledsti] = useState("");
   const [stand, setStand] = useState("");
-  const [chatRoomId, setChatRoomId] = useState("");
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
   const [cardNumber, setCardNumber] = useState("");
@@ -25,7 +24,6 @@ export function CreateAnnonce() {
     studieretning: "",
     billedesti: "",
     stand: "",
-    chatRoomId: "",
     expiryDate: "",
     securityCode: "",
     cardNumber: "",
@@ -37,9 +35,7 @@ export function CreateAnnonce() {
     if (showPaymentPopup) {
       submitPaymentForm();
     } else {
-      //postChat();
       postAnnonce();
-
     }
     setPrice(initialFormData.price);
     setTitel(initialFormData.titel);
@@ -48,7 +44,6 @@ export function CreateAnnonce() {
     setStudieretning(initialFormData.studieretning);
     setBilledsti(initialFormData.billedesti);
     setStand(initialFormData.stand);
-    setChatRoomId(initialFormData.chatRoomId);
     setCardNumber(initialFormData.cardNumber);
     setExpiryDate(initialFormData.expiryDate);
     setSecurityCode(initialFormData.securityCode);
@@ -63,7 +58,6 @@ export function CreateAnnonce() {
     setStudieretning(initialFormData.studieretning);
     setBilledsti(initialFormData.billedesti);
     setStand(initialFormData.stand);
-    setChatRoomId(initialFormData.chatRoomId);
     setCardNumber(initialFormData.cardNumber);
     setExpiryDate(initialFormData.expiryDate);
     setSecurityCode(initialFormData.securityCode);
@@ -81,16 +75,13 @@ export function CreateAnnonce() {
   };
 
   const submitPaymentForm = () => {
-    // Perform payment processing with cardNumber, expiryDate, and securityCode
-    // You can add your logic here to handle the payment details
     console.log("Payment submitted:", cardNumber, expiryDate, securityCode);
     alert("Payment submitted successfully!");
-    // Continue with posting the ad or perform additional actions
     postAnnonce();
   };
-    
-  const decodeToken = () =>{
-    const t = localStorage.getItem('token');
+
+  const decodeToken = () => {
+    const t = localStorage.getItem("token");
     let user = parseJwt(t);
     console.log(user);
     return user.EfManagerId;
@@ -110,57 +101,7 @@ export function CreateAnnonce() {
 
     return JSON.parse(jsonPayload);
   }
-  const postChat=async () =>{
-    try {
-      
-      const response = await fetch("https://localhost:7181/api/Chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        
-        },
-        body: JSON.stringify({
-        }),
-      });
-      console.log(response);
-      if (!response.ok) {
-        throw new Error("couldnt post ad");
-      }
-      alert("Annonce er tilføjet");
-      const datachat = await response.json();
-      console.log("data received:", datachat);
-    } catch (error) {
-      console.log("Error:  ", error);
-    }
-  };
-  useEffect(()=>{
-    postChat().then((datachat)=>{
-    setChatRoomId(datachat.chatRoomId);
-    console.log(datachat.ChatRoomId);})
-    
-  },[])
 
-  // const getChat = async () => {
-  //   try {
-  //     const response = await fetch(`https://localhost:7181/api/Chat/Rooms/${id}`, {
-  //       method: "GET",
-  //       headers: { "Content-Type": "application/json" },
-  //     });
-  //     console.log(response);
-      
-  //     if (!response.ok) {
-  //       throw new Error("couldnt get ad");
-        
-  //     }
-  //     const data = await response.json();
-      
-  //     console.log("data received:", data);
-  //     return data
-  //   } catch (error) {
-  //     console.log("Error:  ", error);
-  //   }
-    
-  // };    
   const postAnnonce = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -180,7 +121,6 @@ export function CreateAnnonce() {
           BilledeSti: billedesti,
           EfManagerId: decodeToken(),
           Stand: stand,
-          ChatRoomId: chatRoomId,
           CheckboxValue: showPaymentPopup,
           NumberOfWeeks: numberOfWeeks,
         }),
@@ -349,7 +289,7 @@ export function CreateAnnonce() {
               id="securityCode"
               value={securityCode}
               onChange={(e) => {
-                const input = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+                const input = e.target.value.replace(/\D/g, "");
                 setSecurityCode(input);
               }}
               onKeyDown={(e) => {
