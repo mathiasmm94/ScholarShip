@@ -15,7 +15,6 @@ export function UpdateAnnonce() {
       const [billedesti, setBilledsti] = useState("");
       const [efManagerId, setEfManagerId] = useState("");
       const [stand, setStand] = useState("");
-      const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -93,14 +92,11 @@ export function UpdateAnnonce() {
             setStudieretning(data.studieretning)
             setTitel(data.titel);
             setKategori(data.kategori);
-            if(data.CheckboxValue == true){
-              setCardNumber(data.cardNumber);
-              setSecurityCode(data.securityCode);
-            }
-          
+            setNumberOfWeeks(data.numberOfWeeks);
+            setShowPaymentPopup(data.showPaymentPopup);
         })
 
-      }, [])
+      }, []);
 
 
   const updateAnnonce2 = async () => {
@@ -221,7 +217,7 @@ export function UpdateAnnonce() {
           checked={showPaymentPopup}
           onChange={handleCheckboxChange}
         />
-        <label htmlFor="paymentCheckbox">Promover annonce </label>
+        <label htmlFor="paymentCheckbox">Vis promovering </label>
 
         {showPaymentPopup && (
           <div className={`payment-popup ${showPaymentPopup ? "show" : ""}`}>
