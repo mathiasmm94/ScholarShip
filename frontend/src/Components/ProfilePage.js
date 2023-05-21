@@ -7,11 +7,12 @@ export const ProfilePage = () => {
     useEffect(() => {
       fetchData();
     }, []);
-  
+    
+
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const managerId = decodeToken(token);
+        const efManagerId = Number( decodeToken(token));
   
         const response = await fetch("https://localhost:7181/api/Annonces", {
           method: "GET",
@@ -29,8 +30,15 @@ export const ProfilePage = () => {
         console.log("Data received:", data);
   
         // Filter ads based on the managerId
-        const filteredAds = data.filter((ad) => ad.managerID === managerId);
+        const filteredAds = [];
+        data.forEach((ad) => {
+          if (ad.efManagerId === efManagerId) {
+            filteredAds.push(ad);
+          }
+        });
+        console.log("efManagerId values in data:", data.map((ad) => ad.efManagerId));
         setFilteredAds(filteredAds);
+        console.log("filtered ads:",filteredAds);
       } catch (error) {
         console.log("Error:", error);
       }
@@ -38,10 +46,19 @@ export const ProfilePage = () => {
   
     return (
       <>
-        <label>Fisse</label>
+       
         {filteredAds.map((ad) => (
-          <ProductCard key={ad.id} Title={ad.Title} ImgSource={ad.ImgSource} price={ad.price} />
-        ))}
+        <ProductCard
+          key={ad.id}
+          Title={ad.titel}
+          ImgSource={ad.billedeSti}
+          category={ad.kategori}
+          price={ad.price}
+          stand={ad.stand}
+          studieRetning={ad.studieretning}
+          sx={ad.sx}
+        />
+      ))}
       </>
     );
   };
@@ -59,5 +76,6 @@ function decodeToken(token) {
     );
 
     const parsedToken = JSON.parse(jsonPayload);
+    console.log(parsedToken.EfManagerId);
     return parsedToken.EfManagerId;
 }

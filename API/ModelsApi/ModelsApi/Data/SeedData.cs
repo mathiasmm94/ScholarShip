@@ -18,16 +18,16 @@ namespace ModelsApi.Data
         {
             context.Database.EnsureCreated();
             if (!context.Chats.Any())
-	            SeedChat(context);
-			if (!context.Accounts.Any())
+                SeedChat(context);
+            if (!context.Accounts.Any())
                 SeedAccounts(context, bcryptWorkfactor);
             if (!context.Managers.Any())
                 SeedManagers(context);
             if (!context.Annonces.Any())
                 SeedAnnonces(context);
-           
-
-		}
+            if (!context.Messages.Any()) 
+                SeedMessage(context);     
+        }
 
         static void SeedAccounts(ApplicationDbContext context, int bcryptWorkfactor)
         {
@@ -78,24 +78,36 @@ namespace ModelsApi.Data
                 new EfManager
                 {
                     EfAccountId = 1,
-                    Email = "user@mail.dk",
                     FirstName = "User",
                     LastName = "sui",
-                    
+                    Email = "user@mail.dk",
+                    Password = "Pas123",
+                    PhoneNumber = "12121212",
+                    Birthdate = "12-12-2012",
+                    University = "AU",
+
                 },
                 new EfManager
                 {
-                EfAccountId = 2,
-                Email = "user2@mail.dk",
-                FirstName = "Sui",
-                LastName = "sui",
+                    EfAccountId = 2,
+                    FirstName = "User",
+                    LastName = "suisui",
+                    Email = "user2@mail.dk",
+                    Password = "Pas123",
+                    PhoneNumber = "12121212",
+                    Birthdate = "12-12-2012",
+                    University = "AU",
                 },
                 new EfManager
                 {
-                EfAccountId = 3,
-                Email = "user3@mail.dk",
-                FirstName = "Sui",
-                LastName = "suisen",
+                    EfAccountId = 3,
+                    FirstName = "sui",
+                    LastName = "suisen",
+                    Email = "user3@mail.dk",
+                    Password = "Pas123",
+                    PhoneNumber = "12121212",
+                    Birthdate = "12-12-2012",
+                    University = "AU",
                 }
                 );
                 context.SaveChanges();
@@ -134,7 +146,7 @@ namespace ModelsApi.Data
                     Kategori = "Bog",
                     Beskrivelse = "Det asd er en flot bog",
                     Studieretning = "SW",
-                    BilledeSti = "images/book.gif",
+                    BilledeSti = "https://easydrawingguides.com/wp-content/uploads/2020/10/how-to-draw-an-open-book-featured-image-1200.png",
                     EfManagerId = 2,
                     Stand = "Brugt",
                     ChatId = 3
@@ -151,19 +163,16 @@ namespace ModelsApi.Data
             context.Messages.AddRange(
                 new Message
                 {
-                    MessageId = 1,
                     Messages = "Hej",
                     ChatId = 1
                 },
                 new Message
                 {
-                    MessageId = 2,
                     Messages = "Hej",
                     ChatId = 2
                 },
                 new Message
                 {
-                    MessageId = 3,
                     Messages = "Hej",
                     ChatId = 1
                 }
