@@ -1,8 +1,9 @@
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import DeleteButtonReal from "./deletebutton";
 
-export function ProductCard({ Title, ImgSource, category, price, studieRetning, stand }) {
+export function ProductCard({ Title, ImgSource, category, price, studieRetning, stand, id }) {
   return (
     <Card variant={'elevation'} sx={{padding: '10px', margin: '10px'}} >
       <Stack spacing={10} direction={'row'}>
@@ -14,7 +15,9 @@ export function ProductCard({ Title, ImgSource, category, price, studieRetning, 
             <div>Kategori: <Typography fontWeight={'bold'}> {category}</Typography></div>
             <div>Studieretning: <Typography fontWeight={'bold'}> {studieRetning}</Typography></div>
             <div>Varens stand: <Typography fontWeight={'bold'}> {stand}</Typography></div>
-        </Stack>
+        </Stack>¨
+
+        <DeleteButtonReal id={id}/>
       </Stack>
     </Card>
   );

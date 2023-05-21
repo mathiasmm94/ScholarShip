@@ -56,6 +56,7 @@ export const ProfilePage = () => {
           price={ad.price}
           stand={ad.stand}
           studieRetning={ad.studieretning}
+          id={ad.annonceId}
           sx={ad.sx}
         />
       ))}
