@@ -1,20 +1,17 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Search } from "./Components/Search.js";
 import { Navbar } from "./Components/Navbar.js";
-
-import "./App.css"
-import { CreateAnnonce } from "./Components/CreateAnnonce.js";
+import { Footer } from "./Components/Footer.js";
 import { LogInForm } from "./Components/Login.js";
 import { RegisterUser } from "./Components/Register.js";
-import { ProfilePage } from "./Components/ProfilePage.js";
-import { UpdateAnnonce } from "./Components/UpdateAnnonce.js";
+import { CreateAnnonce } from "./Components/CreateAnnonce.js";
+import RandomProducts from "./Components/RandomProducts.js";
+import {ProfilePage} from "./Components/ProfilePage.js";
+import {UpdateAnnonce} from "./Components/UpdateAnnonce.js";
 
 
+import "./App.css";
 
 function App() {
   return (
@@ -29,13 +26,16 @@ function App() {
         <Route path="/profile" element={<ProfilePage />}></Route>
         <Route path="/opdaterAnnonces/:id" element={<UpdateAnnonce  />}></Route>
       </Routes>
+
+      <RandomProducts/>
+      
+      <Footer />
     </Router>
     </>
 
 
   );
-
+  
 }
 
 export default App;
-

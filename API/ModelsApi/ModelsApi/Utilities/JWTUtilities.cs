@@ -8,7 +8,7 @@ namespace ModelsApi.Utilities
 {
     public static class JWTUtilities
     {
-        public static string GenerateToken(string email, long modelId, bool isManager)
+        public static string GenerateToken(string email, long modelId, bool isManager, string name)
         {
             Claim roleClaim;
             if (isManager)
@@ -20,6 +20,7 @@ namespace ModelsApi.Utilities
             {
                 new Claim("Email", email),
                 roleClaim,
+                new Claim("Name", name.ToString()),
                 new Claim("ModelId", modelId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),

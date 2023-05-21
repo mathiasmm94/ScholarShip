@@ -21,9 +21,9 @@ public class Annonce
     
     public string Stand { get; set; }
     
-    [ForeignKey("ChatId")]
-    public int ChatId { get; set; }
-
+    [ForeignKey("ChatRoomId")]
+    public int ChatRoomId { get; set; }
+    
     public EfManager Manager { get; set; }
-    public Chat Chat { get; set; }
+    public ChatRoom ChatRoom { get; set; }
 }

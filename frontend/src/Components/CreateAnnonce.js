@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CSS/Annonce.css";
 
 export function CreateAnnonce() {
@@ -9,7 +9,6 @@ export function CreateAnnonce() {
   const [studieretning, setStudieretning] = useState("");
   const [billedesti, setBilledsti] = useState("");
   const [stand, setStand] = useState("");
-  const [chatId, setChatId] = useState("");
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
   const [cardNumber, setCardNumber] = useState("");
@@ -25,7 +24,6 @@ export function CreateAnnonce() {
     studieretning: "",
     billedesti: "",
     stand: "",
-    chatId: "",
     expiryDate: "",
     securityCode: "",
     cardNumber: "",
@@ -46,7 +44,6 @@ export function CreateAnnonce() {
     setStudieretning(initialFormData.studieretning);
     setBilledsti(initialFormData.billedesti);
     setStand(initialFormData.stand);
-    setChatId(initialFormData.chatId);
     setCardNumber(initialFormData.cardNumber);
     setExpiryDate(initialFormData.expiryDate);
     setSecurityCode(initialFormData.securityCode);
@@ -61,7 +58,6 @@ export function CreateAnnonce() {
     setStudieretning(initialFormData.studieretning);
     setBilledsti(initialFormData.billedesti);
     setStand(initialFormData.stand);
-    setChatId(initialFormData.chatId);
     setCardNumber(initialFormData.cardNumber);
     setExpiryDate(initialFormData.expiryDate);
     setSecurityCode(initialFormData.securityCode);
@@ -79,16 +75,13 @@ export function CreateAnnonce() {
   };
 
   const submitPaymentForm = () => {
-    // Perform payment processing with cardNumber, expiryDate, and securityCode
-    // You can add your logic here to handle the payment details
     console.log("Payment submitted:", cardNumber, expiryDate, securityCode);
     alert("Payment submitted successfully!");
-    // Continue with posting the ad or perform additional actions
     postAnnonce();
   };
-    
-  const decodeToken = () =>{
-    const t = localStorage.getItem('token');
+
+  const decodeToken = () => {
+    const t = localStorage.getItem("token");
     let user = parseJwt(t);
     console.log(user);
     return user.EfManagerId;
@@ -128,7 +121,6 @@ export function CreateAnnonce() {
           BilledeSti: billedesti,
           EfManagerId: decodeToken(),
           Stand: stand,
-          ChatId: chatId,
           CheckboxValue: showPaymentPopup,
           NumberOfWeeks: numberOfWeeks,
         }),
@@ -224,15 +216,6 @@ export function CreateAnnonce() {
         </select>
 
         <input
-          className="form-input"
-          type="number"
-          id="ChatId"
-          value={chatId}
-          onChange={(e) => setChatId(e.target.value)}
-          placeholder="Indsæt ChatId"
-          required={!isFormSubmitted}
-        />
-        <input
           type="checkbox"
           id="paymentCheckbox"
           checked={showPaymentPopup}
@@ -306,7 +289,7 @@ export function CreateAnnonce() {
               id="securityCode"
               value={securityCode}
               onChange={(e) => {
-                const input = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+                const input = e.target.value.replace(/\D/g, "");
                 setSecurityCode(input);
               }}
               onKeyDown={(e) => {

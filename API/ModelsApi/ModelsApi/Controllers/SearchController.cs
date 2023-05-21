@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using ModelsApi.Interfaces;
+using ModelsApi.Models;
 
 namespace ModelsApi.Controllers;
 
 
-
+[Produces("application/json")]
 [ApiController]
 [Route("api/[controller]")]
 public class SearchController : ControllerBase
@@ -17,9 +18,15 @@ public class SearchController : ControllerBase
     }
 
     [HttpGet("{Keyword}")]
-    public IActionResult SearchAnnonces(string Keyword)
+    public async Task<List<Annonce>> SearchAnnonces(string Keyword)
     {
-        var annonces = _annonceSearchService.SearchAnnonces(Keyword);
-        return new JsonResult(annonces);
+        
+        return _annonceSearchService.SearchAnnonces(Keyword);  
     }
+    /*
+    [HttpGet]
+    public async Task GetChatId(int id)
+    {
+        return 
+    }*/
 }
