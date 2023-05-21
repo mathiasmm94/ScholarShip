@@ -128,6 +128,30 @@
   margin-top: 10px; /* Optional: Add top margin if needed */
 }
 .deletebutton2 {
+  background-color: rgb(243, 59, 59);
+  border: none;
+  width: 80px;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  font-family: "Montserrat-Alt1";
+  min-width: 180px;
+  max-height: 40px;
+  font-weight: bold;
+}
+
+.deletebutton2:hover {
+  background-color: #333;
+  color: #ffd604;
+}
+
+.opdateAnnonceButton {
   background-color: #ffd604;
   border: none;
   width: 80px;
@@ -141,10 +165,19 @@
   cursor: pointer;
   transition-duration: 0.4s;
   font-family: "Montserrat-Alt1";
-  margin-left: 40px;
+  min-width: 180px;
+  max-height: 40px;
+  font-weight: bold;
 }
 
-.deletebutton2:hover {
+.opdateAnnonceButton:hover {
   background-color: #333;
   color: #ffd604;
+}
+
+.productCardDivTitel{
+  max-width: 250px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

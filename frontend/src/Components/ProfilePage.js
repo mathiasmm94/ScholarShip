@@ -8,7 +8,11 @@ export const ProfilePage = () => {
       fetchData();
     }, []);
     
-
+    useEffect(() => {
+      // Fetch data whenever the component is mounted or filteredAds changes
+      fetchData();
+    }, [filteredAds]);
+    
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');

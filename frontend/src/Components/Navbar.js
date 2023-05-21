@@ -10,10 +10,14 @@ export function Navbar() {
     navigate("/");
   }
 
+  function returnToHome(){
+    navigate("/")
+  }
+
   return (
     <nav className="nav_link">
       <div className="nav_bar">
-        <img src="/images/LOGO.jpg" alt="Logo" />
+        <img className="Logo" onClick={returnToHome} src="/images/LOGO.jpg" alt="Logo"/>
 
         <NavLink to="/CreateAnnonce" className="nav_button_sale" activeClassName="nav_button_active">
           Sælg dine bøger

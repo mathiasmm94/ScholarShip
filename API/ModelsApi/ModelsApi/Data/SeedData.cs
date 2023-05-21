@@ -143,7 +143,7 @@ namespace ModelsApi.Data
                     Kategori = "Bog",
                     Beskrivelse = "Det asd er en flot bog",
                     Studieretning = "SW",
-                    BilledeSti = "images/book.gif",
+                    BilledeSti = "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
                     EfManagerId = 2,
                     Stand = "Brugt",
                     ChatRoomId = 2
