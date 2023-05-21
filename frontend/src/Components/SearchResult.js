@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./CSS/SearchResult.css";
 import "./CSS/SearchButton.css";
 
-
 export function SearchResult(props) {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
