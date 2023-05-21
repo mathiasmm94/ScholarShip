@@ -3,8 +3,8 @@ import './CSS/Annonce.css';
 import { useState } from 'react';
 
 
-function DeleteButtonReal() {
-   const [id, setId] = useState('');
+function DeleteButtonReal(id) {
+  //  const [id, setId] = useState('');
    const handleClick = () => {
     if (window.confirm("Er du sikker på at du vil slette annoncen?"))
     fetch(`https://localhost:7181/api/Annonces/${id}`, {
@@ -24,12 +24,13 @@ function DeleteButtonReal() {
         
       });
   }
-  const handleChange = (event) => {
-    setId(event.target.value);
-  }
+  // const handleChange = (event) => {
+  //   setId(event.target.value);
+  // }
   return (
-    <><input type="text" value={id} onChange={handleChange} placeholder="Enter ID" />
-    <button className="deletebutton2" onClick={handleClick}>Slet Annonce</button></>
+    // <><input type="text" value={id} onChange={handleChange} placeholder="Enter ID" />
+    <button className="deletebutton2" onClick={handleClick}>Slet Annonce</button>
+    //</>
     
 )}
 
