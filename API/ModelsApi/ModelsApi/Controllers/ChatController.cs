@@ -6,12 +6,14 @@ using ModelsApi.Data;
 using ModelsApi.Models;
 using ModelsApi.Models.Entities;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using ModelsApi.Models.DTOs;
 
 namespace ModelsApi.Controllers;
 
-[Authorize]
-[ApiController]
+
 [Route("api/[controller]")]
+[ApiController]
 public class ChatController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
@@ -20,6 +22,24 @@ public class ChatController : ControllerBase
     {
         _context = context;
     }
+
+    [HttpPost]
+    public async Task<IActionResult> PostChatId(ChatRoomDTO chatRoom)
+    {
+        if (_context.ChatRooms == null)
+            return Problem("No connection");
+
+        ChatRoom chat = new ChatRoom
+        {
+            ChatRoomId = chatRoom.ChatRoomId
+        };
+         _context.ChatRooms.Add(chat);
+         await _context.SaveChangesAsync();
+
+         return Ok(chat);
+    }
+    
+    
 
     [HttpGet("rooms")]
     public async Task<ActionResult<List<ChatRoom>>> GetChatRooms()
@@ -63,6 +83,11 @@ public class ChatController : ControllerBase
             return NotFound();
         }
 
+        var options = new JsonSerializerOptions
+        {
+            ReferenceHandler = ReferenceHandler.Preserve,
+        };
+
         var owner = await _context.Managers.FindAsync(annonce.EfManagerId);
 
         if (owner == null)
@@ -70,7 +95,7 @@ public class ChatController : ControllerBase
             return NotFound();
         }
 
-        return Ok(owner);
+        return Ok(JsonSerializer.Serialize(owner, options));
     }
     
     [HttpPost("rooms/{roomId}/messages")]

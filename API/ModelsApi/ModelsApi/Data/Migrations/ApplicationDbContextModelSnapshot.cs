@@ -22,6 +22,21 @@ namespace ModelsApi.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("ChatRoomEfManager", b =>
+                {
+                    b.Property<int>("ChatRoomsChatRoomId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("EfManagersEfManagerId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("ChatRoomsChatRoomId", "EfManagersEfManagerId");
+
+                    b.HasIndex("EfManagersEfManagerId");
+
+                    b.ToTable("ChatRoomEfManager");
+                });
+
             modelBuilder.Entity("ModelsApi.Models.Annonce", b =>
                 {
                     b.Property<int>("AnnonceId")
@@ -79,10 +94,6 @@ namespace ModelsApi.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatRoomId"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ChatRoomId");
 
@@ -196,27 +207,19 @@ namespace ModelsApi.Data.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("ModelsApi.Models.Services.UserChatRoom", b =>
+            modelBuilder.Entity("ChatRoomEfManager", b =>
                 {
-                    b.Property<int>("UserChatRoomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("ModelsApi.Models.ChatRoom", null)
+                        .WithMany()
+                        .HasForeignKey("ChatRoomsChatRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserChatRoomId"), 1L, 1);
-
-                    b.Property<int>("ChatRoomId")
-                        .HasColumnType("int");
-
-                    b.Property<long>("EfManagerId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("UserChatRoomId");
-
-                    b.HasIndex("ChatRoomId");
-
-                    b.HasIndex("EfManagerId");
-
-                    b.ToTable("UserChatRooms");
+                    b.HasOne("ModelsApi.Models.Entities.EfManager", null)
+                        .WithMany()
+                        .HasForeignKey("EfManagersEfManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ModelsApi.Models.Annonce", b =>
@@ -268,25 +271,6 @@ namespace ModelsApi.Data.Migrations
                     b.Navigation("EfManager");
                 });
 
-            modelBuilder.Entity("ModelsApi.Models.Services.UserChatRoom", b =>
-                {
-                    b.HasOne("ModelsApi.Models.ChatRoom", "ChatRoom")
-                        .WithMany()
-                        .HasForeignKey("ChatRoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ModelsApi.Models.Entities.EfManager", "EfManager")
-                        .WithMany("UserChatRooms")
-                        .HasForeignKey("EfManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ChatRoom");
-
-                    b.Navigation("EfManager");
-                });
-
             modelBuilder.Entity("ModelsApi.Models.ChatRoom", b =>
                 {
                     b.Navigation("Annonces");
@@ -297,8 +281,6 @@ namespace ModelsApi.Data.Migrations
             modelBuilder.Entity("ModelsApi.Models.Entities.EfManager", b =>
                 {
                     b.Navigation("Annoncer");
-
-                    b.Navigation("UserChatRooms");
                 });
 #pragma warning restore 612, 618
         }

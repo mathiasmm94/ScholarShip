@@ -7,8 +7,8 @@ namespace ModelsApi.Models;
 public class ChatRoom
 {
     public int ChatRoomId { get; set; }
-    public string Name { get; set; }
-    
+
+    public List<EfManager> EfManagers { get; set; }
     public List<Annonce> Annonces { get; set; }
     public List<Message> Messages { get; set; }
     

@@ -18,7 +18,16 @@ var connectionString = builder.Configuration.GetSection("ConnectionString").Get<
 
 // Add services to the container.
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithOrigins("http://localhost:3000") // Add your React app's domain here
+            .AllowCredentials();
+    });
+});
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddControllers();
@@ -116,6 +125,7 @@ app.UseCors(x => x
     //.AllowAnyOrigin() // Not allowed together with AllowCredential
     //.WithOrigins("http://localhost:3000", "http://localhost:8080" "http://localhost:5000" )
     .SetIsOriginAllowed(x => _ = true)
+    .WithOrigins("http://localhost:3000")
     .AllowAnyMethod()
     .AllowAnyHeader()
     .AllowCredentials()
@@ -126,7 +136,7 @@ app.UseAuthorization();
 
 
 app.MapControllers();
-app.MapHub<ChatHub>("/Chat");
+app.MapHub<ChatHub>("/ChatHub");
 
 app.UseCors("AllowAllOrigins");
 

@@ -44,7 +44,7 @@ namespace ModelsApi.Models.Entities
 
 		
 		
-		public List<UserChatRoom> UserChatRooms { get; set; }
+		public List<ChatRoom> ChatRooms { get; set; }
 		public List<Annonce> Annoncer { get; set; }
 	}
 }

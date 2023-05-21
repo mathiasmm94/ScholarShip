@@ -1,78 +1,99 @@
-import React, { useEffect, useRef, useState } from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
+import React, { useEffect, useState } from "react";
+import ChatService from "./ChatService.js";
 
-export function ChatWindow(props) {
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+}
+
+const decodeToken = () =>{
+  const t = localStorage.getItem('token');
+  let user = parseJwt(t);
+  console.log(user);
+  return user.Name.toString();
+};
+
+const ChatId = () =>{
+  fetch("https://localhost:7181/api/chat")
+}
+
+
+
+export function ChatWindow() {
+
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
-
-  const chatRoomId = props.chatRoomId;
-  const hubConnectionRef = useRef(null);
+  const userName = decodeToken();  
+  
 
   useEffect(() => {
-    // Create a new instance of SignalR hub connection
-    const hubConnection = new HubConnectionBuilder()
-      .withUrl("https://localhost:7181/Chat")
-      .build();
+    // Start the SignalR connection
+    ChatService.startConnection().then(()=>{
+      ChatService.joinChatRoom(1)
 
-    // Save the hub connection instance to the ref
-    hubConnectionRef.current = hubConnection;
-
-    // Start the hub connection
-    hubConnection.start().then(() => {
-      // Join the chat room
-      hubConnection.invoke("JoinChatRoom", chatRoomId);
-
-      // Receive new message from the hub
-      hubConnection.on("ReceiveMessage", (message) => {
-        setMessages((prevMessages) => [...prevMessages, message]);
+      // Receive incoming messages
+      ChatService.receiveMessage((senderName, messageContent) => {
+        const newMessage = { senderName, messageContent };
+        console.log(newMessage);
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
     });
 
-    // Clean up the hub connection on unmount
+   
+
+    // Clean up the SignalR connection on component unmount
     return () => {
-      hubConnectionRef.current.stop();
+      ChatService.connection.stop();
     };
-  }, [chatRoomId]);
+  }, []);
 
-  const handleInputChange = (event) => {
-    setInputMessage(event.target.value);
-  };
-
-  const handleSendMessage = () => {
-    if (inputMessage.trim() === "") return;
-
-    const messageContent = inputMessage;
-
-    // Send the message to the hub
-    hubConnectionRef.current
-      .invoke("SendMessage", chatRoomId, messageContent)
-      .then(() => {
-        setInputMessage("");
-      })
-      .catch((error) => {
-        console.error("Failed to send message:", error);
-      });
+  const sendMessage = () => {
+    if (inputMessage.trim() !== "") {
+      ChatService.sendMessage(1, userName, inputMessage);
+      console.log(inputMessage);
+      setInputMessage("");
+    }
   };
 
   return (
-    <div className="chat-window">
-      <div className="chat-messages">
-        {messages.map((message) => (
-          <div key={message.messageId} className="message">
-            <span className="message-sender">{message.efManager.username}:</span>{" "}
-            {message.content}
-          </div>
-        ))}
+    <div>
+  
+      <div>
+        <ul>
+          {messages.map((message, index) => (
+            <li key={index}>
+              <strong>{message.senderName}: </strong>
+              {message.messageContent}
+            </li>
+          ))}
+        </ul>
       </div>
-      <div className="chat-input">
+      <div>
         <input
           type="text"
           value={inputMessage}
-          onChange={handleInputChange}
-          placeholder="Type your message..."
+          onChange={(e) => setInputMessage(e.target.value)}
         />
-        <button onClick={handleSendMessage}>Send</button>
+        <button onClick={sendMessage}>Send</button>
       </div>
     </div>
   );
 }
+
+
+/*
+
+    <div>
+        <label>Username: </label>
+        <input
+          type="text"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+      </div>
+*/

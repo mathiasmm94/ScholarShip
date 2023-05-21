@@ -16,7 +16,6 @@ namespace ModelsApi.Data
         
         public DbSet<Annonce> Annonces { get; set; }
         public DbSet<ChatRoom> ChatRooms { get; set; }
-        public DbSet<UserChatRoom> UserChatRooms { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<EfAccount> Accounts { get; set; }
         public DbSet<EfManager> Managers { get; set; }

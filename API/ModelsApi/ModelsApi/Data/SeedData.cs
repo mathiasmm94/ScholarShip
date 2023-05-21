@@ -25,14 +25,10 @@ namespace ModelsApi.Data
                 SeedManagers(context);
             if (!context.ChatRooms.Any())
                 SeedChatRooms(context);
-            if (!context.UserChatRooms.Any())
-                SeedUserChatRooms(context);
             if (!context.Messages.Any())
                 SeedMessage(context);
             if (!context.Annonces.Any())
                 SeedAnnonces(context);
-            
-            
         }
 
         static void SeedAccounts(ApplicationDbContext context, int bcryptWorkfactor)
@@ -64,46 +60,22 @@ namespace ModelsApi.Data
             context.ChatRooms.AddRange(
                 new ChatRoom
                 {
-                    Name = "Annonce",
+                
                  
                 },
                 new ChatRoom
                 {
-                    Name = "Annonce1",
+                 
 			       
                 },
                 new ChatRoom
                 {
-                    Name = "Annonce2",
-                }
-            );
-            context.SaveChanges();
-        }
-        static void SeedUserChatRooms(ApplicationDbContext context)
-        {
-            context.UserChatRooms.AddRange(
-                new UserChatRoom
-                {
-                    EfManagerId = 1,
-                    ChatRoomId = 1,
-                    
-                },
-                new UserChatRoom
-                { 
-                    EfManagerId = 2,
-                   ChatRoomId = 2,
-                },
-                new UserChatRoom
-                {
-                    EfManagerId = 3,
-                   ChatRoomId = 3,
                 }
             );
             context.SaveChanges();
         }
         
-
-		static void SeedManagers(ApplicationDbContext context)
+        static void SeedManagers(ApplicationDbContext context)
         {
             context.Managers.AddRange(
                 new EfManager
@@ -180,7 +152,7 @@ namespace ModelsApi.Data
                     Kategori = "Bog",
                     Beskrivelse = "Det asd er en flot bog",
                     Studieretning = "SW",
-                    BilledeSti = "images/book.gif",
+                    BilledeSti = "https://easydrawingguides.com/wp-content/uploads/2020/10/how-to-draw-an-open-book-featured-image-1200.png",
                     EfManagerId = 3,
                     Stand = "Brugt",
                     ChatRoomId = 3
@@ -196,18 +168,21 @@ namespace ModelsApi.Data
                     ChatRoomId = 1,
                     Content = "Hej",
                     EfManagerId = 1,
+                    TimeStamp = DateTime.Now
                 },
                 new Message
                 {
                     ChatRoomId = 2,
                     Content = "Hej",
                     EfManagerId = 2,
+                    TimeStamp = DateTime.Now
                 },
                 new Message
                 {
                     ChatRoomId = 3,
                     Content = "Hej",
                     EfManagerId = 3,
+                    TimeStamp = DateTime.Now
                 }
             );
             context.SaveChanges();

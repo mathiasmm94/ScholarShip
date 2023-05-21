@@ -14,51 +14,23 @@ public class ChatHub : Hub
         _context = context;
     }
 
-    public async Task SendMessage(int chatRoomId, string messageContent)
+    public async Task SendMessage(int chatRoomId, string senderName, string messageContent)
     {
-        var user = await _context.Managers.FindAsync(Context.UserIdentifier);
+        // Save the message to the database
 
-        var message = new Message
-        {
-            EfManagerId = user.EfManagerId,
-            ChatRoomId = chatRoomId,
-            Content = messageContent,
-            TimeStamp = DateTime.Now
-        };
+        // Get the chat room and users from the database
 
-        _context.Messages.AddAsync(message);
-        await _context.SaveChangesAsync();
-
-        await Clients.Group(chatRoomId.ToString()).SendAsync("Receive Message", message);
+        // Send the message to all connected clients in the chat room
+        await Clients.Group(chatRoomId.ToString()).SendAsync("ReceiveMessage", senderName, messageContent);
     }
 
-    public async Task JoinChatRoom(int annonceId)
+    public async Task JoinChatRoom(int chatRoomId)
     {
-        var annonce = await _context.Annonces.FindAsync(annonceId);
-
-        if (annonce != null && annonce.ChatRoomId != 0)
-        {
-            await JoinChatRoom(annonce.ChatRoomId);
-        }
+        await Groups.AddToGroupAsync(Context.ConnectionId, chatRoomId.ToString());
     }
 
     public async Task LeaveChatRoom(int chatRoomId)
     {
-        // Remove the user from the chat room group
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, chatRoomId.ToString());
-    }
-
-    public override async Task OnConnectedAsync()
-    {
-        // Perform any necessary tasks when a client connects
-
-        await base.OnConnectedAsync();
-    }
-
-    public override async Task OnDisconnectedAsync(Exception exception)
-    {
-        // Perform any necessary tasks when a client disconnects
-
-        await base.OnDisconnectedAsync(exception);
     }
 }

@@ -7,6 +7,7 @@ import { LogInForm } from "./Components/Login.js";
 import { RegisterUser } from "./Components/Register.js";
 import RandomProducts from "./Components/RandomProducts.js";
 
+
 import "./App.css";
 
 function App() {
@@ -18,7 +19,9 @@ function App() {
         <Route path="login" element={<LogInForm />} />
         <Route path="register" element={<RegisterUser />} />
       </Routes>
+
       <RandomProducts/>
+      
       <Footer />
     </Router>
   );
