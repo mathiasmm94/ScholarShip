@@ -1,46 +1,87 @@
-import{ useState } from "react";
+import{ useState, useEffect } from "react";
 import "./CSS/Annonce.css";
 
-export function CreateAnnonce() {
-  const [price, setPrice] = useState("");
-  const [titel, setTitel] = useState("");
-  const [kategori, setKategori] = useState("");
-  const [beskrivelse, setBeskrivelse] = useState("");
-  const [studieretning, setStudieretning] = useState("");
-  const [billedesti, setBilledsti] = useState("");
-  const [efManagerId, setEfManagerId] = useState("");
-  const [stand, setStand] = useState("");
-  const [chatId, setChatId] = useState("");
-
-  const handleSubmit = () => {
-    postAnnonce();
-  };
+export function UpdateAnnonce() {
+   
     
-  const decodeToken = () =>{
-    const t = localStorage.getItem('token');
-    let user = parseJwt(t);
-    setEfManagerId(user.EfManagerId);
-    console.log(user);
-    return user.EfManagerId;
-  }
-  function parseJwt (token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+    const [price, setPrice] = useState(null);
+      const [titel, setTitel] = useState("");
+      const [kategori, setKategori] = useState("");
+      const [beskrivelse, setBeskrivelse] = useState("");
+      const [studieretning, setStudieretning] = useState("");
+      const [billedesti, setBilledsti] = useState("");
+      const [efManagerId, setEfManagerId] = useState("");
+      const [stand, setStand] = useState("");
+      const [chatId, setChatId] = useState("");
+    
+      const decodeToken = () =>{
+        const t = localStorage.getItem('token');
+        let user = parseJwt(t);
+        setEfManagerId(user.EfManagerId);
+        console.log(user);
+        return user.EfManagerId;
+      }
+      function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+    }
+    const handleSubmit = () => {
+        updateAnnonce2();
+    }
+      const getAnnonce2 = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          console.log(token.user);
+          
+          const response = await fetch('https://localhost:7181/api/Annonces/9', {
+            method: "GET",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          });
+          console.log(response);
+          if (!response.ok) {
+            throw new Error("couldnt get ad");
+          }
+          
+          const data = await response.json();
+          
+          console.log("data received:", data);
+          return data
+        } catch (error) {
+          console.log("Error:  ", error);
+        }
+        
+      };    
 
-    return JSON.parse(jsonPayload);
-}
+      useEffect(()=>{
+        getAnnonce2().then((data)=>{ 
+            setPrice(data.price);
+            setBeskrivelse(data.beskrivelse);
+            setBilledsti(data.billedeSti);
+            setChatId(data.chatId);
+            setEfManagerId(data.efManagerId);
+            setStand(data.stand);
+            setStudieretning(data.studieretning)
+            setTitel(data.titel);
+            setKategori(data.kategori);
+            
 
-  const postAnnonce = async () => {
+        })
+
+      }, [])
+
+
+  const updateAnnonce2 = async () => {
     try {
       const token = localStorage.getItem('token');
       console.log(token.user);
       decodeToken();
-      
-      const response = await fetch("https://localhost:7181/api/Annonces", {
-        method: "POST",
+      const response = await fetch('https://localhost:7181/api/Annonces/9', {
+        method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
           Price: price,
@@ -56,14 +97,13 @@ export function CreateAnnonce() {
       });
       console.log(response);
       if (!response.ok) {
-        throw new Error("couldnt post ad");
+        throw new Error("couldnt update ad");
       }
-      alert('Annonce er tilføjet');
+      alert('Annonce er nu opdateret');
       const data = await response.json();
       console.log("data received:", data);
     } catch (error) {
       console.log("Error:  ", error);
-      console.log(efManagerId);
     }
   };
 
@@ -155,7 +195,7 @@ export function CreateAnnonce() {
         />
 
         <button className="submitbutton" type="submit">
-          OPRET ANNONCE!
+          OPDATER ANNONCE!
         </button>
       </form>
     </div>
