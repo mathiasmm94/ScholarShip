@@ -1,3 +1,4 @@
+using ModelsApi.Data;
 using ModelsApi.Interfaces;
 
 namespace ModelsApi.Models.Services;
