@@ -125,7 +125,9 @@ namespace ModelsApi.Data
                    BilledeSti = "images/book.gif",
                    EfManagerId = 1,
                    Stand = "Brugt",
-                   ChatId = 1
+                   ChatId = 1,
+                   CheckBoxValue=true,
+                   NumberOfWeeks=2
                 },
                 new Annonce
                 {

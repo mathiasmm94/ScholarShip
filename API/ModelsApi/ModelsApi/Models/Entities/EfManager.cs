@@ -6,6 +6,7 @@ namespace ModelsApi.Models.Entities
 {
 	public class EfManager
 	{
+		[Key]
 		public long EfManagerId { get; set; }
 
 		[Required]

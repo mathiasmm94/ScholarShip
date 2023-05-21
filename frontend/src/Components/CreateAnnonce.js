@@ -15,7 +15,7 @@ export function CreateAnnonce() {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [securityCode, setSecurityCode] = useState("");
-  const [numberOfWeeks, setNumberOfWeeks] = useState(1);
+  const [numberOfWeeks, setNumberOfWeeks] = useState("1");
 
   const initialFormData = {
     price: "",
@@ -129,6 +129,8 @@ export function CreateAnnonce() {
           EfManagerId: decodeToken(),
           Stand: stand,
           ChatId: chatId,
+          CheckboxValue: showPaymentPopup,
+          NumberOfWeeks: numberOfWeeks,
         }),
       });
       console.log(response);
