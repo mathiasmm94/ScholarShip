@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ModelsApi.Models;
+using ModelsApi.Models.Services;
 
 namespace ModelsApi.Models.Entities
 {
@@ -42,7 +43,9 @@ namespace ModelsApi.Models.Entities
 		[MaxLength(100)]
 		public string? University { get; set; }
 
-		public List<Chat> Chats { get; set; }
+		
+		
+		public List<ChatRoom> ChatRooms { get; set; }
 		public List<Annonce> Annoncer { get; set; }
 	}
 }
