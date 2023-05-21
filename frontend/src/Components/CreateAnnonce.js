@@ -86,9 +86,9 @@ export function CreateAnnonce() {
     // Continue with posting the ad or perform additional actions
     postAnnonce();
   };
-
-  const decodeToken = () => {
-    const t = localStorage.getItem("token");
+    
+  const decodeToken = () =>{
+    const t = localStorage.getItem('token');
     let user = parseJwt(t);
     console.log(user);
     return user.EfManagerId;
