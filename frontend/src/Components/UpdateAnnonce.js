@@ -1,9 +1,9 @@
 import{ useState, useEffect} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import "./CSS/Annonce.css";
 
 export function UpdateAnnonce() {
- 
+ const navigate = useNavigate();
   const { id } = useParams();
   console.log(id);
  
@@ -34,6 +34,7 @@ export function UpdateAnnonce() {
         return JSON.parse(jsonPayload);
     }
     const handleSubmit = () => {
+      navigate("/profile");
         updateAnnonce2();
     }
       const getAnnonce2 = async () => {
@@ -46,10 +47,11 @@ export function UpdateAnnonce() {
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
           });
           console.log(response);
+          
           if (!response.ok) {
             throw new Error("couldnt get ad");
+            
           }
-          
           const data = await response.json();
           
           console.log("data received:", data);
