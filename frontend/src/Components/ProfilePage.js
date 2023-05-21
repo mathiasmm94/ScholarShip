@@ -47,7 +47,7 @@ export const ProfilePage = () => {
     };
   
     return (
-      <>
+        <>
        
         {filteredAds.map((ad) => (
         <ProductCard
