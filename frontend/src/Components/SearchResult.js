@@ -51,7 +51,8 @@ export function SearchResult(props) {
     console.error('Error:', error);
     
   });
-
+    const chatId = selectedAnnouncement.chatRoomId
+    console.log(chatId);
     return (
       <div className="selected-announcement">
         <h2>{selectedAnnouncement.titel}</h2>
@@ -69,7 +70,7 @@ export function SearchResult(props) {
           Back to search results
         </button>
         
-        <ChatWindow />
+        <ChatWindow chatId={chatId}/>
         
       </div>
     );

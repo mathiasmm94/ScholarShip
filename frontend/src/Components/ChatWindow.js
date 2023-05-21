@@ -24,7 +24,7 @@ const ChatId = () =>{
 
 
 
-export function ChatWindow() {
+export function ChatWindow({chatId}) {
 
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
@@ -34,7 +34,7 @@ export function ChatWindow() {
   useEffect(() => {
     // Start the SignalR connection
     ChatService.startConnection().then(()=>{
-      ChatService.joinChatRoom(1)
+      ChatService.joinChatRoom(chatId)
 
       // Receive incoming messages
       ChatService.receiveMessage((senderName, messageContent) => {
@@ -54,7 +54,7 @@ export function ChatWindow() {
 
   const sendMessage = () => {
     if (inputMessage.trim() !== "") {
-      ChatService.sendMessage(1, userName, inputMessage);
+      ChatService.sendMessage(chatId, userName, inputMessage);
       console.log(inputMessage);
       setInputMessage("");
     }

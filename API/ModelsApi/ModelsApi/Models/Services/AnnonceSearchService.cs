@@ -18,4 +18,5 @@ public class AnnonceSearchService : IAnnonceSearchService
         return SearchAnnonce
             .Where(x => x.Titel.Contains(Keyword)).ToList();
     }
+    
 }
