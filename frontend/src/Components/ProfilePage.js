@@ -54,6 +54,8 @@ export const ProfilePage = () => {
           ImgSource={ad.billedeSti}
           category={ad.kategori}
           price={ad.price}
+          stand={ad.stand}
+          studieRetning={ad.studieretning}
           sx={ad.sx}
         />
       ))}
