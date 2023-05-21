@@ -27,7 +27,7 @@ function App() {
         <Route path="/opdaterAnnonces/:id" element={<UpdateAnnonce  />}></Route>
       </Routes>
 
-      <RandomProducts/>
+      {/* <RandomProducts/> */}
       
       <Footer />
     </Router>

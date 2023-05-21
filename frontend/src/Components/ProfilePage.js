@@ -3,15 +3,16 @@ import { useState, useEffect } from "react";
 
 export const ProfilePage = () => {
     const [filteredAds, setFilteredAds] = useState([]);
-  
+    
+    //Double useEffect to be sure data is updated correctly.
     useEffect(() => {
       fetchData();
     }, []);
-    
     useEffect(() => {
-      // Fetch data whenever the component is mounted or filteredAds changes
       fetchData();
-    }, [filteredAds]);
+    }, []);
+
+   
     
     const fetchData = async () => {
       try {
