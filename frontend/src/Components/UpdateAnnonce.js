@@ -81,7 +81,7 @@ export function UpdateAnnonce() {
         }
         
       };    
-
+      
       useEffect(()=>{
         getAnnonce2().then((data)=>{ 
             setPrice(data.price);
