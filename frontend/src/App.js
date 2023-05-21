@@ -7,6 +7,8 @@ import { LogInForm } from "./Components/Login.js";
 import { RegisterUser } from "./Components/Register.js";
 import { CreateAnnonce } from "./Components/CreateAnnonce.js";
 import RandomProducts from "./Components/RandomProducts.js";
+import {ProfilePage} from "./Components/ProfilePage.js";
+import {UpdateAnnonce} from "./Components/UpdateAnnonce.js";
 
 
 import "./App.css";
