@@ -29,7 +29,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />}></Route>
       </Routes>
     </Router>
-    <UpdateAnnonce /></>
+    </>
 
 
   );

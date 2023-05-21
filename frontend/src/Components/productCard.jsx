@@ -2,6 +2,7 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import DeleteButtonReal from "./deletebutton";
+import {NavLink} from "react-router-dom";
 
 export function ProductCard({ Title, ImgSource, category, price, studieRetning, stand, id }) {
   return (
@@ -16,7 +17,9 @@ export function ProductCard({ Title, ImgSource, category, price, studieRetning, 
             <div>Studieretning: <Typography fontWeight={'bold'}> {studieRetning}</Typography></div>
             <div>Varens stand: <Typography fontWeight={'bold'}> {stand}</Typography></div>
         </Stack>¨
-
+        <NavLink to={`/opdaterAnnonces/${id}`}>
+            Opdater annonce
+        </NavLink>
         <DeleteButtonReal id={id}/>
       </Stack>
     </Card>
