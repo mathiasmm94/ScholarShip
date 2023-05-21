@@ -15,7 +15,6 @@ export function UpdateAnnonce() {
       const [billedesti, setBilledsti] = useState("");
       const [efManagerId, setEfManagerId] = useState("");
       const [stand, setStand] = useState("");
-      const [chatId, setChatId] = useState("");
       const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
   const [cardNumber, setCardNumber] = useState("");
@@ -89,7 +88,6 @@ export function UpdateAnnonce() {
             setPrice(data.price);
             setBeskrivelse(data.beskrivelse);
             setBilledsti(data.billedeSti);
-            setChatId(data.chatId);
             setEfManagerId(data.efManagerId);
             setStand(data.stand);
             setStudieretning(data.studieretning)
@@ -120,7 +118,6 @@ export function UpdateAnnonce() {
           BilledeSti: billedesti,
           EfManagerId: efManagerId,
           Stand: stand,
-          ChatId: chatId,
         }),
       });
       console.log(response);
@@ -213,14 +210,6 @@ export function UpdateAnnonce() {
           <option value="Velbrugt">Velbrugt</option>
         </select>
 
-        <input
-          className="form-input"
-          type="number"
-          id="ChatId"
-          value={chatId}
-          onChange={(e) => setChatId(e.target.value)}
-          placeholder="Indsæt ChatId"
-        />
         <input
           type="checkbox"
           id="paymentCheckbox"
