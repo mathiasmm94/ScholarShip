@@ -1,7 +1,10 @@
 import { ProductCard } from "./productCard";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export const ProfilePage = () => {
+    const navigate = useNavigate();
     const [filteredAds, setFilteredAds] = useState([]);
   
     useEffect(() => {
@@ -11,7 +14,7 @@ export const ProfilePage = () => {
     useEffect(() => {
       // Fetch data whenever the component is mounted or filteredAds changes
       fetchData();
-    }, [filteredAds]);
+    }, []);
     
     const fetchData = async () => {
       try {
@@ -49,10 +52,16 @@ export const ProfilePage = () => {
         console.log("Error:", error);
       }
     };
+
+    const handleUpdateProfile = () => {
+      navigate("/UpdateProfile");
+    };
   
     return (
-        <>
-       
+        <div>
+        <button className="opdateProfileButton" onClick={handleUpdateProfile}>Update Profile</button>
+
+
         {filteredAds.map((ad) => (
         <ProductCard
           key={ad.id}
@@ -66,7 +75,7 @@ export const ProfilePage = () => {
           sx={ad.sx}
         />
       ))}
-      </>
+      </div>
     );
   };
 

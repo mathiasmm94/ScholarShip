@@ -3,10 +3,6 @@ import {useParams, useNavigate} from "react-router-dom";
 
 export function UpdateProfile() {
  const navigate = useNavigate();
-  const { id } = useParams();
-  console.log(id);
-
-  const [userId, setUserId] = useState(null);
  
     const [firstname, setFirstName] = useState();
       const [lastname, setLasName] = useState("");
@@ -21,9 +17,9 @@ export function UpdateProfile() {
       const decodeToken = () =>{
         const t = localStorage.getItem('token');
         let user = parseJwt(t);
-        // setEfManagerId(user.EfManagerId);
-        setUserId(user.id)
+        setEfManagerId(user.EfManagerId)
         console.log(user);
+        
         return user.EfManagerId;
       }
       function parseJwt (token) {
@@ -39,14 +35,18 @@ export function UpdateProfile() {
       navigate("/profile");
         updateProfile1();
     }
-
+    
+    
 
     useEffect(()=>{
       const getProfile = async () => {
         try {
           const token = localStorage.getItem('token');
           console.log(token.user);
-          const response = await fetch(`https://localhost:7181/api/Managers/${userId}`, {
+          const ManagerId = Number( decodeToken(token));
+          
+
+          const response = await fetch(`https://localhost:7181/api/Managers/${ManagerId}`, {
             method: "GET",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
           });
@@ -68,25 +68,26 @@ export function UpdateProfile() {
 
      
         getProfile().then((data)=>{ 
-            setFirstName(data.firstname);
-            setLasName(data.lastname);
+            setFirstName(data.firstName);
+            setLasName(data.lastName);
             setEmail(data.email);
-            setPhoneNumber(data.phonenumber);
+            setPhoneNumber(data.phoneNumber);
             setUniversity(data.university)
+            setBirthdate(data.birthdate)
             setEfManagerId(data.efManagerId);           
 
         });
 
-      }, [userId]);
+      }, []);
 
 
   const updateProfile1 = async () => {
     try {
       const token = localStorage.getItem('token');
       console.log(token.user);
-      
+      const ManagerId = Number( decodeToken(token));
       decodeToken();
-      const response = await fetch(`https://localhost:7181/api/Managers/${userId}`, {
+      const response = await fetch(`https://localhost:7181/api/Managers/${ManagerId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({

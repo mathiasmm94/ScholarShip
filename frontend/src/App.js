@@ -9,6 +9,7 @@ import { CreateAnnonce } from "./Components/CreateAnnonce.js";
 import RandomProducts from "./Components/RandomProducts.js";
 import {ProfilePage} from "./Components/ProfilePage.js";
 import {UpdateAnnonce} from "./Components/UpdateAnnonce.js";
+import { UpdateProfile } from "./Components/UpdateProfile.js";
 
 
 import "./App.css";
@@ -25,6 +26,7 @@ function App() {
         <Route path="register" element={<RegisterUser />}></Route>
         <Route path="/profile" element={<ProfilePage />}></Route>
         <Route path="/opdaterAnnonces/:id" element={<UpdateAnnonce  />}></Route>
+        <Route path="/UpdateProfile" element={<UpdateProfile  />}></Route>
       </Routes>
 
       <RandomProducts/>
