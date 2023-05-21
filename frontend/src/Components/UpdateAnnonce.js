@@ -1,9 +1,12 @@
-import{ useState, useEffect } from "react";
+import{ useState, useEffect} from "react";
+import {useParams} from "react-router-dom";
 import "./CSS/Annonce.css";
 
 export function UpdateAnnonce() {
-   
-    
+ 
+  const { id } = useParams();
+  console.log(id);
+ 
     const [price, setPrice] = useState(null);
       const [titel, setTitel] = useState("");
       const [kategori, setKategori] = useState("");
@@ -37,8 +40,8 @@ export function UpdateAnnonce() {
         try {
           const token = localStorage.getItem('token');
           console.log(token.user);
-          
-          const response = await fetch('https://localhost:7181/api/Annonces/9', {
+          console.log("Sut mine lange løg J12C", id);
+          const response = await fetch(`https://localhost:7181/api/Annonces/${id}`, {
             method: "GET",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
           });
@@ -79,8 +82,9 @@ export function UpdateAnnonce() {
     try {
       const token = localStorage.getItem('token');
       console.log(token.user);
+      
       decodeToken();
-      const response = await fetch('https://localhost:7181/api/Annonces/9', {
+      const response = await fetch(`https://localhost:7181/api/Annonces/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({

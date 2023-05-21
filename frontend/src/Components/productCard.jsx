@@ -16,7 +16,7 @@ export function ProductCard({ Title, ImgSource, category, price, studieRetning, 
             <div>Kategori: <Typography fontWeight={'bold'}> {category}</Typography></div>
             <div>Studieretning: <Typography fontWeight={'bold'}> {studieRetning}</Typography></div>
             <div>Varens stand: <Typography fontWeight={'bold'}> {stand}</Typography></div>
-        </Stack>¨
+        </Stack>
         <NavLink to={`/opdaterAnnonces/${id}`}>
             Opdater annonce
         </NavLink>

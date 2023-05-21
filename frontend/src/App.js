@@ -27,6 +27,7 @@ function App() {
         <Route path="login" element={<LogInForm />}></Route>
         <Route path="register" element={<RegisterUser />}></Route>
         <Route path="/profile" element={<ProfilePage />}></Route>
+        <Route path="/opdaterAnnonces/:id" element={<UpdateAnnonce  />}></Route>
       </Routes>
     </Router>
     </>

@@ -31,8 +31,10 @@ export const ProfilePage = () => {
   
         // Filter ads based on the managerId
         const filteredAds = [];
+        console.log(efManagerId)
         data.forEach((ad) => {
           if (ad.efManagerId === efManagerId) {
+            console.log(filteredAds);
             filteredAds.push(ad);
           }
         });
