@@ -81,7 +81,10 @@ namespace ModelsApi.Data
                     Email = "user@mail.dk",
                     FirstName = "User",
                     LastName = "sui",
-                    
+                    Birthdate = "10101010",
+                    Password = "Pas123",
+                    PhoneNumber = "12345678",
+                    University = "IngeniørHøjskolenAarhus",
                 },
                 new EfManager
                 {
@@ -89,6 +92,10 @@ namespace ModelsApi.Data
                 Email = "user2@mail.dk",
                 FirstName = "Sui",
                 LastName = "sui",
+                Birthdate = "10101010",
+                Password = "Pas123",
+                PhoneNumber = "12345678",
+                University = "IngeniørHøjskolenAarhus",
                 },
                 new EfManager
                 {
@@ -96,6 +103,10 @@ namespace ModelsApi.Data
                 Email = "user3@mail.dk",
                 FirstName = "Sui",
                 LastName = "suisen",
+                Birthdate="10101010",
+                Password="Pas123",
+                PhoneNumber="12345678",
+                University="IngeniørHøjskolenAarhus",
                 }
                 );
                 context.SaveChanges();
@@ -113,7 +124,9 @@ namespace ModelsApi.Data
                    BilledeSti = "images/book.gif",
                    EfManagerId = 1,
                    Stand = "Brugt",
-                   ChatId = 1
+                   ChatId = 1,
+                   CheckBoxValue=true,
+                   NumberOfWeeks=2
                 },
                 new Annonce
                 {

@@ -99,7 +99,9 @@ namespace ModelsApi.Controllers
             Titel = annonce.Titel,
             Price = annonce.Price,
             Kategori = annonce.Kategori,
-            ChatId = annonce.ChatId
+            ChatId = annonce.ChatId,
+            NumberOfWeeks=annonce.NumberOfWeeks,
+            CheckBoxValue=annonce.CheckBoxValue           
             };
             
 
