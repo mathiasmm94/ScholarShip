@@ -36,7 +36,7 @@ public class ChatController : ControllerBase
          _context.ChatRooms.Add(chat);
          await _context.SaveChangesAsync();
 
-         return Ok(chat);
+        return CreatedAtAction("GetChat", new { id = chatRoom.ChatRoomId }, chat);
     }
     
     

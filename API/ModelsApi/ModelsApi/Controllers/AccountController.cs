@@ -65,6 +65,7 @@ namespace ModelsApi.Controllers
                     {
 	                    long modelId = -1;
                         long efManagerId = -1;
+                        string name = "lol";
                         var EfManager = await _context.Managers.FirstOrDefaultAsync(m => m.EfAccountId == account.EfAccountId);
                         if (EfManager != null) { efManagerId = EfManager.EfManagerId; }
                         /*if (!account.IsManager)
@@ -74,7 +75,7 @@ namespace ModelsApi.Controllers
                             if (model != null)
                                 modelId = model.EfModelId;
                         }*/
-                        var jwt = GenerateToken(account.Email, efManagerId);
+                        var jwt = GenerateToken(account.Email, efManagerId, name);
                         var token = new Token() { JWT = jwt };
                         return token;
                     }
