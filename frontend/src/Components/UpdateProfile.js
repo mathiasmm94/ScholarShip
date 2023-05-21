@@ -1,0 +1,177 @@
+import{ useState, useEffect} from "react";
+import {useParams, useNavigate} from "react-router-dom";
+
+export function UpdateProfile() {
+ const navigate = useNavigate();
+  const { id } = useParams();
+  console.log(id);
+
+  const [userId, setUserId] = useState(null);
+ 
+    const [firstname, setFirstName] = useState();
+      const [lastname, setLasName] = useState("");
+      const [email, setEmail] = useState("");
+      const [phonenumber, setPhoneNumber] = useState("");
+      const [birthdate, setBirthdate] = useState("");
+      const [university, setUniversity] = useState("");
+      const [efManagerId, setEfManagerId] = useState("");
+
+
+    
+      const decodeToken = () =>{
+        const t = localStorage.getItem('token');
+        let user = parseJwt(t);
+        // setEfManagerId(user.EfManagerId);
+        setUserId(user.id)
+        console.log(user);
+        return user.EfManagerId;
+      }
+      function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+    }
+    const handleSubmit = () => {
+      navigate("/profile");
+        updateProfile1();
+    }
+
+
+    useEffect(()=>{
+      const getProfile = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          console.log(token.user);
+          const response = await fetch(`https://localhost:7181/api/Managers/${userId}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          });
+          console.log(response);
+          
+          if (!response.ok) {
+            throw new Error("couldnt get profile");
+            
+          }
+          const data = await response.json();
+          
+          console.log("data received:", data);
+          return data
+        } catch (error) {
+          console.log("Error:  ", error);
+        }
+        
+      };    
+
+     
+        getProfile().then((data)=>{ 
+            setFirstName(data.firstname);
+            setLasName(data.lastname);
+            setEmail(data.email);
+            setPhoneNumber(data.phonenumber);
+            setUniversity(data.university)
+            setEfManagerId(data.efManagerId);           
+
+        });
+
+      }, [userId]);
+
+
+  const updateProfile1 = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      console.log(token.user);
+      
+      decodeToken();
+      const response = await fetch(`https://localhost:7181/api/Managers/${userId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({
+          Firstname: firstname,
+          Lastname: lastname,
+          Email: email,
+          phonenumber: phonenumber,
+          birthdate: birthdate,
+          University: university,
+          EfManagerId: efManagerId,
+        }),
+      });
+      console.log(response);
+      if (!response.ok) {
+        throw new Error("couldnt update profile");
+      }
+      alert('Profil er nu opdateret');
+      const data = await response.json();
+      console.log("data received:", data);
+    } catch (error) {
+      console.log("Error:  ", error);
+    }
+  };
+
+  return (
+    <div className="form-border">
+      <form onSubmit={handleSubmit}>
+        <input
+          className="form-input"
+          type="text"
+          id="firstName"
+          value={firstname}
+          onChange={(e) => setFirstName(e.target.value)}
+          placeholder="Fornavn"
+        />
+
+        <input
+          className="form-input"
+          type="text"
+          id="lastname"
+          value={lastname}
+          onChange={(e) => setLasName(e.target.value)}
+          placeholder="Efternavn"
+        />
+         <input
+          className="form-input"
+          type="text"
+          id="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+
+        <input
+          className="form-input"
+          type="text"
+          id="PhoneNumber"
+          value={phonenumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          placeholder="Phonenumber"
+        />
+        <input
+          className="form-input"
+          type="text"
+          id="major"
+          value={university}
+          onChange={(e) => setUniversity(e.target.value)}
+          placeholder="Universitet"
+        />
+
+
+
+        <input
+          className="form-input"
+          type="text"
+          id="Birthdate"
+          value={birthdate}
+          onChange={(e) => setBirthdate(e.target.value)}
+          placeholder="Birthdate"
+        />
+
+        <button className="submitbutton" type="submit">
+          OPDATER PROFIl!
+        </button>
+      </form>
+    </div>
+  );
+}
