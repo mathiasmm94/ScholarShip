@@ -13,6 +13,8 @@ public class Annonce
     public string Beskrivelse { get; set; }
     public string Studieretning { get; set; }
     public string BilledeSti { get; set; }
+    public bool? CheckBoxValue { get; set; }
+    public int? NumberOfWeeks { get; set; }
     
     [ForeignKey("EfManagerId")]
     public long EfManagerId { get; set; }

@@ -177,7 +177,6 @@ namespace ModelsApi.Controllers
         {
             Claim roleClaim;
             
-
             var claims = new Claim[]
             {
                 new Claim(ClaimTypes.Email, email),
@@ -192,7 +191,7 @@ namespace ModelsApi.Controllers
                       new SymmetricSecurityKey(key),
                       SecurityAlgorithms.HmacSha256Signature)),
                       new JwtPayload(claims));
-
+            
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

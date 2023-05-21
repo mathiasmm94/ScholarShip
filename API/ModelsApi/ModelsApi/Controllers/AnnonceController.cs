@@ -27,7 +27,7 @@ namespace ModelsApi.Controllers
             {
                
                 return NotFound();
-            }
+            }  
             return await _context.Annonces.ToListAsync();
         }
 
@@ -52,15 +52,28 @@ namespace ModelsApi.Controllers
         // PUT: api/Annonces/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAnnonce(int id, Annonce annonce)
+        public async Task<IActionResult> PutAnnonce(int id, AnnonceDTO annonceforPut)
         {
-            if (id != annonce.AnnonceId)
+            //if (id != annonceforPut.AnnonceId)
+            //{
+            //    return BadRequest();
+            //}
+            Annonce annonce2 = new Annonce
             {
-                return BadRequest();
-            }
+                AnnonceId=id,
+                Beskrivelse=annonceforPut.Beskrivelse,
+                BilledeSti=annonceforPut.BilledeSti,
+                EfManagerId=annonceforPut.EfManagerId,
+                Stand = annonceforPut.Stand,
+                Studieretning=annonceforPut.Studieretning,
+                Titel = annonceforPut.Titel,
+                Price = annonceforPut.Price,
+                Kategori = annonceforPut.Kategori,
+                ChatId = annonceforPut.ChatId
+            };
 
-            _context.Entry(annonce).State = EntityState.Modified;
-
+            _context.Entry(annonce2).State = EntityState.Modified;
+           
             try
             {
                 await _context.SaveChangesAsync();
@@ -99,7 +112,9 @@ namespace ModelsApi.Controllers
             Titel = annonce.Titel,
             Price = annonce.Price,
             Kategori = annonce.Kategori,
-            ChatId = annonce.ChatId
+            ChatId = annonce.ChatId,
+            NumberOfWeeks=annonce.NumberOfWeeks,
+            CheckBoxValue=annonce.CheckBoxValue           
             };
             
 
