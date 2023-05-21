@@ -76,7 +76,7 @@ export function UpdateAnnonce() {
           const data = await response.json();
           
           console.log("data received:", data);
-          return data
+          return data;
         } catch (error) {
           console.log("Error:  ", error);
         }
@@ -93,8 +93,11 @@ export function UpdateAnnonce() {
             setStudieretning(data.studieretning)
             setTitel(data.titel);
             setKategori(data.kategori);
-            
-
+            if(data.CheckboxValue == true){
+              setCardNumber(data.cardNumber);
+              setSecurityCode(data.securityCode);
+            }
+          
         })
 
       }, [])
@@ -118,6 +121,8 @@ export function UpdateAnnonce() {
           BilledeSti: billedesti,
           EfManagerId: efManagerId,
           Stand: stand,
+          CheckboxValue: showPaymentPopup,
+          NumberOfWeeks: numberOfWeeks,
         }),
       });
       console.log(response);
