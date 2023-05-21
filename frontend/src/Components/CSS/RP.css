@@ -24,10 +24,11 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 20px;
+  padding: 50px;
   background-color: #f1f1f1;
   border-radius: 8px;
-  width: 200px;
+  width: 300px;
+  margin-bottom: 20px;
 }
 
 .annonce-image-RP {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CSS/RP.css";
 
-function RandomProducts() {
+export function RandomProducts() {
   const [randomProducts, setRandomProducts] = useState([]);
 
   useEffect(() => {
@@ -50,13 +50,13 @@ function RandomProducts() {
           {randomProducts.map((result, index) => (
             <div
               className="annonce-item-RP"
-              key={result.AnnonceId}
+              key={result.annonceId}
               onClick={() => handleAnnouncementClick(result)}
             >
+              <h2>{result.titel}</h2>
               <div className="annonce-details">
-                <img src={result.BilledeSti} alt={result.Titel} className="annonce-image-RP" />
-                <h2>{result.Titel}</h2>
-                <p className="annonce-price-RP">Price: {result.Price} kr.</p>
+                <img src={result.billedeSti} alt={result.titel} className="annonce-image-RP" />
+                <p className="annonce-price-RP">Price: {result.price} kr.</p>
               </div>
             </div>
           ))}
@@ -64,7 +64,6 @@ function RandomProducts() {
       </div>
     </div>
   );
-  
 }
 
 export default RandomProducts;

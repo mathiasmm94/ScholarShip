@@ -6,6 +6,7 @@ import { Footer } from "./Components/Footer.js";
 import { LogInForm } from "./Components/Login.js";
 import { RegisterUser } from "./Components/Register.js";
 import RandomProducts from "./Components/RandomProducts.js";
+import { Home } from "./Components/Home.js";
 
 import "./App.css";
 
@@ -14,11 +15,11 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Search />} />
-        <Route path="login" element={<LogInForm />} />
-        <Route path="register" element={<RegisterUser />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/login" element={<LogInForm />} />
+        <Route path="/register" element={<RegisterUser />} />
       </Routes>
-      <RandomProducts/>
       <Footer />
     </Router>
   );
