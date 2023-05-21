@@ -12,7 +12,7 @@
             public string BilledeSti { get; set; }
             public long EfManagerId { get; set; }
             public string Stand { get; set; }
-            public int ChatId { get; set; }
+            public int ChatRoomId { get; set; }
             public bool CheckBoxValue { get; set; }
             public int NumberOfWeeks { get; set; }
     }

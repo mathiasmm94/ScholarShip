@@ -1,3 +1,7 @@
+body{
+  background-color:#8eaeb5;
+}
+
 .annonce-list {
   display: flex;
   flex-direction: column;
@@ -43,27 +47,31 @@
   border-radius: 3px;
 }
 
-h2 {
-  margin: 0;
+.selected-announcement h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
+  margin-left: 200px;
 }
+
+
 
 .annonce-price {
   margin-left: auto;
 }
 
 .selected-announcement{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  background-color: #8eaeb5;
-  padding: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  justify-content: center;
-  font-family: "Montserrat-Alt1";
-  align-items: center; /* vertical centering of the content */
-  justify-content: space-between; /* horizontal spacing between the elements */
-  width: 800px;
-  margin: 0 auto;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column; 
+  justify-content: center; 
+  text-align: center; 
+  width: 500px;
+  height: 300px;
 }
 
 .back-to-search-button{
@@ -72,7 +80,7 @@ h2 {
   width: 250px;
   color: rgb(0, 0, 0);
   padding: 10px 20px;
-  text-align: center;
+  text-align: left;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
@@ -80,7 +88,7 @@ h2 {
   cursor: pointer;
   transition-duration: 0.4s;
   font-family: "Montserrat-Alt1";
-  margin-left: 40px;
+  margin-left: 250px;
 }
 
 .back-to-search-button:hover{

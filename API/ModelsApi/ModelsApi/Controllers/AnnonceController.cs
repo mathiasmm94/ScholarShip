@@ -69,7 +69,7 @@ namespace ModelsApi.Controllers
                 Titel = annonceforPut.Titel,
                 Price = annonceforPut.Price,
                 Kategori = annonceforPut.Kategori,
-                ChatId = annonceforPut.ChatId
+                ChatRoomId = annonceforPut.ChatRoomId
             };
 
             _context.Entry(annonce2).State = EntityState.Modified;
@@ -112,7 +112,7 @@ namespace ModelsApi.Controllers
             Titel = annonce.Titel,
             Price = annonce.Price,
             Kategori = annonce.Kategori,
-            ChatId = annonce.ChatId,
+            ChatRoomId = annonce.ChatRoomId,
             NumberOfWeeks=annonce.NumberOfWeeks,
             CheckBoxValue=annonce.CheckBoxValue           
             };

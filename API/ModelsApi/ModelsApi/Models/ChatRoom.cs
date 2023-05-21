@@ -4,13 +4,12 @@ using ModelsApi.Models.Entities;
 
 namespace ModelsApi.Models;
 
-public class Chat
+public class ChatRoom
 {
-    public int ChatId { get; set; }
-    
+    public int ChatRoomId { get; set; }
+
+    public List<EfManager> EfManagers { get; set; }
     public List<Annonce> Annonces { get; set; }
     public List<Message> Messages { get; set; }
-    public List<EfAccount> Profils { get; set; }
-
-
+    
 }
