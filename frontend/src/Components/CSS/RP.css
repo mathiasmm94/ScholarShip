@@ -1,12 +1,18 @@
 .annonce-container-RP {
-  max-width: 100%;
-  overflow: hidden;
+  background-color: #8eaeb5;
+  padding: 10px;
+  border-radius: 5px;
+  justify-content: center;
+  font-family: "Montserrat-Alt1";
+  align-items: center;
+  justify-content: space-between;
+  width: 800px;
+  margin: 0 auto;
 }
 
 .title-container-RP {
   display: flex;
   justify-content: center;
-  margin-right: calc(33.33%); 
 }
 
 .annonce-list-RP {
@@ -14,26 +20,40 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 20px;
-  
-  
+  background-color: #8eaeb5;
+  padding: 10px;
+  border-radius: 5px;
+  justify-content: center;
+  font-family: "Montserrat-Alt1";
+  align-items: center;
+  justify-content: space-between;
+  width: 800px;
+  margin: 0 auto;
 }
 
 .annonce-item-RP {
-  
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 20px;
-  background-color: #f1f1f1;
-  border-radius: 8px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
 }
 
 .annonce-image-RP {
-  width: 50%;
-  max-width: 100px;
-  height: auto;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 10px;
+  background-color: white;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
 
 .annonce-title-RP {
@@ -46,3 +66,30 @@
   margin-top: 5px;
   font-size: 14px;
 }
+
+.selected-announcement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 400px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+.selected-announcement-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.back-to-search-button {
+  margin-top: 20px;
+}
+

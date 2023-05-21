@@ -3,7 +3,6 @@ import "./CSS/SearchResult.css";
 import "./CSS/SearchButton.css";
 import  {ChatWindow}  from "./ChatWindow";
 
-
 export function SearchResult(props) {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
