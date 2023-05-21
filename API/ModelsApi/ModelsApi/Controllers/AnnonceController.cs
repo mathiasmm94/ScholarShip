@@ -58,6 +58,9 @@ namespace ModelsApi.Controllers
             //{
             //    return BadRequest();
             //}
+            ChatRoom c = new ChatRoom();
+            _context.ChatRooms.Add(c);
+            await _context.SaveChangesAsync();
             Annonce annonce2 = new Annonce
             {
                 AnnonceId=id,
@@ -69,7 +72,9 @@ namespace ModelsApi.Controllers
                 Titel = annonceforPut.Titel,
                 Price = annonceforPut.Price,
                 Kategori = annonceforPut.Kategori,
-                ChatRoomId = annonceforPut.ChatRoomId
+                ChatRoomId = c.ChatRoomId,
+                NumberOfWeeks = annonceforPut.NumberOfWeeks,
+                CheckBoxValue = annonceforPut.CheckBoxValue
             };
 
             _context.Entry(annonce2).State = EntityState.Modified;
