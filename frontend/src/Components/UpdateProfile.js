@@ -143,14 +143,35 @@ export function UpdateProfile() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
-
         <input
-          className="form-input"
-          type="text"
-          id="PhoneNumber"
-          value={phonenumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          placeholder="Phonenumber"
+              className="form-input"
+              type="tel"
+              id="PhoneNumber"
+              value={phonenumber}
+              onChange={(e) => {
+                let formattedValue = e.target.value
+                  .replace(/\s/g, "")
+                  .replace(/(\d{2})/g, "$1 ")
+                  .trim();
+
+                if (formattedValue.length > 11) {
+                  formattedValue = formattedValue.slice(0, 11);
+                }
+
+                setPhoneNumber(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                const key = e.key;
+                const isNumeric = /^\d$/.test(key);
+                const isBackspace = key === "Backspace";
+
+                if (!isNumeric && !isBackspace) {
+                  e.preventDefault();
+                }
+              }}
+              placeholder="Phonenumber"
+              maxLength={11}
+              pattern="\d{2}\s?\d{2}\s?\d{2}\s?\d{2}"
         />
         <input
           className="form-input"
@@ -165,7 +186,7 @@ export function UpdateProfile() {
 
         <input
           className="form-input"
-          type="text"
+          type="date"
           id="Birthdate"
           value={birthdate}
           onChange={(e) => setBirthdate(e.target.value)}
@@ -177,7 +198,7 @@ export function UpdateProfile() {
           ANNULLER
         </button>
         <button className="submitbutton" type="submit">
-          OPDATER PROFIl!
+          OPDATER PROFIl
         </button>
         </div>
       </form>
