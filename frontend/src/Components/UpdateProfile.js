@@ -81,7 +81,7 @@ export function UpdateProfile() {
 
         });
 
-      },);
+      },[]);
 
 
   const updateProfile1 = async () => {
