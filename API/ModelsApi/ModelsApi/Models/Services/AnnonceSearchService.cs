@@ -16,6 +16,7 @@ public class AnnonceSearchService : IAnnonceSearchService
         var SearchAnnonce = _Repository.GetAnnonceData();
         
         return SearchAnnonce
-            .Where(x => x.Titel.Contains(Keyword)).ToList();
+            .Where(x => x.Titel.Contains(Keyword, StringComparison.InvariantCultureIgnoreCase)).ToList();
     }
+    
 }

@@ -23,10 +23,5 @@ public class SearchController : ControllerBase
         
         return _annonceSearchService.SearchAnnonces(Keyword);  
     }
-    /*
-    [HttpGet]
-    public async Task GetChatId(int id)
-    {
-        return 
-    }*/
+    
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ModelsApi.Data.Migrations
 {
-    public partial class chatrooms : Migration
+    public partial class ChatModelsDone : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

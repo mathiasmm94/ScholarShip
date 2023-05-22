@@ -12,8 +12,8 @@ using ModelsApi.Data;
 namespace ModelsApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230521130723_chatrooms")]
-    partial class chatrooms
+    [Migration("20230522090452_ChatModelsDone")]
+    partial class ChatModelsDone
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
