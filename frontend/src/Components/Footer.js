@@ -33,6 +33,7 @@ export function Footer() {
   
         <div className="footer-bottom">
           <p>&copy; 2023 ScholarShip. Alle rettigheder forbeholdes.</p>
+          <br/>
         </div>
       </footer>
     );
