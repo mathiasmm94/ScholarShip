@@ -6,7 +6,6 @@ using ModelsApi.Models;
 
 namespace ModelsApi.Hubs;
 
-[EnableCors("AllowAllOrigin")]
 public class ChatHub : Hub
 {
     private readonly ApplicationDbContext _context;

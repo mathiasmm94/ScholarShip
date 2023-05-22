@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ChatService from "./ChatService.js";
-import "./CSS/ChatWindow.css"
+//import "./CSS/ChatWindow.css"
 
 function parseJwt(token) {
   var base64Url = token.split(".")[1];

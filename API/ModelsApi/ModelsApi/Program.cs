@@ -18,30 +18,16 @@ var connectionString = builder.Configuration.GetSection("ConnectionString").Get<
 
 // Add services to the container.
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-var MyAllowSpecificOrigins = "_myAllowAllOrigins";
 builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-        builder =>
-        {
-            builder.WithOrigins("http://localhost:3000")
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials();
-        });
-});
-/*builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder =>
     {
         builder.AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowAnyMethod()
-            .WithOrigins("http://localhost:3000");
-
+            .WithOrigins("http://localhost:3000") // Add your React app's domain here
+            .AllowCredentials();
     });
-});*/
-
+});
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddControllers();
@@ -135,7 +121,6 @@ app.UseSwaggerUI(c =>
 });
 
 // Configure cors
-/*
 app.UseCors(x => x
     //.AllowAnyOrigin() // Not allowed together with AllowCredential
     //.WithOrigins("http://localhost:3000", "http://localhost:8080" "http://localhost:5000" )
@@ -143,23 +128,17 @@ app.UseCors(x => x
     .WithOrigins("http://localhost:3000")
     .AllowAnyMethod()
     .AllowAnyHeader()
-    );*/
-
-
-
-app.UseCors("_myAllowAllOrigins");
-
-
+    .AllowCredentials()
+    );
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapHub<ChatHub>("/ChatHub");
 
 app.MapControllers();
+app.MapHub<ChatHub>("/ChatHub");
 
-
-//app.UseCors("AllowAllOrigins");
+app.UseCors("AllowAllOrigins");
 
 using (var scope = app.Services.CreateScope())
 {

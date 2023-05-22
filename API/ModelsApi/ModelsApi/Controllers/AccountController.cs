@@ -62,11 +62,7 @@ namespace ModelsApi.Controllers
                     var validPwd = Verify(login.Password, account.PwHash);
                     if (validPwd)
                     {
-	                    long modelId = -1;
-                        long efManagerId = -1;
-                        string name = "lol";
-                        var EfManager = await _context.Managers.FirstOrDefaultAsync(m => m.EfAccountId == account.EfAccountId);
-                        if (EfManager != null) { efManagerId = EfManager.EfManagerId; }
+                        long modelId = account.EfAccountId;
                         /*if (!account.IsManager)
                         {
                             var model = await _context.Models.Where(m => m.EfAccountId == account.EfAccountId)
@@ -182,6 +178,7 @@ namespace ModelsApi.Controllers
             {
                 new Claim(ClaimTypes.Email, email),
                 new Claim("Name", name),
+                new Claim("EfmanagerId", modelId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
             };
