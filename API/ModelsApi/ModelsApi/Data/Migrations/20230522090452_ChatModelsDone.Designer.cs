@@ -12,8 +12,8 @@ using ModelsApi.Data;
 namespace ModelsApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230521125127_Chat_models")]
-    partial class Chat_models
+    [Migration("20230522090452_ChatModelsDone")]
+    partial class ChatModelsDone
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,12 +58,18 @@ namespace ModelsApi.Data.Migrations
                     b.Property<int>("ChatRoomId")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("CheckBoxValue")
+                        .HasColumnType("bit");
+
                     b.Property<long>("EfManagerId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Kategori")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NumberOfWeeks")
+                        .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
