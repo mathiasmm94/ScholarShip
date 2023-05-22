@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelsApi.Data;
 
@@ -11,9 +12,10 @@ using ModelsApi.Data;
 namespace ModelsApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230521102432_addedcheckboxandnumberofweekstoannonce")]
+    partial class addedcheckboxandnumberofweekstoannonce
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +23,6 @@ namespace ModelsApi.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("ChatRoomEfManager", b =>
-                {
-                    b.Property<int>("ChatRoomsChatRoomId")
-                        .HasColumnType("int");
-
-                    b.Property<long>("EfManagersEfManagerId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ChatRoomsChatRoomId", "EfManagersEfManagerId");
-
-                    b.HasIndex("EfManagersEfManagerId");
-
-                    b.ToTable("ChatRoomEfManager");
-                });
 
             modelBuilder.Entity("ModelsApi.Models.Annonce", b =>
                 {
@@ -53,7 +40,7 @@ namespace ModelsApi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ChatRoomId")
+                    b.Property<int>("ChatId")
                         .HasColumnType("int");
 
                     b.Property<bool?>("CheckBoxValue")
@@ -86,24 +73,29 @@ namespace ModelsApi.Data.Migrations
 
                     b.HasKey("AnnonceId");
 
-                    b.HasIndex("ChatRoomId");
+                    b.HasIndex("ChatId");
 
                     b.HasIndex("EfManagerId");
 
                     b.ToTable("Annonces");
                 });
 
-            modelBuilder.Entity("ModelsApi.Models.ChatRoom", b =>
+            modelBuilder.Entity("ModelsApi.Models.Chat", b =>
                 {
-                    b.Property<int>("ChatRoomId")
+                    b.Property<int>("ChatId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatRoomId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChatId"), 1L, 1);
 
-                    b.HasKey("ChatRoomId");
+                    b.Property<long?>("EfManagerId")
+                        .HasColumnType("bigint");
 
-                    b.ToTable("ChatRooms");
+                    b.HasKey("ChatId");
+
+                    b.HasIndex("EfManagerId");
+
+                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("ModelsApi.Models.Entities.EfAccount", b =>
@@ -113,6 +105,9 @@ namespace ModelsApi.Data.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("EfAccountId"), 1L, 1);
+
+                    b.Property<int?>("ChatId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -125,6 +120,8 @@ namespace ModelsApi.Data.Migrations
                         .HasColumnType("nvarchar(60)");
 
                     b.HasKey("EfAccountId");
+
+                    b.HasIndex("ChatId");
 
                     b.ToTable("Accounts");
                 });
@@ -191,48 +188,25 @@ namespace ModelsApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageId"), 1L, 1);
 
-                    b.Property<int>("ChatRoomId")
+                    b.Property<int>("ChatId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Content")
+                    b.Property<string>("Messages")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("EfManagerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("MessageId");
 
-                    b.HasIndex("ChatRoomId");
-
-                    b.HasIndex("EfManagerId");
+                    b.HasIndex("ChatId");
 
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("ChatRoomEfManager", b =>
-                {
-                    b.HasOne("ModelsApi.Models.ChatRoom", null)
-                        .WithMany()
-                        .HasForeignKey("ChatRoomsChatRoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ModelsApi.Models.Entities.EfManager", null)
-                        .WithMany()
-                        .HasForeignKey("EfManagersEfManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ModelsApi.Models.Annonce", b =>
                 {
-                    b.HasOne("ModelsApi.Models.ChatRoom", "ChatRoom")
+                    b.HasOne("ModelsApi.Models.Chat", "Chat")
                         .WithMany("Annonces")
-                        .HasForeignKey("ChatRoomId")
+                        .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -242,9 +216,23 @@ namespace ModelsApi.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("ChatRoom");
+                    b.Navigation("Chat");
 
                     b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("ModelsApi.Models.Chat", b =>
+                {
+                    b.HasOne("ModelsApi.Models.Entities.EfManager", null)
+                        .WithMany("Chats")
+                        .HasForeignKey("EfManagerId");
+                });
+
+            modelBuilder.Entity("ModelsApi.Models.Entities.EfAccount", b =>
+                {
+                    b.HasOne("ModelsApi.Models.Chat", null)
+                        .WithMany("Profils")
+                        .HasForeignKey("ChatId");
                 });
 
             modelBuilder.Entity("ModelsApi.Models.Entities.EfManager", b =>
@@ -260,33 +248,29 @@ namespace ModelsApi.Data.Migrations
 
             modelBuilder.Entity("ModelsApi.Models.Message", b =>
                 {
-                    b.HasOne("ModelsApi.Models.ChatRoom", "ChatRoom")
+                    b.HasOne("ModelsApi.Models.Chat", "Chat")
                         .WithMany("Messages")
-                        .HasForeignKey("ChatRoomId")
+                        .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ModelsApi.Models.Entities.EfManager", "EfManager")
-                        .WithMany()
-                        .HasForeignKey("EfManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ChatRoom");
-
-                    b.Navigation("EfManager");
+                    b.Navigation("Chat");
                 });
 
-            modelBuilder.Entity("ModelsApi.Models.ChatRoom", b =>
+            modelBuilder.Entity("ModelsApi.Models.Chat", b =>
                 {
                     b.Navigation("Annonces");
 
                     b.Navigation("Messages");
+
+                    b.Navigation("Profils");
                 });
 
             modelBuilder.Entity("ModelsApi.Models.Entities.EfManager", b =>
                 {
                     b.Navigation("Annoncer");
+
+                    b.Navigation("Chats");
                 });
 #pragma warning restore 612, 618
         }

@@ -22,7 +22,7 @@ export function LogInForm() {
         console.log("success");
         navigate("/");
       } else {
-        alert("Server returned: " + response.statusText);
+        alert("Login mislykkedes");
       }
     } catch (err) {
       alert("Error: " + err);

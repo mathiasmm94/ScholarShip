@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./CSS/SearchResult.css";
 import "./CSS/SearchButton.css";
+import  {ChatWindow}  from "./ChatWindow";
 
 export function SearchResult(props) {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
@@ -37,6 +38,19 @@ export function SearchResult(props) {
   };
 
   if (selectedAnnouncement) {
+    const annonceId = selectedAnnouncement.annonceId;
+
+  const chatroom = fetch(`https://localhost:7181/api/chat/annonce/${annonceId}/owner`)
+  .then(response => response.json())
+  .then(data => {
+    // Handle the retrieved owner data
+    //console.log(data); // Replace with your logic to display the owner's information
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    
+  });
+
     return (
       <div className="selected-announcement">
         <h2>{selectedAnnouncement.titel}</h2>
@@ -53,6 +67,9 @@ export function SearchResult(props) {
         <button className="back-to-search-button" onClick={() => setSelectedAnnouncement(null)}>
           Back to search results
         </button>
+        
+        <ChatWindow />
+        
       </div>
     );
   }

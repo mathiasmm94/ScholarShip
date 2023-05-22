@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using ModelsApi.Models.Entities;
 using ModelsApi.Models;
+using ModelsApi.Models.Services;
 using static BCrypt.Net.BCrypt;
 
 namespace ModelsApi.Data
@@ -17,12 +18,15 @@ namespace ModelsApi.Data
         internal static void SeedData(ApplicationDbContext context, int bcryptWorkfactor)
         {
             context.Database.EnsureCreated();
-            if (!context.Chats.Any())
-	            SeedChat(context);
-			if (!context.Accounts.Any())
+            
+            if (!context.Accounts.Any())
                 SeedAccounts(context, bcryptWorkfactor);
             if (!context.Managers.Any())
                 SeedManagers(context);
+            if (!context.ChatRooms.Any())
+                SeedChatRooms(context);
+            if (!context.Messages.Any())
+                SeedMessage(context);
             if (!context.Annonces.Any())
                 SeedAnnonces(context);
            
@@ -52,54 +56,69 @@ namespace ModelsApi.Data
             );
             context.SaveChanges();
         }
-
-        static void SeedChat(ApplicationDbContext context)
+        
+        static void SeedChatRooms(ApplicationDbContext context)
         {
-	        context.Chats.AddRange(
-		        new Chat
-		        {
-                    
-		        },
-		        new Chat
-		        {
+            context.ChatRooms.AddRange(
+                new ChatRoom
+                {
+                
+                 
+                },
+                new ChatRoom
+                {
+                 
 			       
-		        },
-		        new Chat
-		        {
-			       
-		        }
-	        );
-	        context.SaveChanges();
+                },
+                new ChatRoom
+                {
+                }
+            );
+            context.SaveChanges();
         }
-
-		static void SeedManagers(ApplicationDbContext context)
+        
+        static void SeedManagers(ApplicationDbContext context)
         {
             context.Managers.AddRange(
                 new EfManager
                 {
                     EfAccountId = 1,
-                    Email = "user@mail.dk",
                     FirstName = "User",
                     LastName = "sui",
-                    
+                    Email = "user@mail.dk",
+                    Password = "Pas123",
+                    PhoneNumber = "12121212",
+                    Birthdate = "12-12-2012",
+                    University = "AU",
+
+
                 },
                 new EfManager
                 {
-                EfAccountId = 2,
-                Email = "user2@mail.dk",
-                FirstName = "Sui",
-                LastName = "sui",
+                    EfAccountId = 2,
+                    FirstName = "User",
+                    LastName = "suisui",
+                    Email = "user2@mail.dk",
+                    Password = "Pas123",
+                    PhoneNumber = "12121212",
+                    Birthdate = "12-12-2012",
+                    University = "AU",
                 },
                 new EfManager
                 {
-                EfAccountId = 3,
-                Email = "user3@mail.dk",
-                FirstName = "Sui",
-                LastName = "suisen",
+                    EfAccountId = 3,
+                    FirstName = "sui",
+                    LastName = "suisen",
+                    Email = "user3@mail.dk",
+                    Password = "Pas123",
+                    PhoneNumber = "12121212",
+                    Birthdate = "12-12-2012",
+                    University = "AU",
                 }
                 );
                 context.SaveChanges();
         }
+
         static void SeedAnnonces(ApplicationDbContext context)
         {
             context.Annonces.AddRange(
@@ -113,63 +132,65 @@ namespace ModelsApi.Data
                    BilledeSti = "images/book.gif",
                    EfManagerId = 1,
                    Stand = "Brugt",
-                   ChatId = 1
+                   ChatRoomId = 1,
+                   CheckBoxValue=true,
+                   NumberOfWeeks=2
                 },
                 new Annonce
                 {
-	                Price = 10.2,
+                    Price = 10.2,
                     Titel = "My first book",
                     Kategori = "Bog",
                     Beskrivelse = "Det asd er en flot bog",
                     Studieretning = "SW",
-                    BilledeSti = "images/book.gif",
+                    BilledeSti = "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
                     EfManagerId = 2,
                     Stand = "Brugt",
-                    ChatId = 2
+                    ChatRoomId = 2
                 },
                 new Annonce
                 {
-	                Price = 1011.2,
+                    Price = 1011.2,
                     Titel = "My first book",
                     Kategori = "Bog",
                     Beskrivelse = "Det asd er en flot bog",
                     Studieretning = "SW",
-                    BilledeSti = "images/book.gif",
+                    BilledeSti = "https://easydrawingguides.com/wp-content/uploads/2020/10/how-to-draw-an-open-book-featured-image-1200.png",
                     EfManagerId = 2,
                     Stand = "Brugt",
-                    ChatId = 3
+                    ChatRoomId = 3
+                }
+            );
+            context.SaveChanges();
+        }
+        static void SeedMessage(ApplicationDbContext context)
+        {
+            context.Messages.AddRange(
+                new Message
+                {
+                    ChatRoomId = 1,
+                    Content = "Hej",
+                    EfManagerId = 1,
+                    TimeStamp = DateTime.Now
+                },
+                new Message
+                {
+                    ChatRoomId = 2,
+                    Content = "Hej",
+                    EfManagerId = 2,
+                    TimeStamp = DateTime.Now
+                },
+                new Message
+                {
+                    ChatRoomId = 3,
+                    Content = "Hej",
+                    EfManagerId = 3,
+                    TimeStamp = DateTime.Now
                 }
             );
             context.SaveChanges();
         }
         
 
-        
-        
-        static void SeedMessage(ApplicationDbContext context)
-        {
-            context.Messages.AddRange(
-                new Message
-                {
-                    MessageId = 1,
-                    Messages = "Hej",
-                    ChatId = 1
-                },
-                new Message
-                {
-                    MessageId = 2,
-                    Messages = "Hej",
-                    ChatId = 2
-                },
-                new Message
-                {
-                    MessageId = 3,
-                    Messages = "Hej",
-                    ChatId = 1
-                }
-            );
-            context.SaveChanges();
-        }
-        
     }
 }

@@ -1,0 +1,66 @@
+import React from 'react';
+import './CSS/Annonce.css';
+import { useState } from 'react';
+
+
+function DeleteButtonReal({id}) {
+  const token = localStorage.getItem("token");
+  const decodeToken = () =>{
+    const t = localStorage.getItem('token');
+    let user = parseJwt(t);
+    console.log(user);
+    return user.EfManagerId;
+  };
+  function parseJwt(token) {
+    var base64Url = token.split(".")[1];
+    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    var jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+  }
+  //  const [id, setId] = useState('');
+   const handleClick = () => {
+    decodeToken();
+    console.log("Sut mine lange løg JC", id);
+    if (window.confirm("Bekræft sletning af annonce"))
+    fetch(`https://localhost:7181/api/Annonces/${id}`, {
+       method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      //body: JSON.stringify({/* payload data */ })
+    })
+      .then(response => response.json())
+      .then(data => {
+        alert("Annoncen er nu slettet")
+        console.log("Deleting data ...." )
+        
+      })
+      .catch(error => {
+        console.log(error) // handle error
+        
+      });
+      window.location.reload();
+  }
+
+  
+  // const handleChange = (event) => {
+  //   setId(event.target.value);
+  // }
+  return (
+    // <><input type="text" value={id} onChange={handleChange} placeholder="Enter ID" />
+    <button className="deletebutton2" onClick={handleClick}>Slet Annonce</button>
+    //</>
+    
+)}
+
+export default DeleteButtonReal;

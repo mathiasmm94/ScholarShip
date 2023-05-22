@@ -71,7 +71,7 @@ export function RandomProducts() {
       ) : (
         <div>
           <div className="title-container-RP">
-            <h1 className="Title">Se også:</h1>
+            <h1 className="Title">Udvalgte annoncer: </h1>
           </div>
           <div className="annonce-container-RP">
             <div className="annonce-list-RP">

@@ -13,15 +13,17 @@ public class Annonce
     public string Beskrivelse { get; set; }
     public string Studieretning { get; set; }
     public string BilledeSti { get; set; }
+    public bool? CheckBoxValue { get; set; }
+    public int? NumberOfWeeks { get; set; }
     
     [ForeignKey("EfManagerId")]
     public long EfManagerId { get; set; }
     
     public string Stand { get; set; }
     
-    [ForeignKey("ChatId")]
-    public int ChatId { get; set; }
+    [ForeignKey("ChatRoomId")]
+    public int ChatRoomId { get; set; }
     
     public EfManager Manager { get; set; }
-    public Chat Chat { get; set; }
+    public ChatRoom ChatRoom { get; set; }
 }
