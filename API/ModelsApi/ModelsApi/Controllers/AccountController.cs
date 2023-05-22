@@ -173,7 +173,7 @@ namespace ModelsApi.Controllers
 
 
 
-		private string GenerateToken(string email, long EfMangerId,string name)
+		private string GenerateToken(string email, long EfMangerId, string name)
         {
             Claim roleClaim;
             

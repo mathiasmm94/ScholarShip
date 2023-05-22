@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CSS/RP.css";
+import { ChatWindow } from "./ChatWindow";
 
 export function RandomProducts() {
+  const token = localStorage.getItem("token");
   const [randomProducts, setRandomProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
+  const handleChatToggle = () => {
+    setIsChatOpen(!isChatOpen);
+  };
+  
   useEffect(() => {
     getRandomProducts()
       .then(products => setRandomProducts(products))
@@ -25,6 +32,7 @@ export function RandomProducts() {
       console.error("Fejl under hentning af produkter:", error);
       return [];
     }
+  
   }
   
 
@@ -65,6 +73,23 @@ export function RandomProducts() {
           <button className="back-to-search-button" onClick={handleBackToSearchResults}>
             Back to products
           </button>
+
+          {token && (
+          <div className="Chat">
+            <div className="chat-buttons">
+              <button className="toggle_chat_button" onClick={handleChatToggle}>
+                {isChatOpen ? "Close Chat" : "Open Chat"}
+              </button>
+
+              {isChatOpen && (
+                <div className="Chat">
+                  <ChatWindow chatId={selectedProduct.chatRoomId} />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         </div>
       ) : (
         <div>
