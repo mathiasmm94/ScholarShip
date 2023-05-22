@@ -3,12 +3,16 @@ import "./CSS/SearchResult.css";
 import "./CSS/SearchButton.css";
 import  {ChatWindow}  from "./ChatWindow";
 
-
 export function SearchResult(props) {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState(10); // Startværdi er 10
   const productsPerPage = selectedValue;
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  
+  const handleChatToggle = () => {
+    setIsChatOpen(!isChatOpen);
+  };
   
 
   const results = props.results;
@@ -51,7 +55,8 @@ export function SearchResult(props) {
     console.error('Error:', error);
     
   });
-
+    const chatId = selectedAnnouncement.chatRoomId
+    console.log(chatId);
     return (
       <div className="selected-announcement">
         <h2>{selectedAnnouncement.titel}</h2>
@@ -68,9 +73,22 @@ export function SearchResult(props) {
         <button className="back-to-search-button" onClick={() => setSelectedAnnouncement(null)}>
           Back to search results
         </button>
+
+
+        <div className="Chat">
+        <div className="chat-buttons">
+          <button className="toggle_chat_button" onClick={handleChatToggle}>
+            {isChatOpen ? "Close Chat" : "Open Chat"}
+          </button>
+
+          {isChatOpen && (
+            <div className="Chat">
+              <ChatWindow chatId={chatId} />
+            </div>
+          )}
+        </div>
         
-        <ChatWindow />
-        
+        </div>
       </div>
     );
   }

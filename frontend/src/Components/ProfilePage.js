@@ -6,15 +6,16 @@ import { useNavigate } from "react-router-dom";
 export const ProfilePage = () => {
     const navigate = useNavigate();
     const [filteredAds, setFilteredAds] = useState([]);
-  
-    useEffect(() => {
-      fetchData();
-    }, []);
     
+    //first useEffect to be sure data is updated correctly.
     useEffect(() => {
-      // Fetch data whenever the component is mounted or filteredAds changes
       fetchData();
     }, []);
+
+
+    
+
+   
     
     const fetchData = async () => {
       try {
@@ -52,11 +53,12 @@ export const ProfilePage = () => {
         console.log("Error:", error);
       }
     };
+    
+    //second useEffect to be sure data is updated correctly after fetch.
+    useEffect(() => {
+      fetchData();
+    }, []);
 
-    const handleUpdateProfile = () => {
-      navigate("/UpdateProfile");
-    };
-  
     return (
         <div>
         <button className="opdateProfileButton" onClick={handleUpdateProfile}>Update Profile</button>

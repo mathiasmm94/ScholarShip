@@ -14,14 +14,30 @@ public class ChatHub : Hub
         _context = context;
     }
 
-    public async Task SendMessage(int chatRoomId, string senderName, string messageContent)
+    public async Task SendMessage(int chatRoomId, string senderName, string messageContent, int ManagerId)
     {
+        var user = _context.Managers.SingleOrDefault(x => x.EfManagerId == ManagerId);
+
         // Save the message to the database
+        var message = new Message
+        {
+            Content = messageContent,
+            TimeStamp = DateTime.Now,
+            ChatRoomId = chatRoomId,
+            EfManagerId = user.EfManagerId
+            
+        };
+
+        _context.Messages.Add(message);
+        await _context.SaveChangesAsync();
 
         // Get the chat room and users from the database
+        var chatRoom = await _context.ChatRooms.FindAsync(chatRoomId);
+        var efManagers = chatRoom.EfManagers;
 
         // Send the message to all connected clients in the chat room
-        await Clients.Group(chatRoomId.ToString()).SendAsync("ReceiveMessage", senderName, messageContent);
+        await Clients.Group(chatRoomId.ToString()).SendAsync("ReceiveMessage", senderName, messageContent); 
+        // Save the message to the database
     }
 
     public async Task JoinChatRoom(int chatRoomId)

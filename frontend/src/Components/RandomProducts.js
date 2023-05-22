@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CSS/RP.css";
 
-function RandomProducts() {
+export function RandomProducts() {
   const [randomProducts, setRandomProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     getRandomProducts()
@@ -35,36 +36,59 @@ function RandomProducts() {
     return randomIndices;
   }
 
-  function handleAnnouncementClick(result) {
-    // Behandle klik på en annonce
-    console.log("Klik på annonce:", result);
+  function handleAnnouncementClick(product) {
+    setSelectedProduct(product);
+  }
+
+  function handleBackToSearchResults() {
+    setSelectedProduct(null);
   }
 
   return (
-    <div>
-      <div className="title-container-RP">
-        <h1 className="Title">Se også:</h1>
-      </div>
-      <div className="annonce-container-RP">
-        <div className="annonce-list-RP">
-          {randomProducts.map((result, index) => (
-            <div
-              className="annonce-item-RP"
-              key={result.AnnonceId}
-              onClick={() => handleAnnouncementClick(result)}
-            >
-              <div className="annonce-details">
-                <img src={result.BilledeSti} alt={result.Titel} className="annonce-image-RP" />
-                <h2>{result.Titel}</h2>
-                <p className="annonce-price-RP">Price: {result.Price} kr.</p>
-              </div>
-            </div>
-          ))}
+    <div className="random-products-container">
+      {selectedProduct ? (
+        <div className="selected-announcement">
+          <h2>{selectedProduct.titel}</h2>
+          <img
+            src={selectedProduct.billedeSti}
+            alt={selectedProduct.titel}
+            className="selected-announcement-image"
+          />
+          <p>Price: {selectedProduct.price} kr.</p>
+          <p>Category: {selectedProduct.kategori}</p>
+          <p>Description: {selectedProduct.beskrivelse}</p>
+          <p>Study Direction: {selectedProduct.studieretning}</p>
+          <p>Condition: {selectedProduct.stand}</p>
+          <button className="back-to-search-button" onClick={handleBackToSearchResults}>
+            Back to products
+          </button>
         </div>
-      </div>
+      ) : (
+        <div>
+          <div className="title-container-RP">
+            <h1 className="Title">Udvalgte annoncer: </h1>
+          </div>
+          <div className="annonce-container-RP">
+            <div className="annonce-list-RP">
+              {randomProducts.map((product, index) => (
+                <div
+                  className="annonce-item-RP"
+                  key={product.annonceId}
+                  onClick={() => handleAnnouncementClick(product)}
+                >
+                  <h2>{product.titel}</h2>
+                  <div className="annonce-details">
+                    <img src={product.billedeSti} alt={product.titel} className="annonce-image-RP" />
+                    <p className="annonce-price-RP">Price: {product.price} kr.</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-  
 }
 
 export default RandomProducts;
