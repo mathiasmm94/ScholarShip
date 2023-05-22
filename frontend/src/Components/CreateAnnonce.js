@@ -196,7 +196,7 @@ export function CreateAnnonce() {
           id="image"
           value={billedesti}
           onChange={(e) => setBilledsti(e.target.value)}
-          placeholder="Indsæt billedesti"
+          placeholder="Indsæt URL til billede"
           required={!isFormSubmitted}
         />
 
