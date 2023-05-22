@@ -10,8 +10,8 @@ const ChatService = {
     await ChatService.connection.start() 
   },
 
-  sendMessage: (chatRoomId, senderName, messageContent) => {
-    ChatService.connection.invoke("SendMessage", chatRoomId, senderName, messageContent);
+  sendMessage: (chatRoomId, senderName, messageContent, EfmanagerId) => {
+    ChatService.connection.invoke("SendMessage", chatRoomId, senderName, messageContent, EfmanagerId);
   },
 
   joinChatRoom(chatRoomId) {
