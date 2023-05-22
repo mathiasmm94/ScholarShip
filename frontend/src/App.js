@@ -10,6 +10,7 @@ import RandomProducts from "./Components/RandomProducts.js";
 import {ProfilePage} from "./Components/ProfilePage.js";
 import {UpdateAnnonce} from "./Components/UpdateAnnonce.js";
 
+import { Home } from "./Components/Home.js";
 
 import "./App.css";
 
@@ -19,16 +20,14 @@ function App() {
     <><Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Search />}> </Route>
+        <Route path="/" element={<Home />}> </Route>
         <Route path="/CreateAnnonce" element={<CreateAnnonce />}></Route>
         <Route path="login" element={<LogInForm />}></Route>
         <Route path="register" element={<RegisterUser />}></Route>
         <Route path="/profile" element={<ProfilePage />}></Route>
         <Route path="/opdaterAnnonces/:id" element={<UpdateAnnonce  />}></Route>
+        <Route path="/search" element={<Search />} />
       </Routes>
-
-      {/* <RandomProducts/> */}
-      
       <Footer />
     </Router>
     </>

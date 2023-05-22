@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 export const ProfilePage = () => {
     const [filteredAds, setFilteredAds] = useState([]);
     
-    //Double useEffect to be sure data is updated correctly.
+    //first useEffect to be sure data is updated correctly.
     useEffect(() => {
       fetchData();
     }, []);
-    useEffect(() => {
-      fetchData();
-    }, []);
+
+
+    
 
    
     
@@ -50,7 +50,12 @@ export const ProfilePage = () => {
         console.log("Error:", error);
       }
     };
-  
+    
+    //second useEffect to be sure data is updated correctly after fetch.
+    useEffect(() => {
+      fetchData();
+    }, []);
+
     return (
       <>
        
