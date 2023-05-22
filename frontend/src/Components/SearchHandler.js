@@ -14,7 +14,7 @@ export function SearchHandler(props) {
       `https://localhost:7181/api/search/${searchTerm}`
     );
     setSearchResults(response.data);
-
+    
   };
 
   return (
