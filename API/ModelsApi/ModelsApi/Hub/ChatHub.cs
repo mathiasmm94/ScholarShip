@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.SignalR;
 using ModelsApi.Data;
 using ModelsApi.Interfaces;
@@ -5,6 +6,7 @@ using ModelsApi.Models;
 
 namespace ModelsApi.Hubs;
 
+[EnableCors("AllowAllOrigin")]
 public class ChatHub : Hub
 {
     private readonly ApplicationDbContext _context;
