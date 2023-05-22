@@ -5,9 +5,8 @@
   justify-content: center;
   font-family: "Montserrat-Alt1";
   align-items: center;
-  justify-content: space-between;
   width: 800px;
-  margin: 0 auto;
+  
 }
 
 .title-container-RP {
@@ -26,9 +25,10 @@
   justify-content: center;
   font-family: "Montserrat-Alt1";
   align-items: center;
-  justify-content: space-between;
-  width: 800px;
+  justify-items: center;
   margin: 0 auto;
+  width: 700px;
+  
 }
 
 .annonce-item-RP {
