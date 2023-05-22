@@ -65,7 +65,7 @@ namespace ModelsApi.Controllers
             {
                 AnnonceId=id,
                 Beskrivelse=annonceforPut.Beskrivelse,
-                BilledeSti=annonceforPut.BilledeSti,
+                BilledeSti=annonceforPut.BilledeSti,    
                 EfManagerId=annonceforPut.EfManagerId,
                 Stand = annonceforPut.Stand,
                 Studieretning=annonceforPut.Studieretning,
