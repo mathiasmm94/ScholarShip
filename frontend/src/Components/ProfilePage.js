@@ -59,6 +59,11 @@ export const ProfilePage = () => {
       fetchData();
     }, []);
 
+    const handleUpdateProfile = () => {
+        navigate("/UpdateProfile");
+      };
+
+
     return (
         <div>
         <button className="opdateProfileButton" onClick={handleUpdateProfile}>Update Profile</button>
