@@ -1,5 +1,5 @@
 import{ useState, useEffect} from "react";
-import {useParams, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export function UpdateProfile() {
  const navigate = useNavigate();
@@ -31,6 +31,9 @@ export function UpdateProfile() {
     
         return JSON.parse(jsonPayload);
     }
+    const handleCancel = () => {
+      navigate("/profile");
+    };
     const handleSubmit = () => {
       navigate("/profile");
         updateProfile1();
@@ -78,7 +81,7 @@ export function UpdateProfile() {
 
         });
 
-      }, []);
+      },);
 
 
   const updateProfile1 = async () => {
@@ -169,9 +172,14 @@ export function UpdateProfile() {
           placeholder="Birthdate"
         />
 
+        <div>   
+        <button className="cancelbutton" onClick={handleCancel}>
+          ANNULLER
+        </button>
         <button className="submitbutton" type="submit">
           OPDATER PROFIl!
         </button>
+        </div>
       </form>
     </div>
   );
