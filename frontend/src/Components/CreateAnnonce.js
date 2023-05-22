@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./CSS/Annonce.css";
+import {useNavigate} from "react-router-dom";
 
 export function CreateAnnonce() {
+  const navigate = useNavigate();
   const [price, setPrice] = useState("");
   const [titel, setTitel] = useState("");
   const [kategori, setKategori] = useState("");
@@ -65,6 +67,7 @@ export function CreateAnnonce() {
     setIsFormSubmitted(true);
     setShowPaymentPopup(false);
     alert("Annonce er annulleret");
+    navigate("/profile");
   };
 
   const handleCheckboxChange = () => {
@@ -196,7 +199,7 @@ export function CreateAnnonce() {
           id="image"
           value={billedesti}
           onChange={(e) => setBilledsti(e.target.value)}
-          placeholder="Indsæt billedesti"
+          placeholder="Indsæt URL til billede"
           required={!isFormSubmitted}
         />
 

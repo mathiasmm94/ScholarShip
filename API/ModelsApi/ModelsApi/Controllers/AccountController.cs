@@ -74,7 +74,7 @@ namespace ModelsApi.Controllers
                             if (model != null)
                                 modelId = model.EfModelId;
                         }*/
-                        var jwt = GenerateToken(account.Email, modelId, efManager.FirstName);
+                        var jwt = GenerateToken(account.Email, efManagerId, efManager.FirstName);
                         var token = new Token() { JWT = jwt };
                         return token;
                     }
@@ -173,7 +173,7 @@ namespace ModelsApi.Controllers
 
 
 
-		private string GenerateToken(string email, long modelId,string name)
+		private string GenerateToken(string email, long EfMangerId,string name)
         {
             Claim roleClaim;
             
@@ -184,6 +184,7 @@ namespace ModelsApi.Controllers
                 new Claim("Name", name),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
+                new Claim("EfManagerId", EfMangerId.ToString())
             };
 
             var key = Encoding.ASCII.GetBytes(_appSettings.SecretKey);

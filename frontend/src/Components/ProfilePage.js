@@ -1,7 +1,10 @@
 import { ProductCard } from "./productCard";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export const ProfilePage = () => {
+    const navigate = useNavigate();
     const [filteredAds, setFilteredAds] = useState([]);
     
 
@@ -53,9 +56,16 @@ export const ProfilePage = () => {
     };
     
 
+    const handleUpdateProfile = () => {
+        navigate("/UpdateProfile");
+      };
+
+
     return (
-      <>
-       
+        <div>
+        <button className="opdateProfileButton" onClick={handleUpdateProfile}>Update Profile</button>
+
+
         {filteredAds.map((ad) => (
         <ProductCard
           key={ad.id}
@@ -69,7 +79,7 @@ export const ProfilePage = () => {
           sx={ad.sx}
         />
       ))}
-      </>
+      </div>
     );
   };
 

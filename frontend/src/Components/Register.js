@@ -25,6 +25,7 @@ export function RegisterUser() {
       });
       if (response.ok) {
         console.log("success");
+        alert("Bruger oprettet");
         navigate("/home");
       } else {
         const responseData = await response.json();

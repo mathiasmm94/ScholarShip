@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +18,7 @@ namespace ModelsApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Manager")]
+    //[Authorize(Roles = "Manager")]
     public class ManagersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -53,23 +54,31 @@ namespace ModelsApi.Controllers
 
         // PUT: api/Managers/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutManager(long id, EfManager manager)
+        public async Task<IActionResult> PutManager(long id, UpdateManagerDTO managerDTO)
         {
-            if (id != manager.EfManagerId)
-            {
-                return BadRequest();
-            }
 
-            // Check if new email
-            var old = await _context.Managers.FindAsync(manager.EfManagerId);
-            if (old.Email != manager.Email)
-{
-                // Update account
-                var account = await _context.Accounts.FindAsync(manager.EfAccountId);
-                account.Email = manager.Email;
-            }
+	       
 
-            _context.Entry(manager).State = EntityState.Modified;
+			var manager = await _context.Managers.FindAsync(id);
+
+	        if (manager == null)
+	        {
+		        return NotFound();
+	        }
+	        var authenticatedUserId = User.FindFirst(ClaimTypes.Email)?.Value;
+
+	        if (id != manager.EfManagerId || authenticatedUserId != manager.Email)
+	        {
+		        return BadRequest();
+	        }
+
+			manager.FirstName = managerDTO.FirstName;
+            manager.LastName = managerDTO.LastName;
+            manager.Email = managerDTO.Email;
+            manager.PhoneNumber = managerDTO.PhoneNumber;
+            manager.Birthdate = managerDTO.Birthdate;
+            manager.University = managerDTO.University;
+           
 
             try
             {
@@ -87,7 +96,10 @@ namespace ModelsApi.Controllers
                 }
             }
 
-            return NoContent();
+            var updatedManager = await _context.Managers.FindAsync(id);
+
+            return Ok(updatedManager);
+            
         }
 
         // POST: api/Managers
