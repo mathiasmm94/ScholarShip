@@ -15,9 +15,7 @@ export function RandomProducts() {
   async function getRandomProducts() {
     try {
       const token = localStorage.getItem("token"); // Rettede fejlen her
-      const response = await axios.get("https://localhost:7181/api/annonces/", {
-        headers: { Authorization: `Bearer ${token}` }, // Rettede fejlen her
-      });
+      const response = await axios.get("https://localhost:7181/api/Annonces/CheckBoxValue?checkBoxValue=true");
       const allProducts = response.data;
       const randomIndices = generateRandomIndices(allProducts.length, 9);
       const randomProducts = randomIndices.map((index) => allProducts[index]);
