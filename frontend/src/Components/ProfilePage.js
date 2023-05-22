@@ -4,15 +4,16 @@ import { useState, useEffect } from "react";
 export const ProfilePage = () => {
     const [filteredAds, setFilteredAds] = useState([]);
     
-    //first useEffect to be sure data is updated correctly.
+
     useEffect(() => {
-      fetchData();
-    }, []);
-
-
+      const delay = 100; // 0.5 seconds in milliseconds
     
-
-   
+      const timer = setTimeout(() => {
+        fetchData();
+      }, delay);
+    
+      return () => clearTimeout(timer); // Cleanup the timer on component unmount
+    }, []);
     
     const fetchData = async () => {
       try {
@@ -51,10 +52,6 @@ export const ProfilePage = () => {
       }
     };
     
-    //second useEffect to be sure data is updated correctly after fetch.
-    useEffect(() => {
-      fetchData();
-    }, []);
 
     return (
       <>
