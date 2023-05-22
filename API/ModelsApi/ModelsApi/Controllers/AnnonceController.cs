@@ -31,6 +31,20 @@ namespace ModelsApi.Controllers
             return await _context.Annonces.ToListAsync();
         }
 
+        [HttpGet("CheckBoxValue")]
+        [AllowAnonymous]
+        public async Task<ActionResult<List<Annonce>>> GetAnnoncesWithCheckBoxValue(bool checkBoxValue)
+        {
+            var annonces = await _context.Annonces.Where(a => a.CheckBoxValue == checkBoxValue).ToListAsync();
+
+            if (annonces == null || annonces.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return annonces;
+        }
+
         // GET: api/Annonces/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Annonce>> GetAnnonce(int id)
