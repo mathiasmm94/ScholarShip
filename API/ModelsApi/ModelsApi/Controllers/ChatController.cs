@@ -22,57 +22,27 @@ public class ChatController : ControllerBase
     {
         _context = context;
     }
-
-    [HttpPost]
-    public async Task<IActionResult> PostChatId(ChatRoomDTO chatRoom)
-    {
-        if (_context.ChatRooms == null)
-            return Problem("No connection");
-
-        ChatRoom chat = new ChatRoom
-        {
-            ChatRoomId = chatRoom.ChatRoomId
-        };
-         _context.ChatRooms.Add(chat);
-         await _context.SaveChangesAsync();
-
-         return Ok(chat);
-    }
     
     
-
-    [HttpGet("rooms")]
-    public async Task<ActionResult<List<ChatRoom>>> GetChatRooms()
+    [HttpGet("rooms/{ChatRoomId}/messages")]
+    public async Task<ActionResult<List<MessageDTO>>> GetChatRoomMessages(int ChatRoomId)
     {
-        // Retrieve all chat rooms
-        var chatRooms = await _context.ChatRooms.ToListAsync();
-        return Ok(chatRooms);
-    }
-    
-    [HttpGet("rooms/{roomId}")]
-    public async Task<ActionResult<ChatRoom>> GetChatRoom(int roomId)
-    {
-        // Retrieve a specific chat room by ID
-        var chatRoom = await _context.ChatRooms.FindAsync(roomId);
-
-        if (chatRoom == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(chatRoom);
-    }
-    
-    [HttpGet("rooms/{roomId}/messages")]
-    public async Task<ActionResult<List<Message>>> GetChatRoomMessages(int roomId)
-    {
-        // Retrieve messages for a specific chat room
         var messages = await _context.Messages
-            .Where(m => m.ChatRoomId == roomId)
+            .Include(m => m.EfManager)
+            .Where(m => m.ChatRoomId == ChatRoomId)
             .ToListAsync();
 
-        return Ok(messages);
+        var messageDTOs = messages.Select(message => new MessageDTO
+        {
+            MessageId = message.MessageId,
+            Content = message.Content,
+            FirstName = message.EfManager?.FirstName ?? string.Empty
+        }).ToList();
+
+        return Ok(messageDTOs);
     }
+
+    
     [HttpGet("annonce/{annonceId}/owner")]
     public async Task<ActionResult<EfManager>> GetAdOwner(int annonceId)
     {
@@ -114,4 +84,7 @@ public class ChatController : ControllerBase
 
         return CreatedAtAction(nameof(GetChatRoomMessages), new { roomId }, message);
     }
+
 }
+
+
