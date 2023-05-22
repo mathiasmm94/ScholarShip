@@ -26,7 +26,7 @@ const decodeName = () => {
 const decodeManagerId = () => {
   const t = localStorage.getItem("token");
   let user = parseJwt(t);
-  return Number(user.EfmanagerId);
+  return Number(user.EfManagerId);
 };
 
 export function ChatWindow({ chatId }) {
@@ -35,6 +35,7 @@ export function ChatWindow({ chatId }) {
   const [oldChatData, setOldChatData] = useState([]);
   const userName = decodeName();
   const EfmanagerId = decodeManagerId();
+  console.log(EfmanagerId);
 
   const getStoredChatData = async () => {
     try {
