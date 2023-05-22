@@ -12,7 +12,5 @@ public class Message
     public ChatRoom ChatRoom { get; set; }
     public long EfManagerId { get; set; }
     public EfManager EfManager { get; set; }
-
-   
     
 }
