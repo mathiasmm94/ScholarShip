@@ -14,16 +14,19 @@ export function RandomProducts() {
 
   async function getRandomProducts() {
     try {
-      const response = await axios.get('https://localhost:7181/api/Annonces');
+      const token = localStorage.getItem("token"); // Rettede fejlen her
+      const response = await axios.get("https://localhost:7181/api/Annonces/CheckBoxValue?checkBoxValue=true");
       const allProducts = response.data;
-      const randomIndices = generateRandomIndices(allProducts.length, 9); // Generer 9 tilfældige indekser
-      const randomProducts = randomIndices.map(index => allProducts[index]); // Få de tilfældige produkter
+      const randomIndices = generateRandomIndices(allProducts.length, 9);
+      const randomProducts = randomIndices.map((index) => allProducts[index]);
+      console.log(randomProducts);
       return randomProducts;
     } catch (error) {
       console.error("Fejl under hentning af produkter:", error);
       return [];
     }
   }
+  
 
   function generateRandomIndices(maxRange, count) {
     const indices = Array.from({ length: maxRange }, (_, index) => index); // Opret et array med alle mulige indekser

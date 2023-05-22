@@ -24,15 +24,16 @@ export function Footer() {
           <div className="footer-section">
             <h3>Følg os</h3>
             <div className="social-media-icons">
-              <a href="#"><i className="fab fa-facebook"></i></a>
-              <a href="#"><i className="fab fa-twitter"></i></a>
-              <a href="#"><i className="fab fa-instagram"></i></a>
+              <a href="https://www.facebook.com/"><i className="fab fa-facebook"></i></a>
+              <a href="https://www.twitter.com"><i className="fab fa-twitter"></i></a>
+              <a href="https://www.instagram.com/"><i className="fab fa-instagram"></i></a>
             </div>
           </div>
         </div>
   
         <div className="footer-bottom">
           <p>&copy; 2023 ScholarShip. Alle rettigheder forbeholdes.</p>
+          <br/>
         </div>
       </footer>
     );
