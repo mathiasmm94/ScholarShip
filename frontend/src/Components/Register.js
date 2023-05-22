@@ -26,7 +26,7 @@ export function RegisterUser() {
       if (response.ok) {
         console.log("success");
         alert("Bruger oprettet");
-        navigate("/home");
+        navigate("/");
       } else {
         const responseData = await response.json();
         const errorMessage = responseData.error; // Access the error message sent from the backend

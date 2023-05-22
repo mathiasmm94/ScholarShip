@@ -16,7 +16,6 @@ export function SearchResult(props) {
   
 
   const results = props.results;
-
   if (results.length === 0) {
     return <p>No results found.</p>;
   }
@@ -44,6 +43,7 @@ export function SearchResult(props) {
 
   if (selectedAnnouncement) {
     const annonceId = selectedAnnouncement.annonceId;
+    
 
   const chatroom = fetch(`https://localhost:7181/api/chat/annonce/${annonceId}/owner`)
   .then(response => response.json())
@@ -57,6 +57,9 @@ export function SearchResult(props) {
   });
     const chatId = selectedAnnouncement.chatRoomId
     console.log(chatId);
+
+    
+
     return (
       <div className="selected-announcement">
         <h2>{selectedAnnouncement.titel}</h2>
