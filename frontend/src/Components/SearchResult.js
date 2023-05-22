@@ -4,6 +4,7 @@ import "./CSS/SearchButton.css";
 import  {ChatWindow}  from "./ChatWindow";
 
 export function SearchResult(props) {
+  const token = localStorage.getItem("token");
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState(10); // Startværdi er 10
@@ -75,21 +76,24 @@ export function SearchResult(props) {
         </button>
 
 
-        <div className="Chat">
-        <div className="chat-buttons">
-          <button className="toggle_chat_button" onClick={handleChatToggle}>
-            {isChatOpen ? "Close Chat" : "Open Chat"}
-          </button>
+        {token && (
+          <div className="Chat">
+            <div className="chat-buttons">
+              <button className="toggle_chat_button" onClick={handleChatToggle}>
+                {isChatOpen ? "Close Chat" : "Open Chat"}
+              </button>
 
-          {isChatOpen && (
-            <div className="Chat">
-              <ChatWindow chatId={chatId} />
+              {isChatOpen && (
+                <div className="Chat">
+                  <ChatWindow chatId={chatId} />
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
         
         </div>
-      </div>
+  
     );
   }
 
