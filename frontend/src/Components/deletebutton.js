@@ -29,7 +29,7 @@ function DeleteButtonReal({id}) {
   //  const [id, setId] = useState('');
    const handleClick = () => {
     decodeToken();
-    console.log("Sut mine lange løg JC", id);
+    console.log(id);
     if (window.confirm("Bekræft sletning af annonce"))
     fetch(`https://localhost:7181/api/Annonces/${id}`, {
        method: 'DELETE',
