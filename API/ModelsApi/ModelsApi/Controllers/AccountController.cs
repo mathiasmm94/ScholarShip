@@ -30,6 +30,7 @@ namespace ModelsApi.Controllers
         private readonly ApplicationDbContext _context;
         private readonly AppSettings _appSettings;
 
+
         public AccountController(ApplicationDbContext context,
             IOptions<AppSettings> appSettings)
         {
@@ -85,45 +86,45 @@ namespace ModelsApi.Controllers
             return BadRequest(ModelState);
         }
 
-        /// <summary>
-        /// Use to change the password.
-        /// </summary>
-        /// <param name="login"></param>
-        /// <returns></returns>
-        /// <response code="200">If success</response>
-        /// <response code="400">If incorrect data</response>
-        /// 
-        [HttpPut("Password")]
-        public async Task<ActionResult<Token>> ChangePassword([FromBody] changePassword login)
-        {
-            if (login == null)
-            {
-                ModelState.AddModelError("Message", "Data missing");
-                return BadRequest(ModelState);
-            }
-            login.Email = login.Email.ToLowerInvariant();
-            var account = await _context.Accounts.Where(u => u.Email == login.Email)
-                .FirstOrDefaultAsync().ConfigureAwait(false);
+        ///// <summary>
+        ///// Use to change the password.
+        ///// </summary>
+        ///// <param name="login"></param>
+        ///// <returns></returns>
+        ///// <response code="200">If success</response>
+        ///// <response code="400">If incorrect data</response>
+        ///// 
+        //[HttpPut("Password")]
+        //public async Task<ActionResult<Token>> ChangePassword([FromBody] changePassword login)
+        //{
+        //    if (login == null)
+        //    {
+        //        ModelState.AddModelError("Message", "Data missing");
+        //        return BadRequest(ModelState);
+        //    }
+        //    login.Email = login.Email.ToLowerInvariant();
+        //    var account = await _context.Accounts.Where(u => u.Email == login.Email)
+        //        .FirstOrDefaultAsync().ConfigureAwait(false);
 
-            if (account == null)
-            {
-                ModelState.AddModelError("email", "Not found!");
-                return BadRequest(ModelState);
-            }
-            var validPwd = Verify(login.OldPassword, account.PwHash);
-            if (validPwd)
-            {
+        //    if (account == null)
+        //    {
+        //        ModelState.AddModelError("email", "Not found!");
+        //        return BadRequest(ModelState);
+        //    }
+        //    var validPwd = Verify(login.OldPassword, account.PwHash);
+        //    if (validPwd)
+        //    {
 
-                account.PwHash = HashPassword(login.Password, _appSettings.BcryptWorkfactor);
-                await _context.SaveChangesAsync().ConfigureAwait(false);
-                return Ok();
-            }
-            else
-            {
-                ModelState.AddModelError("oldPassword", "No match");
-                return BadRequest(ModelState);
-            }
-        }
+        //        account.PwHash = HashPassword(login.Password, _appSettings.BcryptWorkfactor);
+        //        await _context.SaveChangesAsync().ConfigureAwait(false);
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError("oldPassword", "No match");
+        //        return BadRequest(ModelState);
+        //    }
+        //}
 
 
         /// <summary>
