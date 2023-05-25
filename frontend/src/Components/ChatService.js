@@ -20,6 +20,7 @@ const ChatService = {
   },
 
   leaveChatRoom: (chatRoomId) => {
+    console.log("Leaving chat room with id: " + chatRoomId);
     ChatService.connection.invoke("LeaveChatRoom", chatRoomId);
   },
 
@@ -31,3 +32,7 @@ const ChatService = {
 };
 
 export default ChatService;
+
+
+
+

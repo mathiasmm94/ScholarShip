@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./CSS/SearchResult.css";
 import "./CSS/SearchButton.css";
+import ChatService from "./ChatService.js";
 import  {ChatWindow}  from "./ChatWindow";
 
 export function SearchResult(props) {
@@ -13,6 +14,11 @@ export function SearchResult(props) {
   
   const handleChatToggle = () => {
     setIsChatOpen(!isChatOpen);
+    if (isChatOpen) {
+      // If chat is open, leave the chat room
+      ChatService.leaveChatRoom(selectedAnnouncement.chatRoomId);
+      
+    }
   };
   
 
