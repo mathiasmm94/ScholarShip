@@ -1,109 +1,109 @@
-import{ useState, useEffect} from "react";
-import {useParams, useNavigate} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "./CSS/Annonce.css";
 
 export function UpdateAnnonce() {
- const navigate = useNavigate();
+  const navigate = useNavigate();
   const { id } = useParams();
   console.log(id);
- 
-    const [price, setPrice] = useState(null);
-      const [titel, setTitel] = useState("");
-      const [kategori, setKategori] = useState("");
-      const [beskrivelse, setBeskrivelse] = useState("");
-      const [studieretning, setStudieretning] = useState("");
-      const [billedesti, setBilledsti] = useState("");
-      const [efManagerId, setEfManagerId] = useState("");
-      const [stand, setStand] = useState("");
+
+  const [price, setPrice] = useState(null);
+  const [titel, setTitel] = useState("");
+  const [kategori, setKategori] = useState("");
+  const [beskrivelse, setBeskrivelse] = useState("");
+  const [studieretning, setStudieretning] = useState("");
+  const [billedesti, setBilledsti] = useState("");
+  const [efManagerId, setEfManagerId] = useState("");
+  const [stand, setStand] = useState("");
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [securityCode, setSecurityCode] = useState("");
   const [numberOfWeeks, setNumberOfWeeks] = useState("1");
-    
-      const decodeToken = () =>{
-        const t = localStorage.getItem('token');
-        let user = parseJwt(t);
-        setEfManagerId(user.EfManagerId);
-        console.log(user);
-        return user.EfManagerId;
-      }
-      function parseJwt (token) {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-    
-        return JSON.parse(jsonPayload);
-    }
-    const handleCancel = () => {
-      navigate("/profile");
-    };
-    const handleSubmit = () => {
-      navigate("/profile");
-        updateAnnonce2();
-    }
-    const handleCheckboxChange = () => {
-      setShowPaymentPopup(!showPaymentPopup);
-    };
-    const handleWeeksChange = (e) => {
-      setNumberOfWeeks(parseInt(e.target.value));
-    };
-  
-    // const submitPaymentForm = () => {
-    //   // Perform payment processing with cardNumber, expiryDate, and securityCode
-    //   // You can add your logic here to handle the payment details
-    //   console.log("Payment submitted:", cardNumber, expiryDate, securityCode);
-    //   alert("Payment submitted successfully!");
-      
-      const getAnnonce2 = async () => {
-        try {
-          const token = localStorage.getItem('token');
-          console.log(token.user);
-          console.log("Sut mine lange løg J12C", id);
-          const response = await fetch(`https://localhost:7181/api/Annonces/${id}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-          });
-          console.log(response);
-          
-          if (!response.ok) {
-            throw new Error("couldnt get ad");
-            
-          }
-          const data = await response.json();
-          
-          console.log("data received:", data);
-          return data;
-        } catch (error) {
-          console.log("Error:  ", error);
-        }
-        
-      };    
-      
-      useEffect(()=>{
-        getAnnonce2().then((data)=>{ 
-            setPrice(data.price);
-            setBeskrivelse(data.beskrivelse);
-            setBilledsti(data.billedeSti);
-            setEfManagerId(data.efManagerId);
-            setStand(data.stand);
-            setStudieretning(data.studieretning)
-            setTitel(data.titel);
-            setKategori(data.kategori);
-            setNumberOfWeeks(data.numberOfWeeks);
-            setShowPaymentPopup(data.showPaymentPopup);
-        })
 
-      }, []);
+  const decodeToken = () => {
+    const t = localStorage.getItem('token');
+    let user = parseJwt(t);
+    setEfManagerId(user.EfManagerId);
+    console.log(user);
+    return user.EfManagerId;
+  }
+  function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+  }
+  const handleCancel = () => {
+    navigate("/profile");
+  };
+  const handleSubmit = () => {
+    navigate("/profile");
+    updateAnnonce2();
+  }
+  const handleCheckboxChange = () => {
+    setShowPaymentPopup(!showPaymentPopup);
+  };
+  const handleWeeksChange = (e) => {
+    setNumberOfWeeks(parseInt(e.target.value));
+  };
+
+  // const submitPaymentForm = () => {
+  //   // Perform payment processing with cardNumber, expiryDate, and securityCode
+  //   // You can add your logic here to handle the payment details
+  //   console.log("Payment submitted:", cardNumber, expiryDate, securityCode);
+  //   alert("Payment submitted successfully!");
+
+  const getAnnonce2 = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      console.log(token.user);
+      console.log(id);
+      const response = await fetch(`https://localhost:7181/api/Annonces/${id}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      });
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error("couldnt get ad");
+
+      }
+      const data = await response.json();
+
+      console.log("data received:", data);
+      return data;
+    } catch (error) {
+      console.log("Error:  ", error);
+    }
+
+  };
+
+  useEffect(() => {
+    getAnnonce2().then((data) => {
+      setPrice(data.price);
+      setBeskrivelse(data.beskrivelse);
+      setBilledsti(data.billedeSti);
+      setEfManagerId(data.efManagerId);
+      setStand(data.stand);
+      setStudieretning(data.studieretning)
+      setTitel(data.titel);
+      setKategori(data.kategori);
+      setNumberOfWeeks(data.numberOfWeeks);
+      setShowPaymentPopup(data.showPaymentPopup);
+    })
+
+  }, []);
 
 
   const updateAnnonce2 = async () => {
     try {
       const token = localStorage.getItem('token');
       console.log(token.user);
-      
+
       decodeToken();
       const response = await fetch(`https://localhost:7181/api/Annonces/${id}`, {
         method: "PUT",
@@ -134,7 +134,7 @@ export function UpdateAnnonce() {
 
   return (
     <div className="form-border">
-       <label className="form-label">Opdatering af annonce</label>
+      <label className="form-label">Opdatering af annonce</label>
       <form onSubmit={handleSubmit}>
         <input
           className="form-input"
@@ -189,7 +189,7 @@ export function UpdateAnnonce() {
           placeholder="Indsæt URL til billede"
         />
 
-       {/* <input
+        {/* <input
           className="form-input"
           type="number"
           id="ManagerId"
@@ -306,14 +306,14 @@ export function UpdateAnnonce() {
           </div>
         )}
 
-      <div>
-        <button className="submitbutton" type="submit">
-          Gem ændringer
-        </button>
-        <button className="cancelbutton" onClick={handleCancel}>
+        <div>
+          <button className="submitbutton" type="submit">
+            Gem ændringer
+          </button>
+          <button className="cancelbutton" onClick={handleCancel}>
             Annuller ændring
           </button>
-          </div>
+        </div>
       </form>
     </div>
   );
