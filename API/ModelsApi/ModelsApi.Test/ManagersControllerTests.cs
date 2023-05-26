@@ -29,10 +29,10 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task GetManagers_ReturnsListOfManagers()
 		{
-			// Act
+			
 			var response = await _client.GetAsync("/api/managers");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
 			var managers = JsonConvert.DeserializeObject<List<EfManager>>(await response.Content.ReadAsStringAsync());
@@ -44,13 +44,13 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task GetManager_ReturnsManagerById()
 		{
-			// Arrange
+			
 			var managerId = 3;
 
-			// Act
+			
 			var response = await _client.GetAsync($"/api/managers/{managerId}");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
 			var manager = JsonConvert.DeserializeObject<EfManager>(await response.Content.ReadAsStringAsync());
@@ -62,20 +62,20 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task GetManager_ReturnsNotFoundForInvalidId()
 		{
-			// Arrange
+			
 			var invalidManagerId = 999;
 
-			// Act
+			
 			var response = await _client.GetAsync($"/api/managers/{invalidManagerId}");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
 		}
 
 		[Test]
 		public async Task PutManager_UpdatesManager()
 		{
-			// Arrange
+			
 			var managerId = 3;
 			var managerDto = new UpdateManagerDTO
 			{
@@ -90,10 +90,10 @@ namespace ModelsApi.Test
 			var jsonContent = JsonConvert.SerializeObject(managerDto);
 			var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 
-			// Act
+			
 			var response = await _client.PutAsync($"/api/managers/{managerId}", content);
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, $"Expected status code {HttpStatusCode.OK}, but received {response.StatusCode}: {await response.Content.ReadAsStringAsync()}");
 
 			var updatedManager = JsonConvert.DeserializeObject<EfManager>(await response.Content.ReadAsStringAsync());
@@ -113,7 +113,7 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task PutManager_ReturnsBadRequestForInvalidId()
 		{
-			// Arrange
+			
 			var invalidManagerId = 999;
 			var managerDto = new UpdateManagerDTO
 			{
@@ -128,10 +128,10 @@ namespace ModelsApi.Test
 			var jsonContent = JsonConvert.SerializeObject(managerDto);
 			var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 
-			// Act
+			
 			var response = await _client.PutAsync($"/api/managers/{invalidManagerId}", content);
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
 		}
 

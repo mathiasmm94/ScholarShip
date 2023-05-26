@@ -28,16 +28,16 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task GetMessage_returnsRightOwner()
 		{
-			// Arrange
+			
 			var id = 2;
 
-			// Act
+			
 			var response = await _client.GetAsync($"/api/Chat/annonce/{id}/owner");
 
 			var responseBody = await response.Content.ReadAsStringAsync();
 			var resultAnnonces = JsonConvert.DeserializeObject<Annonce>(responseBody);
 			Console.WriteLine(resultAnnonces.EfManagerId);
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
 
@@ -45,13 +45,13 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task GetMessage_returnsNotFound()
 		{
-			// Arrange
+			
 			var id = 999;
 
-			// Act
+			
 			var response = await _client.GetAsync($"/api/Chat/annonce/{id}/owner");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
 
 
@@ -62,13 +62,13 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task GetMessage_returnsRightChat()
 		{
-			// Arrange
+			
 			var id = 2;
 
-			// Act
+			
 			var response = await _client.GetAsync($"/api/Chat/rooms/{id}/messages");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 		}
 

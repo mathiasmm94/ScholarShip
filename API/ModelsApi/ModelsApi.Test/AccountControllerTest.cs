@@ -37,11 +37,11 @@ namespace ModelsApi.Test
 			Assert.NotNull(token);
 			Assert.NotNull(token.JWT);
 
-			// Verify authentication using the obtained token, by calling a get function that needs the authentication.
+			
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.JWT);
 			var authenticatedResponse = await _client.GetAsync("/api/Annonces");
 
-			// Assert that the authenticated request is successful
+		
 			authenticatedResponse.EnsureSuccessStatusCode();
 		}
 

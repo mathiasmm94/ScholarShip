@@ -37,10 +37,10 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task GetAnnonces_ReturnsOk()
 		{
-			// Act
+			
 			var response = await _client.GetAsync("/api/Annonces");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 		}
 
@@ -50,7 +50,7 @@ namespace ModelsApi.Test
 
 			var response = await _httpClient.GetAsync("/api/Annonces");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
 
 		}
@@ -58,13 +58,13 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task GetAnnoncesWithCheckBoxValue_ReturnsOk()
 		{
-			// Arrange
+			
 			var checkBoxValue = true;
 
-			// Act
+			
 			var response = await _client.GetAsync($"/api/Annonces/CheckBoxValue?checkBoxValue={checkBoxValue}");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 		}
 
@@ -72,15 +72,15 @@ namespace ModelsApi.Test
 		public async Task GetAnnonce_ExistingId_ReturnsOk()
 		{
 			
-			// Arrange
+			
 			var id = 1;
 
-			// Act
+			
 			var response = await _client.GetAsync($"/api/Annonces/{id}");
 
 		
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 		}
 
@@ -88,20 +88,20 @@ namespace ModelsApi.Test
 		public async Task GetAnnonce_NonExistingId_ReturnsNotFound()
 		{
 			
-			// Arrange
+			
 			var id = 100;
 
-			// Act
+			
 			var response = await _client.GetAsync($"/api/Annonces/{id}");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
 		}
 
 		[Test]
 		public async Task PutAnnonce_ExistingId_ReturnsNoContent()
 		{
-			// Arrange
+			
 				var id = 1;
 				var annonceForPut = new AnnonceDTO
 				{
@@ -125,15 +125,15 @@ namespace ModelsApi.Test
 				beforeUpdateResponse.EnsureSuccessStatusCode();
 				var beforeUpdateAnnonce = await beforeUpdateResponse.Content.ReadFromJsonAsync<AnnonceDTO>();
 
-				// Act
+				
 				var response = await _client.PutAsync($"/api/Annonces/{id}", content);
 				response.EnsureSuccessStatusCode();
 
-				// Get the after after the update
+				// Get the info after the update
 				var afterUpdateResponse = await _client.GetAsync($"/api/Annonces/{id}");
 				afterUpdateResponse.EnsureSuccessStatusCode();
 				var afterUpdateAnnonce = await afterUpdateResponse.Content.ReadFromJsonAsync<AnnonceDTO>();
-				// Assert
+				
 				Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
 				
 				Assert.AreEqual(annonceForPut.AnnonceId, afterUpdateAnnonce.AnnonceId);
@@ -172,19 +172,19 @@ namespace ModelsApi.Test
 			
 			var content = new StringContent(JsonSerializer.Serialize(annonceForPut), Encoding.UTF8, "application/json");
 
-			// Act
+			
 			var response = await _client.PutAsync($"/api/Annonces/{id}", content);
 			var responseContent = await response.Content.ReadAsStringAsync();
 			Console.WriteLine(responseContent);
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
 		}
 
 		[Test]
 		public async Task PostAnnonce_ReturnsCreated()
 		{
-			// Arrange
+			
 
 			var annonceForPut = new AnnonceDTO
 			{
@@ -203,38 +203,38 @@ namespace ModelsApi.Test
 
 				var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(annonceForPut), Encoding.UTF8, "application/json");
 
-			// Act
+			
 			var response = await _client.PostAsync("/api/Annonces", content);
 			var responseContent = await response.Content.ReadAsStringAsync();
 			Console.WriteLine(responseContent);
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
 		}
 
 		[Test]
 		public async Task DeleteAnnonce_ExistingId_ReturnsNoContent()
 		{
-			// Arrange
+			
 			var id = 12;
 
-			// Act
+			
 			var response = await _client.DeleteAsync($"/api/Annonces/{id}");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
 		}
 
 		[Test]
 		public async Task DeleteAnnonce_NonExistingId_ReturnsNotFound()
 		{
-			// Arrange
+			
 			var id = 100;
 
-			// Act
+			
 			var response = await _client.DeleteAsync($"/api/Annonces/{id}");
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
 		}
 

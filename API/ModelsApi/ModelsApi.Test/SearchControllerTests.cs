@@ -29,14 +29,14 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task SearchAnnonces_KeywordIsPresentInBookTitles()
 		{
-			// Arrange
+			
 			var keyword = "My"; 
 
-			// Act
+			
 			var response = await _client.GetAsync($"/api/search/{keyword}");
 			var responseBody = await response.Content.ReadAsStringAsync();
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
 			var resultAnnonces = JsonConvert.DeserializeObject<List<Annonce>>(responseBody);
@@ -53,14 +53,14 @@ namespace ModelsApi.Test
 		[Test]
 		public async Task SearchAnnonces_ReturnsEmptyListForInvalidKeyword()
 		{
-			// Arrange
+			
 			var keyword = "Kylling";
 
-			// Act
+			
 			var response = await _client.GetAsync($"/api/search/{keyword}");
 			var responseBody = await response.Content.ReadAsStringAsync();
 
-			// Assert
+			
 			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
 			var resultAnnonces = JsonConvert.DeserializeObject<List<Annonce>>(responseBody);
