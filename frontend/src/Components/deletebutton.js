@@ -1,6 +1,5 @@
 import React from 'react';
 import './CSS/Annonce.css';
-import { useState } from 'react';
 
 
 function DeleteButtonReal({id}) {
