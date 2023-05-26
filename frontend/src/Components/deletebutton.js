@@ -26,10 +26,8 @@ function DeleteButtonReal({id}) {
 
     return JSON.parse(jsonPayload);
   }
-  //  const [id, setId] = useState('');
    const handleClick = () => {
     decodeToken();
-    console.log("Sut mine lange løg JC", id);
     if (window.confirm("Bekræft sletning af annonce"))
     fetch(`https://localhost:7181/api/Annonces/${id}`, {
        method: 'DELETE',
@@ -37,7 +35,6 @@ function DeleteButtonReal({id}) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
-      //body: JSON.stringify({/* payload data */ })
     })
       .then(response => response.json())
       .then(data => {
@@ -46,16 +43,13 @@ function DeleteButtonReal({id}) {
         
       })
       .catch(error => {
-        console.log(error) // handle error
+        console.log(error)
         
       });
       window.location.reload();
   }
 
   
-  // const handleChange = (event) => {
-  //   setId(event.target.value);
-  // }
   return (
     // <><input type="text" value={id} onChange={handleChange} placeholder="Enter ID" />
     <button className="deletebutton2" onClick={handleClick}>Slet Annonce</button>
