@@ -68,10 +68,7 @@ namespace ModelsApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAnnonce(int id, AnnonceDTO annonceforPut)
         {
-            //if (id != annonceforPut.AnnonceId)
-            //{
-            //    return BadRequest();
-            //}
+            
             ChatRoom c = new ChatRoom();
             _context.ChatRooms.Add(c);
             await _context.SaveChangesAsync();
@@ -126,8 +123,7 @@ namespace ModelsApi.Controllers
             await _context.SaveChangesAsync();
 
             Annonce annonce1 = new Annonce {
-            //AnnonceId=annonce.AnnonceId,
-            Beskrivelse=annonce.Beskrivelse,
+	            Beskrivelse=annonce.Beskrivelse,
             BilledeSti=annonce.BilledeSti,
             EfManagerId=annonce.EfManagerId,
             Stand = annonce.Stand,

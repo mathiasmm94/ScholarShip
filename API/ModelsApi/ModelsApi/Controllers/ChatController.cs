@@ -71,12 +71,12 @@ public class ChatController : ControllerBase
     {
         var userId = new EfManager();
 
-        // Set the message properties
+       
         message.EfManagerId = userId.EfAccountId;
         message.ChatRoomId = roomId;
         message.TimeStamp = DateTime.UtcNow;
 
-        // Save the message to the database
+        
         _context.Messages.Add(message);
         await _context.SaveChangesAsync();
 
