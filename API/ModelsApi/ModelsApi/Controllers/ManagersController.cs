@@ -56,22 +56,13 @@ namespace ModelsApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutManager(long id, UpdateManagerDTO managerDTO)
         {
-
-	       
-
-			var manager = await _context.Managers.FindAsync(id);
+	        var manager = await _context.Managers.FindAsync(id);
 
 	        if (manager == null)
 	        {
 		        return NotFound();
 	        }
-	        var authenticatedUserId = User.FindFirst(ClaimTypes.Email)?.Value;
-
-	        if (id != manager.EfManagerId || authenticatedUserId != manager.Email)
-	        {
-		        return BadRequest();
-	        }
-
+	        
 			manager.FirstName = managerDTO.FirstName;
             manager.LastName = managerDTO.LastName;
             manager.Email = managerDTO.Email;
@@ -102,36 +93,6 @@ namespace ModelsApi.Controllers
             
         }
 
-        // POST: api/Managers
-        [HttpPost]
-        public async Task<ActionResult<EfManager>> PostManager(Manager managerDto)
-        {
-            if (managerDto == null)
-                return BadRequest("Data is missing");
-            var manager = new EfManager();
-            manager.Email = managerDto.Email.ToLowerInvariant();
-            var emailExist = await _context.Accounts.Where(u => u.Email == manager.Email)
-                .FirstOrDefaultAsync().ConfigureAwait(false);
-            if (emailExist != null)
-            {
-                ModelState.AddModelError("Email", "Email already in use");
-                return BadRequest(ModelState);
-            }
-            manager.FirstName = managerDto.FirstName;
-            manager.LastName = managerDto.LastName;
-            var account = new EfAccount()
-            {
-                Email = manager.Email,
-                
-            };
-            account.PwHash = HashPassword(managerDto.Password, _appSettings.BcryptWorkfactor);
-            manager.Account = account;
-            _context.Accounts.Add(account);
-            _context.Managers.Add(manager);
-            await _context.SaveChangesAsync();
-
-            return Created(manager.EfManagerId.ToString(), manager);
-        }
 
         // DELETE: api/Managers/5
         [HttpDelete("{id}")]

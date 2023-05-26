@@ -29,7 +29,7 @@ export function RegisterUser() {
         navigate("/");
       } else {
         const responseData = await response.json();
-        const errorMessage = responseData.error; // Access the error message sent from the backend
+        const errorMessage = responseData.error;
         alert(errorMessage);
       }
     } catch (err) {
@@ -53,10 +53,9 @@ export function RegisterUser() {
   }
 
   function validateForm() {
-    const errors = {};
+    const errors = {};  
     let hasErrors = false;
 
-    // Validate each field
     for (const [fieldName, fieldValue] of Object.entries(formData)) {
       if (fieldValue.trim() === "") {
         errors[fieldName] = "Field is required";

@@ -126,7 +126,7 @@ namespace ModelsApi.Controllers
             await _context.SaveChangesAsync();
 
             Annonce annonce1 = new Annonce {
-            AnnonceId=annonce.AnnonceId,
+            //AnnonceId=annonce.AnnonceId,
             Beskrivelse=annonce.Beskrivelse,
             BilledeSti=annonce.BilledeSti,
             EfManagerId=annonce.EfManagerId,
